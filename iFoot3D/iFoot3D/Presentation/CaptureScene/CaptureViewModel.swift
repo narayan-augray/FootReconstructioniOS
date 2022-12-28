@@ -8,12 +8,21 @@
 import Combine
 
 final class CaptureViewModel: BaseViewModel {
+    // MARK: - Properties
+    let arSessionManager: ARSessionManager
+    
+    // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<CaptureTransition, Never>()
     
     // MARK: - Init
-    init(title: String) {
-        print(title)
+    init(arSessionManager: ARSessionManager) {
+        self.arSessionManager = arSessionManager
         super.init()
+    }
+    
+    // MARK: - Public
+    func handleError(messsage: String) {
+        errorSubject.send(messsage)
     }
 }

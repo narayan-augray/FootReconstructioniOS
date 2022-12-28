@@ -8,11 +8,11 @@
 import UIKit.UIFont
 
 enum Font {
-    private static let futuraBold: UIFont = UIFont(name: "FuturaBold", size: 10)!
-    private static let sfProTextBold: UIFont = UIFont(name: "SF-Pro-Text-Bold", size: 10)!
-    private static let sfProTextMedium: UIFont = UIFont(name: "SF-Pro-Text-Medium", size: 10)!
-    private static let sfProTextRegular: UIFont = UIFont(name: "SF-Pro-Text-Regular", size: 10)!
-    private static let sfProTextThin: UIFont = UIFont(name: "SF-Pro-Text-Thin", size: 10)!
+    private static let futuraBold: UIFont = UIFont(name: "FuturaDemiC", size: 10)!
+    private static let sfProTextBold: UIFont = UIFont(name: "SFProText-Bold", size: 10)!
+    private static let sfProTextMedium: UIFont = UIFont(name: "SFProText-Medium", size: 10)!
+    private static let sfProTextRegular: UIFont = UIFont(name: "SFProText-Regular", size: 10)!
+    private static let sfProTextThin: UIFont = UIFont(name: "SFProText-Thin", size: 10)!
 }
 
 extension Font {

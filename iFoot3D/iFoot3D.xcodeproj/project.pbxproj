@@ -35,6 +35,11 @@
 		EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C0295C5A99006EE033 /* CaptureViewController.swift */; };
 		EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C1295C5A99006EE033 /* CaptureView.swift */; };
 		EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */; };
+		EA7512D0295C6397006EE033 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = EA7512CF295C6397006EE033 /* Toast */; };
+		EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */; };
+		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
+		EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */; };
+		EA7512DC295CCA65006EE033 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512DB295CCA65006EE033 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +72,10 @@
 		EA7512C0295C5A99006EE033 /* CaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
 		EA7512C1295C5A99006EE033 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewModel.swift; sourceTree = "<group>"; };
+		EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
+		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
+		EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureActionView.swift; sourceTree = "<group>"; };
+		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7512D0295C6397006EE033 /* Toast in Frameworks */,
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,6 +135,7 @@
 		EA743F4E295C157300C488C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA7512DA295CCA4F006EE033 /* Colors */,
 				EA743F56295C2B8700C488C4 /* Fonts */,
 				EA743F50295C158A00C488C4 /* Assets */,
 				EA743F4F295C157900C488C4 /* Storyboards */,
@@ -254,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				EA743F8A295C338100C488C4 /* Base */,
+				EA7512C7295C5E06006EE033 /* Components */,
 				EA743F7A295C327200C488C4 /* Extensions */,
 				EA743F8F295C342100C488C4 /* Protocols */,
 			);
@@ -306,6 +318,7 @@
 		EA743F95295C38E400C488C4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EA7512D7295CC9B3006EE033 /* AR */,
 				EA743F96295C390E00C488C4 /* Log */,
 			);
 			path = Services;
@@ -356,6 +369,47 @@
 			path = CaptureScene;
 			sourceTree = "<group>";
 		};
+		EA7512C7295C5E06006EE033 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EA7512D1295CB6D1006EE033 /* ARSessionManager */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D4295CBAB8006EE033 /* Event */,
+				EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */,
+			);
+			path = ARSessionManager;
+			sourceTree = "<group>";
+		};
+		EA7512D4295CBAB8006EE033 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		EA7512D7295CC9B3006EE033 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D1295CB6D1006EE033 /* ARSessionManager */,
+			);
+			path = AR;
+			sourceTree = "<group>";
+		};
+		EA7512DA295CCA4F006EE033 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512DB295CCA65006EE033 /* Colors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -374,6 +428,7 @@
 			name = iFoot3D;
 			packageProductDependencies = (
 				EA743F54295C17C800C488C4 /* CombineCocoa */,
+				EA7512CF295C6397006EE033 /* Toast */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -405,6 +460,7 @@
 			mainGroup = EA743F2D295C147A00C488C4;
 			packageReferences = (
 				EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -438,15 +494,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */,
+				EA7512DC295CCA65006EE033 /* Colors.swift in Sources */,
 				EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */,
 				EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
+				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
 				EA743F6B295C2E2E00C488C4 /* AppContainer.swift in Sources */,
 				EA743F9D295C397700C488C4 /* LogType.swift in Sources */,
+				EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
+				EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
@@ -686,6 +746,14 @@
 				minimumVersion = 0.4.1;
 			};
 		};
+		EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -693,6 +761,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		EA7512CF295C6397006EE033 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

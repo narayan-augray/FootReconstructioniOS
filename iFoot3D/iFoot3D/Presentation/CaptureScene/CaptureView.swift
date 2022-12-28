@@ -6,15 +6,18 @@
 //
 
 import UIKit
+import ARKit
 import Combine
 
 enum CaptureViewAction {
-
+    case capture
+    case error(message: String)
 }
 
 final class CaptureView: BaseView {
     // MARK: - Subviews
-    
+    private let sceneView = ARSCNView()
+    private let captureActionView = CaptureActionView()
     
     // MARK: - Actions
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
@@ -29,6 +32,26 @@ final class CaptureView: BaseView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public
+    func setupSessionDelegate(delegate: ARSessionDelegate) {
+        sceneView.session.delegate = delegate
+    }
+    
+    func startSession() {
+        guard ARWorldTrackingConfiguration.isSupported else {
+            actionSubject.send(.error(message: "AR world tracking configuration not supported"))
+            return
+        }
+        
+        let configuration = ARWorldTrackingConfiguration()
+        if ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
+            configuration.frameSemantics = [.sceneDepth]
+        }
+        
+        sceneView.session.pause()
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
 }
 
 // MARK: - Private
@@ -40,16 +63,35 @@ private extension CaptureView {
     }
 
     func bindActions() {
+        captureActionView.tapPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.capture)
+            }
+            .store(in: &cancellables)
     }
 
     func setupUI() {
-        backgroundColor = .red
+        backgroundColor = .white
+        
+        captureActionView.set(mode: .video)
     }
 
     func setupLayout() {
+        addSubview(sceneView, withEdgeInsets: Constant.sceneViewInsets)
+        
+        addSubview(captureActionView, constraints: [
+            captureActionView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            captureActionView.widthAnchor.constraint(equalToConstant: Constant.captureActionViewWidth),
+            captureActionView.heightAnchor.constraint(equalTo: captureActionView.widthAnchor),
+            captureActionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
+                                                      constant: -Constant.captureActionViewBottomOffset)
+        ])
     }
 }
 
 // MARK: - View constants
 private enum Constant {
+    static let sceneViewInsets: UIEdgeInsets = .zero
+    static let captureActionViewWidth: CGFloat = 73.0
+    static let captureActionViewBottomOffset: CGFloat = 10.0
 }
