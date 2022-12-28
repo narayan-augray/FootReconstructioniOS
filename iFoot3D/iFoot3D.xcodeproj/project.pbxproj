@@ -90,18 +90,18 @@
 			children = (
 				EA743F56295C2B8700C488C4 /* Fonts */,
 				EA743F50295C158A00C488C4 /* Assets */,
-				EA743F4F295C157900C488C4 /* Stroyboards */,
+				EA743F4F295C157900C488C4 /* Storyboards */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		EA743F4F295C157900C488C4 /* Stroyboards */ = {
+		EA743F4F295C157900C488C4 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
 				EA743F3F295C147A00C488C4 /* Main.storyboard */,
 				EA743F44295C147C00C488C4 /* LaunchScreen.storyboard */,
 			);
-			path = Stroyboards;
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		EA743F50295C158A00C488C4 /* Assets */ = {
