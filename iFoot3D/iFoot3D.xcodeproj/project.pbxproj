@@ -31,6 +31,10 @@
 		EA743F98295C391A00C488C4 /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F97295C391A00C488C4 /* LogService.swift */; };
 		EA743F9D295C397700C488C4 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F9C295C397700C488C4 /* LogType.swift */; };
 		EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F9E295C39C800C488C4 /* LogModel.swift */; };
+		EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */; };
+		EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C0295C5A99006EE033 /* CaptureViewController.swift */; };
+		EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C1295C5A99006EE033 /* CaptureView.swift */; };
+		EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +63,10 @@
 		EA743F97295C391A00C488C4 /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		EA743F9C295C397700C488C4 /* LogType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogType.swift; sourceTree = "<group>"; };
 		EA743F9E295C39C800C488C4 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
+		EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureModuleBuilder.swift; sourceTree = "<group>"; };
+		EA7512C0295C5A99006EE033 /* CaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
+		EA7512C1295C5A99006EE033 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +159,7 @@
 		EA743F52295C15F100C488C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EA7512BE295C5A84006EE033 /* CaptureScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -336,6 +345,17 @@
 			path = Log;
 			sourceTree = "<group>";
 		};
+		EA7512BE295C5A84006EE033 /* CaptureScene */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512C1295C5A99006EE033 /* CaptureView.swift */,
+				EA7512C0295C5A99006EE033 /* CaptureViewController.swift */,
+				EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */,
+				EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */,
+			);
+			path = CaptureScene;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -417,6 +437,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */,
+				EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */,
+				EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
@@ -429,6 +452,7 @@
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
 				EA743F70295C2EB300C488C4 /* Coordinator.swift in Sources */,
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
+				EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,
 				EA743F8C295C33AC00C488C4 /* BaseView.swift in Sources */,
@@ -580,6 +604,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -612,6 +637,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
