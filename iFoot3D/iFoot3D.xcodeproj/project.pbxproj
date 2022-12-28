@@ -12,6 +12,13 @@
 		EA743F41295C147A00C488C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA743F3F295C147A00C488C4 /* Main.storyboard */; };
 		EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA743F42295C147C00C488C4 /* Assets.xcassets */; };
 		EA743F46295C147C00C488C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA743F44295C147C00C488C4 /* LaunchScreen.storyboard */; };
+		EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = EA743F54295C17C800C488C4 /* CombineCocoa */; };
+		EA743F59295C2BAC00C488C4 /* FuturaBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA743F58295C2BAC00C488C4 /* FuturaBold.ttf */; };
+		EA743F5E295C2BF500C488C4 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F5D295C2BF500C488C4 /* Font.swift */; };
+		EA743F66295C2C8800C488C4 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA743F61295C2C8800C488C4 /* SF-Pro-Text-Medium.otf */; };
+		EA743F67295C2C8800C488C4 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA743F62295C2C8800C488C4 /* SF-Pro-Text-Regular.otf */; };
+		EA743F68295C2C8800C488C4 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA743F63295C2C8800C488C4 /* SF-Pro-Text-Bold.otf */; };
+		EA743F69295C2C8800C488C4 /* SF-Pro-Text-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA743F64295C2C8800C488C4 /* SF-Pro-Text-Thin.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,12 @@
 		EA743F42295C147C00C488C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EA743F45295C147C00C488C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA743F47295C147C00C488C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA743F58295C2BAC00C488C4 /* FuturaBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturaBold.ttf; sourceTree = "<group>"; };
+		EA743F5D295C2BF500C488C4 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		EA743F61295C2C8800C488C4 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		EA743F62295C2C8800C488C4 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		EA743F63295C2C8800C488C4 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
+		EA743F64295C2C8800C488C4 /* SF-Pro-Text-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Thin.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +88,7 @@
 		EA743F4E295C157300C488C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA743F56295C2B8700C488C4 /* Fonts */,
 				EA743F50295C158A00C488C4 /* Assets */,
 				EA743F4F295C157900C488C4 /* Stroyboards */,
 			);
@@ -112,6 +127,43 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		EA743F56295C2B8700C488C4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				EA743F5C295C2BEE00C488C4 /* Font */,
+				EA743F57295C2B9D00C488C4 /* Futura */,
+				EA743F5F295C2C7C00C488C4 /* SFProText */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		EA743F57295C2B9D00C488C4 /* Futura */ = {
+			isa = PBXGroup;
+			children = (
+				EA743F58295C2BAC00C488C4 /* FuturaBold.ttf */,
+			);
+			path = Futura;
+			sourceTree = "<group>";
+		};
+		EA743F5C295C2BEE00C488C4 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				EA743F5D295C2BF500C488C4 /* Font.swift */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		EA743F5F295C2C7C00C488C4 /* SFProText */ = {
+			isa = PBXGroup;
+			children = (
+				EA743F63295C2C8800C488C4 /* SF-Pro-Text-Bold.otf */,
+				EA743F61295C2C8800C488C4 /* SF-Pro-Text-Medium.otf */,
+				EA743F62295C2C8800C488C4 /* SF-Pro-Text-Regular.otf */,
+				EA743F64295C2C8800C488C4 /* SF-Pro-Text-Thin.otf */,
+			);
+			path = SFProText;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -128,6 +180,9 @@
 			dependencies = (
 			);
 			name = iFoot3D;
+			packageProductDependencies = (
+				EA743F54295C17C800C488C4 /* CombineCocoa */,
+			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
 			productType = "com.apple.product-type.application";
@@ -156,6 +211,9 @@
 				Base,
 			);
 			mainGroup = EA743F2D295C147A00C488C4;
+			packageReferences = (
+				EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -172,7 +230,12 @@
 			files = (
 				EA743F46295C147C00C488C4 /* LaunchScreen.storyboard in Resources */,
 				EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */,
+				EA743F59295C2BAC00C488C4 /* FuturaBold.ttf in Resources */,
+				EA743F66295C2C8800C488C4 /* SF-Pro-Text-Medium.otf in Resources */,
+				EA743F69295C2C8800C488C4 /* SF-Pro-Text-Thin.otf in Resources */,
+				EA743F67295C2C8800C488C4 /* SF-Pro-Text-Regular.otf in Resources */,
 				EA743F41295C147A00C488C4 /* Main.storyboard in Resources */,
+				EA743F68295C2C8800C488C4 /* SF-Pro-Text-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +248,7 @@
 			files = (
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
+				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +472,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA743F54295C17C800C488C4 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EA743F2E295C147A00C488C4 /* Project object */;
 }
