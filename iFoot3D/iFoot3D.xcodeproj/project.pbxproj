@@ -267,6 +267,7 @@
 				EA743F8A295C338100C488C4 /* Base */,
 				EA7512C7295C5E06006EE033 /* Components */,
 				EA743F7A295C327200C488C4 /* Extensions */,
+				EAF2434A295D879A000855C3 /* Nodes */,
 				EA743F8F295C342100C488C4 /* Protocols */,
 			);
 			path = CoreUI;
@@ -408,6 +409,13 @@
 				EA7512DB295CCA65006EE033 /* Colors.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		EAF2434A295D879A000855C3 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Nodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

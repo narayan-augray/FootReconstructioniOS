@@ -21,8 +21,8 @@ final class CaptureViewController: BaseViewController<CaptureViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupARSessionDelegate()
         setupBindings()
+        setupARSessionDelegate()
     }
     
     override func viewDidAppear(_ animated: Bool) {

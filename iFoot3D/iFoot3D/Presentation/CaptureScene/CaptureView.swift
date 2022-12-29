@@ -17,6 +17,7 @@ enum CaptureViewAction {
 final class CaptureView: BaseView {
     // MARK: - Subviews
     private let sceneView = ARSCNView()
+    private let coachingOverlay = ARCoachingOverlayView()
     private let captureActionView = CaptureActionView()
     
     // MARK: - Actions
@@ -34,8 +35,9 @@ final class CaptureView: BaseView {
     }
     
     // MARK: - Public
-    func setupSessionDelegate(delegate: ARSessionDelegate) {
+    func setupSessionDelegate(delegate: ARSessionDelegate & ARCoachingOverlayViewDelegate) {
         sceneView.session.delegate = delegate
+        coachingOverlay.delegate = delegate
     }
     
     func startSession() {
@@ -45,12 +47,17 @@ final class CaptureView: BaseView {
         }
         
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        configuration.worldAlignment = .gravity
+        configuration.isLightEstimationEnabled = true
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
             configuration.frameSemantics = [.sceneDepth]
         }
         
         sceneView.session.pause()
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
+        coachingOverlay.setActive(true, animated: true)
     }
 }
 
@@ -73,11 +80,16 @@ private extension CaptureView {
     func setupUI() {
         backgroundColor = .white
         
+        coachingOverlay.goal = .horizontalPlane
+        coachingOverlay.session = sceneView.session
+        
         captureActionView.set(mode: .video)
     }
 
     func setupLayout() {
         addSubview(sceneView, withEdgeInsets: Constant.sceneViewInsets)
+        
+        addSubview(coachingOverlay, withEdgeInsets: Constant.coachingViewInsets)
         
         addSubview(captureActionView, constraints: [
             captureActionView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -92,6 +104,7 @@ private extension CaptureView {
 // MARK: - View constants
 private enum Constant {
     static let sceneViewInsets: UIEdgeInsets = .zero
+    static let coachingViewInsets: UIEdgeInsets = .zero
     static let captureActionViewWidth: CGFloat = 73.0
     static let captureActionViewBottomOffset: CGFloat = 10.0
 }

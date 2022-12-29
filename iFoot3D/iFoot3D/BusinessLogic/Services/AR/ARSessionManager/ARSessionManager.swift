@@ -8,7 +8,7 @@
 import ARKit
 import Combine
 
-protocol ARSessionManager: ARSessionDelegate {
+protocol ARSessionManager: ARSessionDelegate & ARCoachingOverlayViewDelegate {
     
 }
 
@@ -22,5 +22,12 @@ final class ARSessionManagerImpl: NSObject, ARSessionManager {
 extension ARSessionManagerImpl {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         #warning("to do")
+    }
+}
+
+// MARK: - ARCoachingOverlayViewDelegate
+extension ARSessionManagerImpl: ARCoachingOverlayViewDelegate {
+    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("DEACTIVATED")
     }
 }
