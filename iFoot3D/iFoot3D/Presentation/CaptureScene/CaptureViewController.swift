@@ -54,6 +54,12 @@ private extension CaptureViewController {
             }
             .store(in: &cancellables)
         
+        viewModel.$capturePositions
+            .sink { [unowned self] (positions) in
+                contentView.createPhoneNodes(positions: positions)
+            }
+            .store(in: &cancellables)
+        
         viewModel.arSessionManager.eventPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] (event) in

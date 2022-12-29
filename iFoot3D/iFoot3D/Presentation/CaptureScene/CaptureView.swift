@@ -109,6 +109,16 @@ extension CaptureView {
     }
 }
 
+// MARK: - Phone Node
+extension CaptureView {
+    func createPhoneNodes(positions: [SCNVector3]) {
+        for position in positions {
+            let phoneNode = PhoneNode(position: position)
+            sceneView.scene.rootNode.addChildNode(phoneNode)
+        }
+    }
+}
+
 // MARK: - Private
 private extension CaptureView {
     func initialSetup() {

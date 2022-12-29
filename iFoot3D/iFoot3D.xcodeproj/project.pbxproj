@@ -45,6 +45,7 @@
 		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
 		EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */; };
 		EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */; };
+		EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24358295DD435000855C3 /* PhoneNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
 		EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Transform.swift"; sourceTree = "<group>"; };
 		EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionCombinedDelegate.swift; sourceTree = "<group>"; };
+		EAF24358295DD435000855C3 /* PhoneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				EAF2434E295D92DA000855C3 /* FootNode.swift */,
+				EAF24358295DD435000855C3 /* PhoneNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
+				EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
