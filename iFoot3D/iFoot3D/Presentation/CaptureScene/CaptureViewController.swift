@@ -40,8 +40,11 @@ private extension CaptureViewController {
     
     func setupBindings() {
         contentView.actionPublisher
-            .sink { [unowned self] action in
+            .sink { [unowned self] (action) in
                 switch action {
+                case .selectPossition(let position):
+                    viewModel.selectFootPosition(position: position)
+                
                 case .capture:
                     #warning("to do")
                     

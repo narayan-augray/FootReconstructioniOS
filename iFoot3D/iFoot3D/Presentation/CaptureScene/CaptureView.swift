@@ -11,6 +11,7 @@ import Combine
 
 enum CaptureViewAction {
     case capture
+    case selectPossition(position: SCNVector3)
     case error(message: String)
 }
 
@@ -127,6 +128,7 @@ private extension CaptureView {
         confirmButton.tapPublisher
             .sink { [unowned self] in
                 currentState = .capture
+                actionSubject.send(.selectPossition(position: footNode.position))
             }
             .store(in: &cancellables)
     }

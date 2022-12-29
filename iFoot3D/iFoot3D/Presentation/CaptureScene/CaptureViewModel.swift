@@ -14,6 +14,9 @@ enum CaptureViewModelEvent {
 }
 
 final class CaptureViewModel: BaseViewModel {
+    // MARK: - Properties
+    private var selectedFootPosition: SCNVector3?
+    
     // MARK: - Services
     let arSessionManager: ARSessionManager
     
@@ -31,6 +34,10 @@ final class CaptureViewModel: BaseViewModel {
     // MARK: - Public
     func handleError(messsage: String) {
         errorSubject.send(messsage)
+    }
+    
+    func selectFootPosition(position: SCNVector3) {
+        selectedFootPosition = position
     }
 }
 
