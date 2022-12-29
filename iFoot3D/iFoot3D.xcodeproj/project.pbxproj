@@ -40,6 +40,11 @@
 		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
 		EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */; };
 		EA7512DC295CCA65006EE033 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512DB295CCA65006EE033 /* Colors.swift */; };
+		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
+		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
+		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
+		EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */; };
+		EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +81,11 @@
 		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
 		EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureActionView.swift; sourceTree = "<group>"; };
 		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		EAF2434C295D9178000855C3 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		EAF2434E295D92DA000855C3 /* FootNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootNode.swift; sourceTree = "<group>"; };
+		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
+		EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Transform.swift"; sourceTree = "<group>"; };
+		EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionCombinedDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,9 +145,10 @@
 		EA743F4E295C157300C488C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA743F50295C158A00C488C4 /* Assets */,
 				EA7512DA295CCA4F006EE033 /* Colors */,
 				EA743F56295C2B8700C488C4 /* Fonts */,
-				EA743F50295C158A00C488C4 /* Assets */,
+				EAF2434B295D9166000855C3 /* Images */,
 				EA743F4F295C157900C488C4 /* Storyboards */,
 			);
 			path = Resources;
@@ -276,6 +287,7 @@
 		EA743F7A295C327200C488C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EAF24350295DA175000855C3 /* ARKit */,
 				EA743F72295C2F7900C488C4 /* UIKit */,
 			);
 			path = Extensions;
@@ -381,6 +393,7 @@
 		EA7512D1295CB6D1006EE033 /* ARSessionManager */ = {
 			isa = PBXGroup;
 			children = (
+				EAF24355295DA919000855C3 /* Delegate */,
 				EA7512D4295CBAB8006EE033 /* Event */,
 				EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */,
 			);
@@ -414,8 +427,34 @@
 		EAF2434A295D879A000855C3 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				EAF2434E295D92DA000855C3 /* FootNode.swift */,
 			);
 			path = Nodes;
+			sourceTree = "<group>";
+		};
+		EAF2434B295D9166000855C3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2434C295D9178000855C3 /* Images.swift */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		EAF24350295DA175000855C3 /* ARKit */ = {
+			isa = PBXGroup;
+			children = (
+				EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */,
+				EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */,
+			);
+			path = ARKit;
+			sourceTree = "<group>";
+		};
+		EAF24355295DA919000855C3 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -508,6 +547,7 @@
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
+				EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
 				EA743F6B295C2E2E00C488C4 /* AppContainer.swift in Sources */,
 				EA743F9D295C397700C488C4 /* LogType.swift in Sources */,
@@ -516,6 +556,7 @@
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
 				EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
+				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
 				EA743F70295C2EB300C488C4 /* Coordinator.swift in Sources */,
@@ -523,7 +564,10 @@
 				EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,
+				EAF2434D295D9178000855C3 /* Images.swift in Sources */,
 				EA743F8C295C33AC00C488C4 /* BaseView.swift in Sources */,
+				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
+				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

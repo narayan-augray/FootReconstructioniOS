@@ -5,10 +5,16 @@
 //  Created by Illia Khrypunov on 28.12.2022.
 //
 
+import Foundation
+import ARKit
 import Combine
 
+enum CaptureViewModelEvent {
+    case coaching
+}
+
 final class CaptureViewModel: BaseViewModel {
-    // MARK: - Properties
+    // MARK: - Services
     let arSessionManager: ARSessionManager
     
     // MARK: - Transition
@@ -19,10 +25,18 @@ final class CaptureViewModel: BaseViewModel {
     init(arSessionManager: ARSessionManager) {
         self.arSessionManager = arSessionManager
         super.init()
+        setupARSessionManagerBindings()
     }
     
     // MARK: - Public
     func handleError(messsage: String) {
         errorSubject.send(messsage)
+    }
+}
+
+// MARK: - Setup Bindings
+private extension CaptureViewModel {
+    func setupARSessionManagerBindings() {
+        
     }
 }

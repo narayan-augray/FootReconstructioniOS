@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import SceneKit
 
 enum ARSessionManagerEvent {
-    
+    case coachingDeactivated
 }

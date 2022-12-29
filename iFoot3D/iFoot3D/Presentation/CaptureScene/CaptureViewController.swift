@@ -22,7 +22,7 @@ final class CaptureViewController: BaseViewController<CaptureViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-        setupARSessionDelegate()
+        setupARSessionManager()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,7 +33,8 @@ final class CaptureViewController: BaseViewController<CaptureViewModel> {
 
 // MARK: - Private
 private extension CaptureViewController {
-    func setupARSessionDelegate() {
+    func setupARSessionManager() {
+        viewModel.arSessionManager.setSceneView(view: contentView.getSceneView())
         contentView.setupSessionDelegate(delegate: viewModel.arSessionManager)
     }
     
@@ -47,6 +48,23 @@ private extension CaptureViewController {
                 case .error(let message):
                     viewModel.handleError(messsage: message)
                 }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.arSessionManager.eventPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] (event) in
+                switch event {
+                case .coachingDeactivated:
+                    contentView.setState(state: .selectPosition)
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.arSessionManager.sceneCenterPublisher
+            .throttle(for: .milliseconds(100), scheduler: DispatchQueue.main, latest: true)
+            .sink { [unowned self] (position) in
+                contentView.updateFootNodePosition(position: position)
             }
             .store(in: &cancellables)
     }
