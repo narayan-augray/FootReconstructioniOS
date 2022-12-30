@@ -33,7 +33,7 @@ private extension PhoneNode {
         let node = SCNNode(geometry: geometry)
         node.opacity = Constant.opacity
         node.position = configuration.position
-        node.eulerAngles.y = configuration.rotation
+        node.eulerAngles = configuration.rotation
         
         addChildNode(node)
     }

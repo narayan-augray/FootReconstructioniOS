@@ -9,5 +9,5 @@ import ARKit
 
 struct CaptureConfigurations {
     let position: SCNVector3
-    let rotation: Float
+    let rotation: SCNVector3
 }

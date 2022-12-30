@@ -62,15 +62,20 @@ private extension CaptureViewModel {
             let x = footPosition.x + radius * cos(angle)
             let z = footPosition.z + radius * sin(angle)
             
-            var rotation = angle
+            var yRotation = angle
             if angle == 3 * .pi / 2 {
-                rotation = 0
+                yRotation = 0
             } else if angle.truncatingRemainder(dividingBy: .pi / 2) == 0 {
-                rotation -= .pi / 2
+                yRotation -= .pi / 2
+            }
+            
+            var xRotation = Float.pi / 6
+            if angle == 5 * .pi / 4 || angle == .pi / 4 || angle == .pi / 2 {
+                xRotation *= -1
             }
             
             result.append(.init(position: .init(x: x, y: footPosition.y + yDistance, z: z),
-                                rotation: rotation))
+                                rotation: .init(xRotation, yRotation, 0)))
         }
         
         return result
