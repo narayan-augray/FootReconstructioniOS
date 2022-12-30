@@ -8,6 +8,13 @@
 import Combine
 
 class BaseViewModel: ViewModel {
+    // MARK: - Publishers
+    private(set) lazy var errorPublisher = errorSubject.eraseToAnyPublisher()
+    let errorSubject = PassthroughSubject<String, Never>()
+    
+    private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()
+    let isLoadingSubject = PassthroughSubject<Bool, Never>()
+    
     // MARK: - Cancellables
     var cancellables = Set<AnyCancellable>()
     

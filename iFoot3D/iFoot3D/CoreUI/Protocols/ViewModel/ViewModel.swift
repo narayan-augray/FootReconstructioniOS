@@ -8,6 +8,11 @@
 import Combine
 
 protocol ViewModel {
+    // MARK: - Publishers
+    var errorPublisher: AnyPublisher<String, Never> { get }
+    var isLoadingPublisher: AnyPublisher<Bool, Never> { get }
+    
+    // MARK: - Funcs
     func onViewDidLoad()
     func onViewWillAppear()
     func onViewDidAppear()

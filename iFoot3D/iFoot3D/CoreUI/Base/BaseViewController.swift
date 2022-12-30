@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import Toast
 
 class BaseViewController<VM: ViewModel>: UIViewController {
     // MARK: - Properties
@@ -29,6 +30,8 @@ class BaseViewController<VM: ViewModel>: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.onViewDidLoad()
+        
+        setupBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,5 +57,27 @@ class BaseViewController<VM: ViewModel>: UIViewController {
     // MARK: - Deinit
     deinit {
         log.debug(message: "deinit of \(String(describing: self))")
+    }
+}
+
+// MARK: - Private
+private extension BaseViewController {
+    func setupBindings() {
+        viewModel.errorPublisher
+            .sink { [weak self] (errorMessage) in
+                var toastStyle = ToastStyle()
+                toastStyle.backgroundColor = .red
+                toastStyle.messageColor = .white
+                toastStyle.messageAlignment = .center
+                toastStyle.messageFont = Font.sfProTextRegular(17)
+                self?.view.makeToast(errorMessage, position: .top, style: toastStyle)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.isLoadingPublisher
+            .sink { [weak self] (isLoading) in
+                isLoading ? self?.view.makeToastActivity(.center) : self?.view.hideToastActivity()
+            }
+            .store(in: &cancellables)
     }
 }

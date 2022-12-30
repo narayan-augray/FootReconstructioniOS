@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA6C9BE2295EBDD4009B6755 /* CaptureConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */; };
 		EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F39295C147A00C488C4 /* AppDelegate.swift */; };
 		EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F3B295C147A00C488C4 /* SceneDelegate.swift */; };
 		EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA743F42295C147C00C488C4 /* Assets.xcassets */; };
@@ -31,9 +32,25 @@
 		EA743F98295C391A00C488C4 /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F97295C391A00C488C4 /* LogService.swift */; };
 		EA743F9D295C397700C488C4 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F9C295C397700C488C4 /* LogType.swift */; };
 		EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F9E295C39C800C488C4 /* LogModel.swift */; };
+		EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */; };
+		EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C0295C5A99006EE033 /* CaptureViewController.swift */; };
+		EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C1295C5A99006EE033 /* CaptureView.swift */; };
+		EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */; };
+		EA7512D0295C6397006EE033 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = EA7512CF295C6397006EE033 /* Toast */; };
+		EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */; };
+		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
+		EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */; };
+		EA7512DC295CCA65006EE033 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512DB295CCA65006EE033 /* Colors.swift */; };
+		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
+		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
+		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
+		EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */; };
+		EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */; };
+		EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24358295DD435000855C3 /* PhoneNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureConfigurations.swift; sourceTree = "<group>"; };
 		EA743F36295C147A00C488C4 /* iFoot3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFoot3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA743F39295C147A00C488C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA743F3B295C147A00C488C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +76,20 @@
 		EA743F97295C391A00C488C4 /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		EA743F9C295C397700C488C4 /* LogType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogType.swift; sourceTree = "<group>"; };
 		EA743F9E295C39C800C488C4 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
+		EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureModuleBuilder.swift; sourceTree = "<group>"; };
+		EA7512C0295C5A99006EE033 /* CaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
+		EA7512C1295C5A99006EE033 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewModel.swift; sourceTree = "<group>"; };
+		EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
+		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
+		EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureActionView.swift; sourceTree = "<group>"; };
+		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		EAF2434C295D9178000855C3 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		EAF2434E295D92DA000855C3 /* FootNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootNode.swift; sourceTree = "<group>"; };
+		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
+		EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Transform.swift"; sourceTree = "<group>"; };
+		EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionCombinedDelegate.swift; sourceTree = "<group>"; };
+		EAF24358295DD435000855C3 /* PhoneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7512D0295C6397006EE033 /* Toast in Frameworks */,
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +105,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA6C9BDA295EBC93009B6755 /* FootNode */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2434E295D92DA000855C3 /* FootNode.swift */,
+			);
+			path = FootNode;
+			sourceTree = "<group>";
+		};
+		EA6C9BDB295EBC9C009B6755 /* PhoneNode */ = {
+			isa = PBXGroup;
+			children = (
+				EAF24358295DD435000855C3 /* PhoneNode.swift */,
+			);
+			path = PhoneNode;
+			sourceTree = "<group>";
+		};
+		EA6C9BDD295EBCAE009B6755 /* CaptureActionView */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */,
+			);
+			path = CaptureActionView;
+			sourceTree = "<group>";
+		};
+		EA6C9BE0295EBDC8009B6755 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */,
+			);
+			path = AR;
+			sourceTree = "<group>";
+		};
 		EA743F2D295C147A00C488C4 = {
 			isa = PBXGroup;
 			children = (
@@ -117,8 +181,10 @@
 		EA743F4E295C157300C488C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EA743F56295C2B8700C488C4 /* Fonts */,
 				EA743F50295C158A00C488C4 /* Assets */,
+				EA7512DA295CCA4F006EE033 /* Colors */,
+				EA743F56295C2B8700C488C4 /* Fonts */,
+				EAF2434B295D9166000855C3 /* Images */,
 				EA743F4F295C157900C488C4 /* Storyboards */,
 			);
 			path = Resources;
@@ -151,6 +217,7 @@
 		EA743F52295C15F100C488C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EA7512BE295C5A84006EE033 /* CaptureScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -245,7 +312,9 @@
 			isa = PBXGroup;
 			children = (
 				EA743F8A295C338100C488C4 /* Base */,
+				EA7512C7295C5E06006EE033 /* Components */,
 				EA743F7A295C327200C488C4 /* Extensions */,
+				EAF2434A295D879A000855C3 /* Nodes */,
 				EA743F8F295C342100C488C4 /* Protocols */,
 			);
 			path = CoreUI;
@@ -254,6 +323,7 @@
 		EA743F7A295C327200C488C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EAF24350295DA175000855C3 /* ARKit */,
 				EA743F72295C2F7900C488C4 /* UIKit */,
 			);
 			path = Extensions;
@@ -297,6 +367,7 @@
 		EA743F95295C38E400C488C4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EA7512D7295CC9B3006EE033 /* AR */,
 				EA743F96295C390E00C488C4 /* Log */,
 			);
 			path = Services;
@@ -313,6 +384,7 @@
 		EA743F99295C393400C488C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EA6C9BE0295EBDC8009B6755 /* AR */,
 				EA743F9B295C397000C488C4 /* Log */,
 			);
 			path = Models;
@@ -336,6 +408,93 @@
 			path = Log;
 			sourceTree = "<group>";
 		};
+		EA7512BE295C5A84006EE033 /* CaptureScene */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512C1295C5A99006EE033 /* CaptureView.swift */,
+				EA7512C0295C5A99006EE033 /* CaptureViewController.swift */,
+				EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */,
+				EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */,
+			);
+			path = CaptureScene;
+			sourceTree = "<group>";
+		};
+		EA7512C7295C5E06006EE033 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EA6C9BDD295EBCAE009B6755 /* CaptureActionView */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EA7512D1295CB6D1006EE033 /* ARSessionManager */ = {
+			isa = PBXGroup;
+			children = (
+				EAF24355295DA919000855C3 /* Delegate */,
+				EA7512D4295CBAB8006EE033 /* Event */,
+				EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */,
+			);
+			path = ARSessionManager;
+			sourceTree = "<group>";
+		};
+		EA7512D4295CBAB8006EE033 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		EA7512D7295CC9B3006EE033 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D1295CB6D1006EE033 /* ARSessionManager */,
+			);
+			path = AR;
+			sourceTree = "<group>";
+		};
+		EA7512DA295CCA4F006EE033 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512DB295CCA65006EE033 /* Colors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		EAF2434A295D879A000855C3 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				EA6C9BDA295EBC93009B6755 /* FootNode */,
+				EA6C9BDB295EBC9C009B6755 /* PhoneNode */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		EAF2434B295D9166000855C3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2434C295D9178000855C3 /* Images.swift */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		EAF24350295DA175000855C3 /* ARKit */ = {
+			isa = PBXGroup;
+			children = (
+				EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */,
+				EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */,
+			);
+			path = ARKit;
+			sourceTree = "<group>";
+		};
+		EAF24355295DA919000855C3 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -354,6 +513,7 @@
 			name = iFoot3D;
 			packageProductDependencies = (
 				EA743F54295C17C800C488C4 /* CombineCocoa */,
+				EA7512CF295C6397006EE033 /* Toast */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -385,6 +545,7 @@
 			mainGroup = EA743F2D295C147A00C488C4;
 			packageReferences = (
 				EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -417,21 +578,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */,
+				EA7512DC295CCA65006EE033 /* Colors.swift in Sources */,
+				EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */,
+				EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
+				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
+				EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
+				EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
 				EA743F6B295C2E2E00C488C4 /* AppContainer.swift in Sources */,
 				EA743F9D295C397700C488C4 /* LogType.swift in Sources */,
+				EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
+				EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
+				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
 				EA743F70295C2EB300C488C4 /* Coordinator.swift in Sources */,
+				EA6C9BE2295EBDD4009B6755 /* CaptureConfigurations.swift in Sources */,
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
+				EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,
+				EAF2434D295D9178000855C3 /* Images.swift in Sources */,
 				EA743F8C295C33AC00C488C4 /* BaseView.swift in Sources */,
+				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
+				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,6 +756,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -612,6 +789,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -660,6 +838,14 @@
 				minimumVersion = 0.4.1;
 			};
 		};
+		EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -667,6 +853,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		EA7512CF295C6397006EE033 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

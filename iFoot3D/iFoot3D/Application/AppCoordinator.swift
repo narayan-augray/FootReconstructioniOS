@@ -37,5 +37,20 @@ class AppCoordinator: Coordinator {
     func start() {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
+        capture()
+    }
+}
+
+// MARK: - Private
+private extension AppCoordinator {
+    func capture() {
+        let module = CaptureModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] (transition) in
+                
+            }
+            .store(in: &cancellables)
+        push(module.viewController, animated: false)
     }
 }
