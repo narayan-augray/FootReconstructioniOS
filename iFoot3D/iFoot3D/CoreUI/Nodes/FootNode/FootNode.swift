@@ -23,11 +23,17 @@ final class FootNode: SCNNode {
 // MARK: - Private
 private extension FootNode {
     func commonInit() {
-        let geometry = SCNPlane(width: 0.25, height: 0.25)
+        let geometry = SCNPlane(width: Constant.width, height: Constant.height)
         geometry.firstMaterial?.diffuse.contents = Images.foot.image()
         
         let node = SCNNode(geometry: geometry)
         node.opacity = 0.7
         addChildNode(node)
     }
+}
+
+// MARK: - Constants
+private struct Constant {
+    static let width: CGFloat = 0.25
+    static let height: CGFloat = 0.25
 }

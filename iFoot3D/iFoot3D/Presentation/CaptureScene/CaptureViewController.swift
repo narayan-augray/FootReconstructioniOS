@@ -54,9 +54,9 @@ private extension CaptureViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$capturePositions
-            .sink { [unowned self] (positions) in
-                contentView.createPhoneNodes(positions: positions)
+        viewModel.$captureConfigurations
+            .sink { [unowned self] (configurations) in
+                contentView.createPhoneNodes(configurations: configurations)
             }
             .store(in: &cancellables)
         

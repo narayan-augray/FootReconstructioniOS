@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA6C9BE2295EBDD4009B6755 /* CaptureConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */; };
 		EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F39295C147A00C488C4 /* AppDelegate.swift */; };
 		EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F3B295C147A00C488C4 /* SceneDelegate.swift */; };
 		EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA743F42295C147C00C488C4 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureConfigurations.swift; sourceTree = "<group>"; };
 		EA743F36295C147A00C488C4 /* iFoot3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFoot3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA743F39295C147A00C488C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA743F3B295C147A00C488C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA6C9BDA295EBC93009B6755 /* FootNode */ = {
+			isa = PBXGroup;
+			children = (
+				EAF2434E295D92DA000855C3 /* FootNode.swift */,
+			);
+			path = FootNode;
+			sourceTree = "<group>";
+		};
+		EA6C9BDB295EBC9C009B6755 /* PhoneNode */ = {
+			isa = PBXGroup;
+			children = (
+				EAF24358295DD435000855C3 /* PhoneNode.swift */,
+			);
+			path = PhoneNode;
+			sourceTree = "<group>";
+		};
+		EA6C9BDD295EBCAE009B6755 /* CaptureActionView */ = {
+			isa = PBXGroup;
+			children = (
+				EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */,
+			);
+			path = CaptureActionView;
+			sourceTree = "<group>";
+		};
+		EA6C9BE0295EBDC8009B6755 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */,
+			);
+			path = AR;
+			sourceTree = "<group>";
+		};
 		EA743F2D295C147A00C488C4 = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +384,7 @@
 		EA743F99295C393400C488C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EA6C9BE0295EBDC8009B6755 /* AR */,
 				EA743F9B295C397000C488C4 /* Log */,
 			);
 			path = Models;
@@ -387,7 +422,7 @@
 		EA7512C7295C5E06006EE033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */,
+				EA6C9BDD295EBCAE009B6755 /* CaptureActionView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -429,8 +464,8 @@
 		EAF2434A295D879A000855C3 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				EAF2434E295D92DA000855C3 /* FootNode.swift */,
-				EAF24358295DD435000855C3 /* PhoneNode.swift */,
+				EA6C9BDA295EBC93009B6755 /* FootNode */,
+				EA6C9BDB295EBC9C009B6755 /* PhoneNode */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -564,6 +599,7 @@
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
 				EA743F70295C2EB300C488C4 /* Coordinator.swift in Sources */,
+				EA6C9BE2295EBDD4009B6755 /* CaptureConfigurations.swift in Sources */,
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
 				EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,

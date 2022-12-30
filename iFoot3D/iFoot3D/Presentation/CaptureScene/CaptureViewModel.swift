@@ -18,7 +18,7 @@ final class CaptureViewModel: BaseViewModel {
     private var footPosition: SCNVector3?
     
     // MARK: - Published
-    @Published private(set) var capturePositions: [SCNVector3] = []
+    @Published private(set) var captureConfigurations: [CaptureConfigurations] = []
     
     // MARK: - Services
     let arSessionManager: ARSessionManager
@@ -40,16 +40,15 @@ final class CaptureViewModel: BaseViewModel {
     
     func selectFootPosition(position: SCNVector3) {
         footPosition = position
-        generateCapturePositions()
+        captureConfigurations = generateCapturePositions()
     }
 }
 
 // MARK: - Private
 private extension CaptureViewModel {
-    func generateCapturePositions() {
+    func generateCapturePositions() -> [CaptureConfigurations] {
         guard let footPosition = footPosition else {
-            capturePositions = []
-            return
+            return []
         }
         
         let numberOfPoints: Float = 8.0
@@ -57,14 +56,23 @@ private extension CaptureViewModel {
         let yDistance: Float = 0.5
         let circle = 2 * Float.pi
         
-        var result: [SCNVector3] = []
+        var result: [CaptureConfigurations] = []
         
         for angle in stride(from: 0.0, to: circle, by: circle / numberOfPoints) {
             let x = footPosition.x + radius * cos(angle)
             let z = footPosition.z + radius * sin(angle)
-            result.append(.init(x, footPosition.y + yDistance, z))
+            
+            var rotation = angle
+            if angle == 3 * .pi / 2 {
+                rotation = 0
+            } else if angle.truncatingRemainder(dividingBy: .pi / 2) == 0 {
+                rotation -= .pi / 2
+            }
+            
+            result.append(.init(position: .init(x: x, y: footPosition.y + yDistance, z: z),
+                                rotation: rotation))
         }
         
-        capturePositions = result
+        return result
     }
 }
