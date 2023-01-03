@@ -81,6 +81,9 @@ extension CaptureView {
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
             configuration.frameSemantics = [.sceneDepth]
         }
+        if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+            configuration.frameSemantics.insert(.personSegmentationWithDepth)
+        }
         
         sceneView.autoenablesDefaultLighting = true
         sceneView.antialiasingMode = .multisampling4X
@@ -169,7 +172,7 @@ private extension CaptureView {
             confirmButton.widthAnchor.constraint(equalToConstant: Constant.confirmButtonSize.width),
             confirmButton.heightAnchor.constraint(equalToConstant: Constant.confirmButtonSize.height),
             confirmButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
-                                                  constant: -Constant.captureActionViewBottomOffset)
+                                                  constant: -Constant.confirmButtonBottomOffset)
         ])
     }
     
@@ -201,8 +204,7 @@ private extension CaptureView {
 private enum Constant {
     static let sceneViewInsets: UIEdgeInsets = .zero
     static let coachingViewInsets: UIEdgeInsets = .zero
-    static let captureActionViewWidth: CGFloat = 73.0
-    static let captureActionViewBottomOffset: CGFloat = 10.0
     static let confirmButtonCornerRadius: CGFloat = 12.0
     static let confirmButtonSize: CGSize = .init(width: 213.0, height: 59.0)
+    static let confirmButtonBottomOffset: CGFloat = 10.0
 }

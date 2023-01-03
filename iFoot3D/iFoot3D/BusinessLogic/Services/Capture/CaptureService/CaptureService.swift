@@ -34,7 +34,9 @@ extension CaptureServiceImpl {
         
         var result: [CapturePosition] = []
         
-        for angle in stride(from: 0.0, to: Constant.circle, by: Constant.circle / Constant.numberOfPositions) {
+        let numberOfPositions = Float(CaptureConstants.requiredImagesCount)
+        
+        for angle in stride(from: 0.0, to: Constant.circle, by: Constant.circle / numberOfPositions) {
             let x = footPosition.x + Constant.radius * cos(angle)
             let z = footPosition.z + Constant.radius * sin(angle)
             
@@ -64,11 +66,13 @@ extension CaptureServiceImpl {
     func handleNewFrame(frame: ARFrame) {
         guard
             let index = currentCaptureTransform(camera: frame.camera),
+            let originalPixelBuffer = frame.capturedImage.copy(),
             let depthPixelBuffer = frame.sceneDepth?.depthMap.copy()
         else {
             return
         }
-        let output = CaptureOutput(depthPixelBuffer: depthPixelBuffer,
+        let output = CaptureOutput(originalPixelBuffer: originalPixelBuffer,
+                                   depthPixelBuffer: depthPixelBuffer,
                                    intrinsics: frame.camera.intrinsics,
                                    transform: frame.camera.transform,
                                    capturePositionId: capturePositions[index].id)
@@ -97,7 +101,6 @@ private extension CaptureServiceImpl {
 // MARK: - Constants
 private struct Constant {
     static let circle = 2 * Float.pi
-    static let numberOfPositions: Float = 8.0
     static let radius: Float = 0.3
     static let yDistance: Float = 0.5
     static let xRotation: Float = .pi / 6

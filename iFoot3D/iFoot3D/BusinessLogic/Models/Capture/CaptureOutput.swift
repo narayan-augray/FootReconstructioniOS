@@ -9,6 +9,7 @@ import UIKit
 import ARKit
 
 struct CaptureOutput {
+    let originalPixelBuffer: CVPixelBuffer
     let depthPixelBuffer: CVPixelBuffer
     let intrinsics: simd_float3x3
     let transform: simd_float4x4 

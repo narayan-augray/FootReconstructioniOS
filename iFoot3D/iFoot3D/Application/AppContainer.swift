@@ -10,12 +10,14 @@ import Foundation
 protocol AppContainer: AnyObject {
     var arSessionManager: ARSessionManager { get }
     var captureService: CaptureService { get }
+    var captureOutputManager: CaptureOutputManager { get }
 }
 
 final class AppContainerImpl: AppContainer {
     // MARK: - Services
-    public lazy var arSessionManager: ARSessionManager = setupARSessionManager()
-    public lazy var captureService: CaptureService = setupCaptureService()
+    lazy var arSessionManager: ARSessionManager = setupARSessionManager()
+    lazy var captureService: CaptureService = setupCaptureService()
+    lazy var captureOutputManager: CaptureOutputManager = setupCaptureOutputManager()
 }
 
 // MARK: - Setup
@@ -26,5 +28,15 @@ private extension AppContainerImpl {
     
     func setupCaptureService() -> CaptureService {
         return CaptureServiceImpl()
+    }
+    
+    func setupCaptureOutputManager() -> CaptureOutputManager {
+        let outputSettings = CaptureOutputSettings(
+            originalFileName: "original",
+            dataTextFileName: "depth_logs",
+            calibrationTextFileName: "depth_calibration",
+            outputValuesFormat: .text
+        )
+        return CaptureOutputManagerImpl(outputSettings: outputSettings)
     }
 }
