@@ -8,9 +8,9 @@
 import UIKit
 import ARKit
 import Combine
+import CombineCocoa
 
 enum CaptureViewAction {
-    case capture
     case selectPossition(position: SCNVector3)
     case error(message: String)
 }
@@ -34,7 +34,6 @@ final class CaptureView: BaseView {
     private let sceneView = ARSCNView()
     private let coachingOverlay = ARCoachingOverlayView()
     private let confirmButton = UIButton()
-    private let captureActionView = CaptureActionView()
     
     // MARK: - Nodes
     private let footNode = FootNode()
@@ -82,9 +81,9 @@ extension CaptureView {
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
             configuration.frameSemantics = [.sceneDepth]
         }
-        if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
-            configuration.frameSemantics.insert(.personSegmentationWithDepth)
-        }
+        
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.antialiasingMode = .multisampling4X
         
         sceneView.session.pause()
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
@@ -117,6 +116,15 @@ extension CaptureView {
             sceneView.scene.rootNode.addChildNode(phoneNode)
         }
     }
+    
+    func highlightPhoneNode(id: String) {
+        for node in sceneView.scene.rootNode.childNodes {
+            if let phoneNode = node as? PhoneNode, phoneNode.id == id {
+                phoneNode.updateColor(color: .appGreen)
+                return
+            }
+        }
+    }
 }
 
 // MARK: - Private
@@ -129,12 +137,6 @@ private extension CaptureView {
     }
 
     func bindActions() {
-        captureActionView.tapPublisher
-            .sink { [unowned self] in
-                actionSubject.send(.capture)
-            }
-            .store(in: &cancellables)
-        
         confirmButton.tapPublisher
             .sink { [unowned self] in
                 currentState = .capture
@@ -148,9 +150,7 @@ private extension CaptureView {
         
         coachingOverlay.goal = .horizontalPlane
         coachingOverlay.session = sceneView.session
-        
-        captureActionView.set(mode: .video)
-        
+
         confirmButton.clipsToBounds = true
         confirmButton.layer.cornerRadius = Constant.confirmButtonCornerRadius
         confirmButton.backgroundColor = .appDarkGray
@@ -164,19 +164,12 @@ private extension CaptureView {
         
         addSubview(coachingOverlay, withEdgeInsets: Constant.coachingViewInsets)
         
-        addSubview(captureActionView, constraints: [
-            captureActionView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            captureActionView.widthAnchor.constraint(equalToConstant: Constant.captureActionViewWidth),
-            captureActionView.heightAnchor.constraint(equalTo: captureActionView.widthAnchor),
-            captureActionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
-                                                      constant: -Constant.captureActionViewBottomOffset)
-        ])
-        
         addSubview(confirmButton, constraints: [
             confirmButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            confirmButton.bottomAnchor.constraint(equalTo: captureActionView.bottomAnchor),
             confirmButton.widthAnchor.constraint(equalToConstant: Constant.confirmButtonSize.width),
-            confirmButton.heightAnchor.constraint(equalToConstant: Constant.confirmButtonSize.height)
+            confirmButton.heightAnchor.constraint(equalToConstant: Constant.confirmButtonSize.height),
+            confirmButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
+                                                  constant: -Constant.captureActionViewBottomOffset)
         ])
     }
     
@@ -184,14 +177,12 @@ private extension CaptureView {
         switch currentState {
         case .initializing:
             coachingOverlay.isHidden = false
-            captureActionView.isHidden = true
             confirmButton.isHidden = true
             
             footNode.removeFromParentNode()
             
         case .selectPosition:
             coachingOverlay.isHidden = true
-            captureActionView.isHidden = true
             confirmButton.isHidden = false
             
             footNode.eulerAngles.x = -.pi / 2
@@ -199,7 +190,6 @@ private extension CaptureView {
             
         case .capture:
             coachingOverlay.isHidden = true
-            captureActionView.isHidden = false
             confirmButton.isHidden = true
             
             footNode.removeFromParentNode()

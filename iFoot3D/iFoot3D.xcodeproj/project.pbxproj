@@ -39,10 +39,12 @@
 		EA7512D0295C6397006EE033 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = EA7512CF295C6397006EE033 /* Toast */; };
 		EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */; };
 		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
-		EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */; };
 		EA7512DC295CCA65006EE033 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512DB295CCA65006EE033 /* Colors.swift */; };
 		EAE43DAD296401F900405533 /* CaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAC296401F900405533 /* CaptureService.swift */; };
 		EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */; };
+		EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */; };
+		EAE43DB62964394C00405533 /* CVPixelBuffer+Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DB52964394C00405533 /* CVPixelBuffer+Copy.swift */; };
+		EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DB929643ACB00405533 /* CaptureOutput.swift */; };
 		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
 		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
 		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
@@ -84,10 +86,12 @@
 		EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewModel.swift; sourceTree = "<group>"; };
 		EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
-		EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureActionView.swift; sourceTree = "<group>"; };
 		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		EAE43DAC296401F900405533 /* CaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureService.swift; sourceTree = "<group>"; };
 		EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureServiceEvent.swift; sourceTree = "<group>"; };
+		EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd_float4x4+Position.swift"; sourceTree = "<group>"; };
+		EAE43DB52964394C00405533 /* CVPixelBuffer+Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Copy.swift"; sourceTree = "<group>"; };
+		EAE43DB929643ACB00405533 /* CaptureOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutput.swift; sourceTree = "<group>"; };
 		EAF2434C295D9178000855C3 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		EAF2434E295D92DA000855C3 /* FootNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootNode.swift; sourceTree = "<group>"; };
 		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
@@ -123,14 +127,6 @@
 				EAF24358295DD435000855C3 /* PhoneNode.swift */,
 			);
 			path = PhoneNode;
-			sourceTree = "<group>";
-		};
-		EA6C9BDD295EBCAE009B6755 /* CaptureActionView */ = {
-			isa = PBXGroup;
-			children = (
-				EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */,
-			);
-			path = CaptureActionView;
 			sourceTree = "<group>";
 		};
 		EA6C9BE0295EBDC8009B6755 /* AR */ = {
@@ -291,6 +287,8 @@
 		EA743F71295C2F6F00C488C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EAE43DB12964080600405533 /* ARKit */,
+				EAE43DB42964393F00405533 /* UIKit */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -372,6 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				EA7512D7295CC9B3006EE033 /* AR */,
+				EAE43DB729643AA400405533 /* Capture */,
 				EA743F96295C390E00C488C4 /* Log */,
 			);
 			path = Services;
@@ -389,6 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				EA6C9BE0295EBDC8009B6755 /* AR */,
+				EAE43DB829643AB100405533 /* Capture */,
 				EA743F9B295C397000C488C4 /* Log */,
 			);
 			path = Models;
@@ -426,7 +426,6 @@
 		EA7512C7295C5E06006EE033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EA6C9BDD295EBCAE009B6755 /* CaptureActionView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -453,7 +452,6 @@
 			isa = PBXGroup;
 			children = (
 				EA7512D1295CB6D1006EE033 /* ARSessionManager */,
-				EAE43DAB296401E200405533 /* CaptureService */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -489,6 +487,38 @@
 				EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		EAE43DB12964080600405533 /* ARKit */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */,
+			);
+			path = ARKit;
+			sourceTree = "<group>";
+		};
+		EAE43DB42964393F00405533 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DB52964394C00405533 /* CVPixelBuffer+Copy.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		EAE43DB729643AA400405533 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DAB296401E200405533 /* CaptureService */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		EAE43DB829643AB100405533 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DB929643ACB00405533 /* CaptureOutput.swift */,
+			);
+			path = Capture;
 			sourceTree = "<group>";
 		};
 		EAF2434A295D879A000855C3 /* Nodes */ = {
@@ -609,6 +639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */,
+				EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */,
 				EA7512DC295CCA65006EE033 /* Colors.swift in Sources */,
 				EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */,
 				EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */,
@@ -618,13 +649,13 @@
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
+				EAE43DB62964394C00405533 /* CVPixelBuffer+Copy.swift in Sources */,
 				EA743F6B295C2E2E00C488C4 /* AppContainer.swift in Sources */,
 				EA743F9D295C397700C488C4 /* LogType.swift in Sources */,
 				EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
 				EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */,
-				EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
 				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
@@ -641,6 +672,7 @@
 				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
 				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,
+				EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

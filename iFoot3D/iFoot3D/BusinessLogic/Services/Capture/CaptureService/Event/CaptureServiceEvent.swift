@@ -5,8 +5,9 @@
 //  Created by Illia Khrypunov on 03.01.2023.
 //
 
-import Foundation
+import UIKit
 
 enum CaptureServiceEvent {
     case capturePositions(positions: [CapturePosition])
+    case captureOutput(output: CaptureOutput)
 }

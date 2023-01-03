@@ -28,6 +28,7 @@ final class CaptureViewModel: BaseViewModel {
         self.arSessionManager = arSessionManager
         self.captureService = captureService
         super.init()
+        setupBindings()
     }
     
     // MARK: - Public
@@ -37,6 +38,10 @@ final class CaptureViewModel: BaseViewModel {
     
     func selectFootPosition(position: SCNVector3) {
         captureService.generateCapturePositions(with: position)
+    }
+    
+    func processOutput(output: CaptureOutput) {
+        
     }
 }
 

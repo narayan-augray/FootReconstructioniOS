@@ -20,11 +20,7 @@ protocol CaptureService {
 final class CaptureServiceImpl: CaptureService {
     // MARK: - Properties
     private var footPosition: SCNVector3!
-    private var capturePositions: [CapturePosition] = [] {
-        didSet {
-            eventSubject.send(.capturePositions(positions: capturePositions))
-        }
-    }
+    private var capturePositions: [CapturePosition] = []
     
     // MARK: - Publishers
     private(set) lazy var eventPublisher = eventSubject.eraseToAnyPublisher()
@@ -59,6 +55,7 @@ extension CaptureServiceImpl {
         }
         
         capturePositions = result
+        eventSubject.send(.capturePositions(positions: result))
     }
 }
 
@@ -66,8 +63,34 @@ extension CaptureServiceImpl {
 extension CaptureServiceImpl {
     func handleNewFrame(frame: ARFrame) {
         guard
-        print(frame.camera.transform)
-        #warning("to do")
+            let index = currentCaptureTransform(camera: frame.camera),
+            let depthPixelBuffer = frame.sceneDepth?.depthMap.copy()
+        else {
+            return
+        }
+        let output = CaptureOutput(depthPixelBuffer: depthPixelBuffer,
+                                   intrinsics: frame.camera.intrinsics,
+                                   transform: frame.camera.transform,
+                                   capturePositionId: capturePositions[index].id)
+        eventSubject.send(.captureOutput(output: output))
+        capturePositions.remove(at: index)
+    }
+}
+
+// MARK: - Helpers
+private extension CaptureServiceImpl {
+    func currentCaptureTransform(camera: ARCamera) -> Int? {
+        let cameraPosition = camera.transform.position
+        
+        for index in 0..<capturePositions.count {
+            let position = capturePositions[index]
+            if abs(position.position.x - cameraPosition.x) <= Constant.positionThreshold,
+               abs(position.position.y - cameraPosition.y) <= Constant.positionThreshold,
+               abs(position.position.z - cameraPosition.z) <= Constant.positionThreshold {
+                return index
+            }
+        }
+        return nil
     }
 }
 
@@ -78,4 +101,6 @@ private struct Constant {
     static let radius: Float = 0.3
     static let yDistance: Float = 0.5
     static let xRotation: Float = .pi / 6
+    
+    static let positionThreshold: Float = 0.05
 }
