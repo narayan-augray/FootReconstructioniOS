@@ -14,22 +14,19 @@ enum CaptureViewModelEvent {
 }
 
 final class CaptureViewModel: BaseViewModel {
-    // MARK: - Properties
-    private var footPosition: SCNVector3?
-    
-    // MARK: - Published
-    @Published private(set) var captureConfigurations: [CaptureConfigurations] = []
-    
     // MARK: - Services
     let arSessionManager: ARSessionManager
+    let captureService: CaptureService
     
     // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<CaptureTransition, Never>()
     
     // MARK: - Init
-    init(arSessionManager: ARSessionManager) {
+    init(arSessionManager: ARSessionManager,
+         captureService: CaptureService) {
         self.arSessionManager = arSessionManager
+        self.captureService = captureService
         super.init()
     }
     
@@ -39,45 +36,23 @@ final class CaptureViewModel: BaseViewModel {
     }
     
     func selectFootPosition(position: SCNVector3) {
-        footPosition = position
-        captureConfigurations = generateCapturePositions()
+        captureService.generateCapturePositions(with: position)
     }
 }
 
 // MARK: - Private
 private extension CaptureViewModel {
-    func generateCapturePositions() -> [CaptureConfigurations] {
-        guard let footPosition = footPosition else {
-            return []
-        }
-        
-        let numberOfPoints: Float = 8.0
-        let radius: Float = 0.3
-        let yDistance: Float = 0.5
-        let circle = 2 * Float.pi
-        
-        var result: [CaptureConfigurations] = []
-        
-        for angle in stride(from: 0.0, to: circle, by: circle / numberOfPoints) {
-            let x = footPosition.x + radius * cos(angle)
-            let z = footPosition.z + radius * sin(angle)
-            
-            var yRotation = angle
-            if angle == 3 * .pi / 2 {
-                yRotation = 0
-            } else if angle.truncatingRemainder(dividingBy: .pi / 2) == 0 {
-                yRotation -= .pi / 2
+    func setupBindings() {
+        arSessionManager.eventPublisher
+            .sink { [unowned self] (event) in
+                switch event {
+                case .newFrame(let frame):
+                    captureService.handleNewFrame(frame: frame)
+                    
+                default:
+                    break
+                }
             }
-            
-            var xRotation = Float.pi / 6
-            if angle == 5 * .pi / 4 || angle == .pi / 4 || angle == .pi / 2 {
-                xRotation *= -1
-            }
-            
-            result.append(.init(position: .init(x: x, y: footPosition.y + yDistance, z: z),
-                                rotation: .init(xRotation, yRotation, 0)))
-        }
-        
-        return result
+            .store(in: &cancellables)
     }
 }

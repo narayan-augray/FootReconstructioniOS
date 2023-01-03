@@ -52,7 +52,7 @@ private extension ARSessionManagerImpl {
 // MARK: - ARSessionDelegate
 extension ARSessionManagerImpl {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        #warning("to do")
+        eventSubject.send(.newFrame(frame: frame))
     }
 }
 

@@ -14,7 +14,8 @@ enum CaptureTransition: Transition {
 
 final class CaptureModuleBuilder {
     class func build(container: AppContainer) -> Module<CaptureTransition, UIViewController> {
-        let viewModel = CaptureViewModel(arSessionManager: container.arSessionManager)
+        let viewModel = CaptureViewModel(arSessionManager: container.arSessionManager,
+                                         captureService: container.captureService)
         let viewController = CaptureViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

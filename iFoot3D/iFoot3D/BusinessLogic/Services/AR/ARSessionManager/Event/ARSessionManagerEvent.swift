@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import SceneKit
+import ARKit
 
 enum ARSessionManagerEvent {
     case coachingDeactivated
+    case newFrame(frame: ARFrame)
 }

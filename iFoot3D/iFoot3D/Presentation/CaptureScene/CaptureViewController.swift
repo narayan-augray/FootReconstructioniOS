@@ -54,9 +54,13 @@ private extension CaptureViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$captureConfigurations
-            .sink { [unowned self] (configurations) in
-                contentView.createPhoneNodes(configurations: configurations)
+        viewModel.captureService.eventPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] (event) in
+                switch event {
+                case .capturePositions(let positions):
+                    contentView.createPhoneNodes(positions: positions)
+                }
             }
             .store(in: &cancellables)
         
@@ -66,6 +70,9 @@ private extension CaptureViewController {
                 switch event {
                 case .coachingDeactivated:
                     contentView.setState(state: .selectPosition)
+                
+                default:
+                    break
                 }
             }
             .store(in: &cancellables)

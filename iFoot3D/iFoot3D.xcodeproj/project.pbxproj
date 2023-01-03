@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EA6C9BE2295EBDD4009B6755 /* CaptureConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */; };
+		EA6C9BE2295EBDD4009B6755 /* CapturePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */; };
 		EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F39295C147A00C488C4 /* AppDelegate.swift */; };
 		EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F3B295C147A00C488C4 /* SceneDelegate.swift */; };
 		EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA743F42295C147C00C488C4 /* Assets.xcassets */; };
@@ -41,6 +41,8 @@
 		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
 		EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */; };
 		EA7512DC295CCA65006EE033 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512DB295CCA65006EE033 /* Colors.swift */; };
+		EAE43DAD296401F900405533 /* CaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAC296401F900405533 /* CaptureService.swift */; };
+		EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */; };
 		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
 		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
 		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
@@ -50,7 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureConfigurations.swift; sourceTree = "<group>"; };
+		EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePosition.swift; sourceTree = "<group>"; };
 		EA743F36295C147A00C488C4 /* iFoot3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFoot3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA743F39295C147A00C488C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA743F3B295C147A00C488C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +86,8 @@
 		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
 		EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureActionView.swift; sourceTree = "<group>"; };
 		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		EAE43DAC296401F900405533 /* CaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureService.swift; sourceTree = "<group>"; };
+		EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureServiceEvent.swift; sourceTree = "<group>"; };
 		EAF2434C295D9178000855C3 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		EAF2434E295D92DA000855C3 /* FootNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootNode.swift; sourceTree = "<group>"; };
 		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
@@ -132,7 +136,7 @@
 		EA6C9BE0295EBDC8009B6755 /* AR */ = {
 			isa = PBXGroup;
 			children = (
-				EA6C9BE1295EBDD4009B6755 /* CaptureConfigurations.swift */,
+				EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -376,7 +380,7 @@
 		EA743F96295C390E00C488C4 /* Log */ = {
 			isa = PBXGroup;
 			children = (
-				EA743F97295C391A00C488C4 /* LogService.swift */,
+				EAE43DAA296401CA00405533 /* LogService */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -449,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				EA7512D1295CB6D1006EE033 /* ARSessionManager */,
+				EAE43DAB296401E200405533 /* CaptureService */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -459,6 +464,31 @@
 				EA7512DB295CCA65006EE033 /* Colors.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		EAE43DAA296401CA00405533 /* LogService */ = {
+			isa = PBXGroup;
+			children = (
+				EA743F97295C391A00C488C4 /* LogService.swift */,
+			);
+			path = LogService;
+			sourceTree = "<group>";
+		};
+		EAE43DAB296401E200405533 /* CaptureService */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DAE2964023200405533 /* Event */,
+				EAE43DAC296401F900405533 /* CaptureService.swift */,
+			);
+			path = CaptureService;
+			sourceTree = "<group>";
+		};
+		EAE43DAE2964023200405533 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 		EAF2434A295D879A000855C3 /* Nodes */ = {
@@ -593,13 +623,15 @@
 				EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
+				EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */,
 				EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
 				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
+				EAE43DAD296401F900405533 /* CaptureService.swift in Sources */,
 				EA743F70295C2EB300C488C4 /* Coordinator.swift in Sources */,
-				EA6C9BE2295EBDD4009B6755 /* CaptureConfigurations.swift in Sources */,
+				EA6C9BE2295EBDD4009B6755 /* CapturePosition.swift in Sources */,
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
 				EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,

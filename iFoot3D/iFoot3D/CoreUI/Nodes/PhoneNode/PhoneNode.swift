@@ -10,9 +10,9 @@ import SceneKit
 
 final class PhoneNode: SCNNode {
     // MARK: - Init
-    init(configuration: CaptureConfigurations) {
+    init(position: CapturePosition) {
         super.init()
-        commonInit(configuration: configuration)
+        commonInit(position: position)
     }
     
     required init?(coder: NSCoder) {
@@ -22,7 +22,7 @@ final class PhoneNode: SCNNode {
 
 // MARK: - Private
 private extension PhoneNode {
-    func commonInit(configuration: CaptureConfigurations) {
+    func commonInit(position: CapturePosition) {
         let geometry = SCNBox(width: Constant.width,
                               height: Constant.height,
                               length: Constant.length,
@@ -32,8 +32,8 @@ private extension PhoneNode {
         
         let node = SCNNode(geometry: geometry)
         node.opacity = Constant.opacity
-        node.position = configuration.position
-        node.eulerAngles = configuration.rotation
+        node.position = position.position
+        node.eulerAngles = position.rotation
         
         addChildNode(node)
     }
