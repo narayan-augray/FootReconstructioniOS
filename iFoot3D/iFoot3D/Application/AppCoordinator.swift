@@ -48,9 +48,25 @@ private extension AppCoordinator {
         let module = CaptureModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] (transition) in
-                
+                switch transition {
+                case .success(let outputs):
+                    success(outputs: outputs)
+                }
             }
             .store(in: &cancellables)
-        push(module.viewController, animated: false)
+        setRoot(module.viewController, animated: true)
+    }
+    
+    func success(outputs: [CaptureProcessedOutput]) {
+        let module = SuccessModuleBuilder.build(container: container, outputs: outputs)
+        module.transitionPublisher
+            .sink { [unowned self] (transition) in
+                switch transition {
+                case .back:
+                    capture()
+                }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController, animated: true)
     }
 }

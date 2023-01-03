@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 final class CaptureViewController: BaseViewController<CaptureViewModel> {
     // MARK: - Properties
@@ -44,10 +45,7 @@ private extension CaptureViewController {
                 switch action {
                 case .selectPossition(let position):
                     viewModel.selectFootPosition(position: position)
-                
-                case .capture:
-                    #warning("to do")
-                    
+                   
                 case .error(let message):
                     viewModel.handleError(messsage: message)
                 }
@@ -60,6 +58,14 @@ private extension CaptureViewController {
                 switch event {
                 case .capturePositions(let positions):
                     contentView.createPhoneNodes(positions: positions)
+                    
+                case .captureOutput(let output):
+                    playSound()
+                    generateHapticFeedback()
+                
+                    contentView.highlightPhoneNode(id: output.capturePositionId)
+                    
+                    viewModel.processOutput(output: output)
                 }
             }
             .store(in: &cancellables)
@@ -83,5 +89,17 @@ private extension CaptureViewController {
                 contentView.updateFootNodePosition(position: position)
             }
             .store(in: &cancellables)
+    }
+}
+
+// MARK: - Helpers
+private extension CaptureViewController {
+    func generateHapticFeedback() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+    }
+    
+    func playSound() {
+        AudioServicesPlaySystemSound(1108)
     }
 }

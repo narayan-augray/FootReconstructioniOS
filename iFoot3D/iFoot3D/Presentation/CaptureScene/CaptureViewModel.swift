@@ -17,6 +17,7 @@ final class CaptureViewModel: BaseViewModel {
     // MARK: - Services
     let arSessionManager: ARSessionManager
     let captureService: CaptureService
+    let captureOutputManager: CaptureOutputManager
     
     // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -24,10 +25,13 @@ final class CaptureViewModel: BaseViewModel {
     
     // MARK: - Init
     init(arSessionManager: ARSessionManager,
-         captureService: CaptureService) {
+         captureService: CaptureService,
+         captureOutputManager: CaptureOutputManager) {
         self.arSessionManager = arSessionManager
         self.captureService = captureService
+        self.captureOutputManager = captureOutputManager
         super.init()
+        setupBindings()
     }
     
     // MARK: - Public
@@ -37,6 +41,15 @@ final class CaptureViewModel: BaseViewModel {
     
     func selectFootPosition(position: SCNVector3) {
         captureService.generateCapturePositions(with: position)
+    }
+    
+    func processOutput(output: CaptureOutput) {
+        captureOutputManager.processOutput(output: output)
+        
+        if captureOutputManager.getCaputredFrames() == CaptureConstants.requiredImagesCount {
+            isLoadingSubject.send(true)
+            captureOutputManager.finishProcessing()
+        }
     }
 }
 
@@ -51,6 +64,16 @@ private extension CaptureViewModel {
                     
                 default:
                     break
+                }
+            }
+            .store(in: &cancellables)
+        
+        captureOutputManager.eventPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] (event) in
+                switch event {
+                case .processedOutputs(let outputs):
+                    transitionSubject.send(.success(outputs: outputs))
                 }
             }
             .store(in: &cancellables)

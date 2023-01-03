@@ -9,14 +9,25 @@ import Foundation
 import SceneKit
 
 final class PhoneNode: SCNNode {
+    // MARK: - Properties
+    let id: String
+    
     // MARK: - Init
     init(position: CapturePosition) {
+        self.id = position.id
         super.init()
         commonInit(position: position)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public
+    func updateColor(color: UIColor) {
+        childNodes.forEach {
+            $0.geometry?.firstMaterial?.diffuse.contents = color
+        }
     }
 }
 
@@ -45,6 +56,6 @@ private struct Constant {
     static let height: CGFloat = 0.15
     static let length: CGFloat = 0.01
     static let chamferRadius: CGFloat = 0.01
-    static let opacity: CGFloat = 0.7
+    static let opacity: CGFloat = 0.5
 }
 

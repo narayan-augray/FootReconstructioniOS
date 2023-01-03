@@ -39,10 +39,31 @@
 		EA7512D0295C6397006EE033 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = EA7512CF295C6397006EE033 /* Toast */; };
 		EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */; };
 		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
-		EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */; };
 		EA7512DC295CCA65006EE033 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512DB295CCA65006EE033 /* Colors.swift */; };
 		EAE43DAD296401F900405533 /* CaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAC296401F900405533 /* CaptureService.swift */; };
 		EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */; };
+		EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */; };
+		EAE43DB62964394C00405533 /* CVPixelBuffer+Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DB52964394C00405533 /* CVPixelBuffer+Copy.swift */; };
+		EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DB929643ACB00405533 /* CaptureOutput.swift */; };
+		EAE43DBE29643E4100405533 /* CaptureOutputManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DBD29643E4100405533 /* CaptureOutputManagerEvent.swift */; };
+		EAE43DC029643E5100405533 /* CaptureOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DBF29643E5100405533 /* CaptureOutputManager.swift */; };
+		EAE43DC229643F7200405533 /* CaptureOutputSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC129643F7200405533 /* CaptureOutputSettings.swift */; };
+		EAE43DC42964416600405533 /* CaptureOutputValuesFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC32964416600405533 /* CaptureOutputValuesFormat.swift */; };
+		EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC6296441CA00405533 /* FileManager+FilePath.swift */; };
+		EAE43DC92964423000405533 /* String+InitFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC82964423000405533 /* String+InitFromArray.swift */; };
+		EAE43DCC2964424F00405533 /* OutputConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DCB2964424F00405533 /* OutputConstants.swift */; };
+		EAE43DCE2964429800405533 /* Matrix+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DCD2964429800405533 /* Matrix+ToString.swift */; };
+		EAE43DD02964439100405533 /* UIImage+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DCF2964439100405533 /* UIImage+Init.swift */; };
+		EAE43DD2296443C600405533 /* CaptureProcessedOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD1296443C600405533 /* CaptureProcessedOutput.swift */; };
+		EAE43DD42964455C00405533 /* CaptureConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD32964455C00405533 /* CaptureConstants.swift */; };
+		EAE43DDA29644A4000405533 /* SuccessModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD629644A4000405533 /* SuccessModuleBuilder.swift */; };
+		EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD729644A4000405533 /* SuccessViewController.swift */; };
+		EAE43DDC29644A4000405533 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD829644A4000405533 /* SuccessView.swift */; };
+		EAE43DDD29644A4000405533 /* SuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD929644A4000405533 /* SuccessViewModel.swift */; };
+		EAE43DE029644D1F00405533 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = EAE43DDF29644D1F00405533 /* Zip */; };
+		EAE43DE329644D6200405533 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE229644D6200405533 /* ActivityViewController.swift */; };
+		EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE429644DA900405533 /* UIDevice+Model.swift */; };
+		EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */; };
 		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
 		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
 		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
@@ -84,10 +105,30 @@
 		EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewModel.swift; sourceTree = "<group>"; };
 		EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
-		EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureActionView.swift; sourceTree = "<group>"; };
 		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		EAE43DAC296401F900405533 /* CaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureService.swift; sourceTree = "<group>"; };
 		EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureServiceEvent.swift; sourceTree = "<group>"; };
+		EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd_float4x4+Position.swift"; sourceTree = "<group>"; };
+		EAE43DB52964394C00405533 /* CVPixelBuffer+Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Copy.swift"; sourceTree = "<group>"; };
+		EAE43DB929643ACB00405533 /* CaptureOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutput.swift; sourceTree = "<group>"; };
+		EAE43DBD29643E4100405533 /* CaptureOutputManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputManagerEvent.swift; sourceTree = "<group>"; };
+		EAE43DBF29643E5100405533 /* CaptureOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputManager.swift; sourceTree = "<group>"; };
+		EAE43DC129643F7200405533 /* CaptureOutputSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputSettings.swift; sourceTree = "<group>"; };
+		EAE43DC32964416600405533 /* CaptureOutputValuesFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputValuesFormat.swift; sourceTree = "<group>"; };
+		EAE43DC6296441CA00405533 /* FileManager+FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+FilePath.swift"; sourceTree = "<group>"; };
+		EAE43DC82964423000405533 /* String+InitFromArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+InitFromArray.swift"; sourceTree = "<group>"; };
+		EAE43DCB2964424F00405533 /* OutputConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputConstants.swift; sourceTree = "<group>"; };
+		EAE43DCD2964429800405533 /* Matrix+ToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+ToString.swift"; sourceTree = "<group>"; };
+		EAE43DCF2964439100405533 /* UIImage+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Init.swift"; sourceTree = "<group>"; };
+		EAE43DD1296443C600405533 /* CaptureProcessedOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureProcessedOutput.swift; sourceTree = "<group>"; };
+		EAE43DD32964455C00405533 /* CaptureConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureConstants.swift; sourceTree = "<group>"; };
+		EAE43DD629644A4000405533 /* SuccessModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessModuleBuilder.swift; sourceTree = "<group>"; };
+		EAE43DD729644A4000405533 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		EAE43DD829644A4000405533 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
+		EAE43DD929644A4000405533 /* SuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewModel.swift; sourceTree = "<group>"; };
+		EAE43DE229644D6200405533 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		EAE43DE429644DA900405533 /* UIDevice+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Model.swift"; sourceTree = "<group>"; };
+		EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutputArray+GetFiles.swift"; sourceTree = "<group>"; };
 		EAF2434C295D9178000855C3 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		EAF2434E295D92DA000855C3 /* FootNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootNode.swift; sourceTree = "<group>"; };
 		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
@@ -101,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE43DE029644D1F00405533 /* Zip in Frameworks */,
 				EA7512D0295C6397006EE033 /* Toast in Frameworks */,
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 			);
@@ -123,14 +165,6 @@
 				EAF24358295DD435000855C3 /* PhoneNode.swift */,
 			);
 			path = PhoneNode;
-			sourceTree = "<group>";
-		};
-		EA6C9BDD295EBCAE009B6755 /* CaptureActionView */ = {
-			isa = PBXGroup;
-			children = (
-				EA7512D8295CCA2C006EE033 /* CaptureActionView.swift */,
-			);
-			path = CaptureActionView;
 			sourceTree = "<group>";
 		};
 		EA6C9BE0295EBDC8009B6755 /* AR */ = {
@@ -222,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				EA7512BE295C5A84006EE033 /* CaptureScene */,
+				EAE43DD529644A3300405533 /* SuccessScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -266,6 +301,7 @@
 		EA743F6C295C2E9300C488C4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				EAE43DCA2964424000405533 /* Constants */,
 				EA743F71295C2F6F00C488C4 /* Extensions */,
 				EA743F6D295C2E9B00C488C4 /* Protocols */,
 			);
@@ -291,6 +327,10 @@
 		EA743F71295C2F6F00C488C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EAE43DB12964080600405533 /* ARKit */,
+				EAE43DE629644E0300405533 /* Custom */,
+				EAE43DB42964393F00405533 /* UIKit */,
+				EAE43DC5296441BD00405533 /* Foundation */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -372,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				EA7512D7295CC9B3006EE033 /* AR */,
+				EAE43DB729643AA400405533 /* Capture */,
 				EA743F96295C390E00C488C4 /* Log */,
 			);
 			path = Services;
@@ -389,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				EA6C9BE0295EBDC8009B6755 /* AR */,
+				EAE43DB829643AB100405533 /* Capture */,
 				EA743F9B295C397000C488C4 /* Log */,
 			);
 			path = Models;
@@ -426,7 +468,7 @@
 		EA7512C7295C5E06006EE033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EA6C9BDD295EBCAE009B6755 /* CaptureActionView */,
+				EAE43DE129644D5D00405533 /* ActivityViewController */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -453,7 +495,6 @@
 			isa = PBXGroup;
 			children = (
 				EA7512D1295CB6D1006EE033 /* ARSessionManager */,
-				EAE43DAB296401E200405533 /* CaptureService */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -489,6 +530,107 @@
 				EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		EAE43DB12964080600405533 /* ARKit */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */,
+				EAE43DCD2964429800405533 /* Matrix+ToString.swift */,
+			);
+			path = ARKit;
+			sourceTree = "<group>";
+		};
+		EAE43DB42964393F00405533 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DB52964394C00405533 /* CVPixelBuffer+Copy.swift */,
+				EAE43DE429644DA900405533 /* UIDevice+Model.swift */,
+				EAE43DCF2964439100405533 /* UIImage+Init.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		EAE43DB729643AA400405533 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DBB29643DB400405533 /* CaptureOutputManager */,
+				EAE43DAB296401E200405533 /* CaptureService */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		EAE43DB829643AB100405533 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DB929643ACB00405533 /* CaptureOutput.swift */,
+				EAE43DC129643F7200405533 /* CaptureOutputSettings.swift */,
+				EAE43DD1296443C600405533 /* CaptureProcessedOutput.swift */,
+				EAE43DC32964416600405533 /* CaptureOutputValuesFormat.swift */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		EAE43DBB29643DB400405533 /* CaptureOutputManager */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DBC29643E0700405533 /* Event */,
+				EAE43DBF29643E5100405533 /* CaptureOutputManager.swift */,
+			);
+			path = CaptureOutputManager;
+			sourceTree = "<group>";
+		};
+		EAE43DBC29643E0700405533 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DBD29643E4100405533 /* CaptureOutputManagerEvent.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		EAE43DC5296441BD00405533 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DC6296441CA00405533 /* FileManager+FilePath.swift */,
+				EAE43DC82964423000405533 /* String+InitFromArray.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		EAE43DCA2964424000405533 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DCB2964424F00405533 /* OutputConstants.swift */,
+				EAE43DD32964455C00405533 /* CaptureConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		EAE43DD529644A3300405533 /* SuccessScene */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DD829644A4000405533 /* SuccessView.swift */,
+				EAE43DD729644A4000405533 /* SuccessViewController.swift */,
+				EAE43DD929644A4000405533 /* SuccessViewModel.swift */,
+				EAE43DD629644A4000405533 /* SuccessModuleBuilder.swift */,
+			);
+			path = SuccessScene;
+			sourceTree = "<group>";
+		};
+		EAE43DE129644D5D00405533 /* ActivityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DE229644D6200405533 /* ActivityViewController.swift */,
+			);
+			path = ActivityViewController;
+			sourceTree = "<group>";
+		};
+		EAE43DE629644E0300405533 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		EAF2434A295D879A000855C3 /* Nodes */ = {
@@ -544,6 +686,7 @@
 			packageProductDependencies = (
 				EA743F54295C17C800C488C4 /* CombineCocoa */,
 				EA7512CF295C6397006EE033 /* Toast */,
+				EAE43DDF29644D1F00405533 /* Zip */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -576,6 +719,7 @@
 			packageReferences = (
 				EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -608,25 +752,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */,
 				EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */,
+				EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */,
 				EA7512DC295CCA65006EE033 /* Colors.swift in Sources */,
+				EAE43DE329644D6200405533 /* ActivityViewController.swift in Sources */,
 				EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */,
 				EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
+				EAE43DC029643E5100405533 /* CaptureOutputManager.swift in Sources */,
 				EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */,
+				EAE43DD42964455C00405533 /* CaptureConstants.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
+				EAE43DB62964394C00405533 /* CVPixelBuffer+Copy.swift in Sources */,
 				EA743F6B295C2E2E00C488C4 /* AppContainer.swift in Sources */,
 				EA743F9D295C397700C488C4 /* LogType.swift in Sources */,
 				EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */,
+				EAE43DC92964423000405533 /* String+InitFromArray.swift in Sources */,
+				EAE43DDA29644A4000405533 /* SuccessModuleBuilder.swift in Sources */,
+				EAE43DDC29644A4000405533 /* SuccessView.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
+				EAE43DBE29643E4100405533 /* CaptureOutputManagerEvent.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
+				EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */,
+				EAE43DD02964439100405533 /* UIImage+Init.swift in Sources */,
 				EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */,
-				EA7512D9295CCA2C006EE033 /* CaptureActionView.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
 				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
+				EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */,
+				EAE43DDD29644A4000405533 /* SuccessViewModel.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
 				EAE43DAD296401F900405533 /* CaptureService.swift in Sources */,
@@ -635,12 +792,19 @@
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
 				EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
+				EAE43DC229643F7200405533 /* CaptureOutputSettings.swift in Sources */,
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,
 				EAF2434D295D9178000855C3 /* Images.swift in Sources */,
 				EA743F8C295C33AC00C488C4 /* BaseView.swift in Sources */,
+				EAE43DD2296443C600405533 /* CaptureProcessedOutput.swift in Sources */,
 				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
 				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
+				EAE43DCC2964424F00405533 /* OutputConstants.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,
+				EAE43DC42964416600405533 /* CaptureOutputValuesFormat.swift in Sources */,
+				EAE43DCE2964429800405533 /* Matrix+ToString.swift in Sources */,
+				EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */,
+				EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +1042,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -890,6 +1062,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		EAE43DDF29644D1F00405533 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
