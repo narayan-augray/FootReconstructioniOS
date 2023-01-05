@@ -85,12 +85,14 @@ extension CaptureServiceImpl {
 private extension CaptureServiceImpl {
     func currentCaptureTransform(camera: ARCamera) -> Int? {
         let cameraPosition = camera.transform.position
+        let cameraRotation = camera.eulerAngles
         
         for index in 0..<capturePositions.count {
             let position = capturePositions[index]
             if abs(position.position.x - cameraPosition.x) <= Constant.positionThreshold,
                abs(position.position.y - cameraPosition.y) <= Constant.positionThreshold,
-               abs(position.position.z - cameraPosition.z) <= Constant.positionThreshold {
+               abs(position.position.z - cameraPosition.z) <= Constant.positionThreshold,
+               abs(abs(position.rotation.x) - abs(cameraRotation.x)) <= Constant.rotationThreshold {
                 return index
             }
         }
@@ -106,4 +108,5 @@ private struct Constant {
     static let xRotation: Float = .pi / 6
     
     static let positionThreshold: Float = 0.05
+    static let rotationThreshold: Float = 0.02
 }
