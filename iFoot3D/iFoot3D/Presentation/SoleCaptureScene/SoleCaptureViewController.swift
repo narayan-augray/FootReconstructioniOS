@@ -1,5 +1,5 @@
 //
-//  VoiceCaptureViewController.swift
+//  SoleCaptureViewController.swift
 //  iFoot3D
 //
 //  Created by Illia Khrypunov on 05.01.2023.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-final class VoiceCaptureViewController: BaseViewController<VoiceCaptureViewModel> {
+final class SoleCaptureViewController: BaseViewController<SoleCaptureViewModel> {
     // MARK: - Views
-    private let contentView = VoiceCaptureView()
+    private let contentView = SoleCaptureView()
     
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
@@ -23,7 +23,7 @@ final class VoiceCaptureViewController: BaseViewController<VoiceCaptureViewModel
 }
 
 // MARK: - Private
-private extension VoiceCaptureViewController {
+private extension SoleCaptureViewController {
     func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in

@@ -1,5 +1,5 @@
 //
-//  VoiceCaptureView.swift
+//  SoleSoleCaptureView.swift
 //  iFoot3D
 //
 //  Created by Illia Khrypunov on 05.01.2023.
@@ -9,17 +9,17 @@ import UIKit
 import ARKit
 import Combine
 
-enum VoiceCaptureViewAction {
+enum SoleCaptureViewAction {
 
 }
 
-final class VoiceCaptureView: BaseView {
+final class SoleCaptureView: BaseView {
     // MARK: - Subviews
     private let sceneView = ARSCNView()
     
     // MARK: - Actions
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<VoiceCaptureViewAction, Never>()
+    private let actionSubject = PassthroughSubject<SoleCaptureViewAction, Never>()
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -33,7 +33,7 @@ final class VoiceCaptureView: BaseView {
 }
 
 // MARK: - Private
-private extension VoiceCaptureView {
+private extension SoleCaptureView {
     func initialSetup() {
         setupLayout()
         setupUI()

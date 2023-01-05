@@ -1,5 +1,5 @@
 //
-//  VoiceCaptureViewModel.swift
+//  SoleCaptureViewModel.swift
 //  iFoot3D
 //
 //  Created by Illia Khrypunov on 05.01.2023.
@@ -7,7 +7,7 @@
 
 import Combine
 
-final class VoiceCaptureViewModel: BaseViewModel {
+final class SoleCaptureViewModel: BaseViewModel {
     // MARK: - Properties
     private let outputs: [CaptureProcessedOutput]
     
@@ -16,7 +16,7 @@ final class VoiceCaptureViewModel: BaseViewModel {
     
     // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
-    private let transitionSubject = PassthroughSubject<VoiceCaptureTransition, Never>()
+    private let transitionSubject = PassthroughSubject<SoleCaptureTransition, Never>()
     
     // MARK: - Init
     init(outputs: [CaptureProcessedOutput],

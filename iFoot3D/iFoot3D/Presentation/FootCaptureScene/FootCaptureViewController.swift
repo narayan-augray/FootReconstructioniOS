@@ -1,5 +1,5 @@
 //
-//  CaptureViewController.swift
+//  FootCaptureViewController.swift
 //  iFoot3D
 //
 //  Created by Illia Khrypunov on 28.12.2022.
@@ -8,12 +8,12 @@
 import UIKit
 import AVFoundation
 
-final class CaptureViewController: BaseViewController<CaptureViewModel> {
+final class FootCaptureViewController: BaseViewController<FootCaptureViewModel> {
     // MARK: - Properties
     private var isCapturing: Bool = false
     
     // MARK: - Views
-    private let contentView = CaptureView()
+    private let contentView = FootCaptureView()
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -33,7 +33,7 @@ final class CaptureViewController: BaseViewController<CaptureViewModel> {
 }
 
 // MARK: - Private
-private extension CaptureViewController {
+private extension FootCaptureViewController {
     func setupARSessionManager() {
         viewModel.arSessionManager.setSceneView(view: contentView.getSceneView())
         contentView.setupSessionDelegate(delegate: viewModel.arSessionManager)
@@ -93,7 +93,7 @@ private extension CaptureViewController {
 }
 
 // MARK: - Helpers
-private extension CaptureViewController {
+private extension FootCaptureViewController {
     func generateHapticFeedback() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()

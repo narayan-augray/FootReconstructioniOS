@@ -1,5 +1,5 @@
 //
-//  CaptureView.swift
+//  FootCaptureView.swift
 //  iFoot3D
 //
 //  Created by Illia Khrypunov on 28.12.2022.
@@ -10,12 +10,12 @@ import ARKit
 import Combine
 import CombineCocoa
 
-enum CaptureViewAction {
+enum FootCaptureViewAction {
     case selectPossition(position: SCNVector3)
     case error(message: String)
 }
 
-final class CaptureView: BaseView {
+final class FootCaptureView: BaseView {
     // MARK: - State
     enum State {
         case initializing
@@ -40,7 +40,7 @@ final class CaptureView: BaseView {
     
     // MARK: - Actions
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<CaptureViewAction, Never>()
+    private let actionSubject = PassthroughSubject<FootCaptureViewAction, Never>()
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -54,14 +54,14 @@ final class CaptureView: BaseView {
 }
 
 // MARK: - State
-extension CaptureView {
+extension FootCaptureView {
     func setState(state: State) {
         currentState = state
     }
 }
 
 // MARK: - Setup
-extension CaptureView {
+extension FootCaptureView {
     func setupSessionDelegate(delegate: ARSessionCombinedDelegate) {
         sceneView.delegate = delegate
         coachingOverlay.delegate = delegate
@@ -100,7 +100,7 @@ extension CaptureView {
 }
 
 // MARK: - Foot Node
-extension CaptureView {
+extension FootCaptureView {
     func updateFootNodePosition(position: SCNVector3?) {
         guard let position = position else { return }
         let moveAction = SCNAction.move(to: position, duration: 0.1)
@@ -112,7 +112,7 @@ extension CaptureView {
 }
 
 // MARK: - Phone Node
-extension CaptureView {
+extension FootCaptureView {
     func createPhoneNodes(positions: [CapturePosition]) {
         for position in positions {
             let phoneNode = PhoneNode(position: position)
@@ -131,7 +131,7 @@ extension CaptureView {
 }
 
 // MARK: - Private
-private extension CaptureView {
+private extension FootCaptureView {
     func initialSetup() {
         setupLayout()
         setupUI()

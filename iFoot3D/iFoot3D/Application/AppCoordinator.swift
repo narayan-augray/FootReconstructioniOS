@@ -45,7 +45,7 @@ class AppCoordinator: Coordinator {
 // MARK: - Private
 private extension AppCoordinator {
     func capture() {
-        let module = CaptureModuleBuilder.build(container: container)
+        let module = FootCaptureModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] (transition) in
                 switch transition {
@@ -71,7 +71,7 @@ private extension AppCoordinator {
     }
     
     func voiceCapture(outputs: [CaptureProcessedOutput]) {
-        let module = VoiceCaptureModuleBuilder.build(container: container, outputs: outputs)
+        let module = SoleCaptureModuleBuilder.build(container: container, outputs: outputs)
         module.transitionPublisher
             .sink { (transition) in
                 
