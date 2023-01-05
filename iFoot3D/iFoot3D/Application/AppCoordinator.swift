@@ -38,7 +38,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        capture()
+        instructions(outputs: [])
     }
 }
 
@@ -52,6 +52,29 @@ private extension AppCoordinator {
                 case .success(let outputs):
                     success(outputs: outputs)
                 }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController, animated: true)
+    }
+    
+    func instructions(outputs: [CaptureProcessedOutput]) {
+        let module = InstructionsModuleBuilder.build(container: container, outputs: outputs)
+        module.transitionPublisher
+            .sink { [weak self] (transition) in
+                switch transition {
+                case .capture(let outputs):
+                    self?.voiceCapture(outputs: outputs)
+                }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController, animated: true)
+    }
+    
+    func voiceCapture(outputs: [CaptureProcessedOutput]) {
+        let module = VoiceCaptureModuleBuilder.build(container: container, outputs: outputs)
+        module.transitionPublisher
+            .sink { (transition) in
+                
             }
             .store(in: &cancellables)
         setRoot(module.viewController, animated: true)
