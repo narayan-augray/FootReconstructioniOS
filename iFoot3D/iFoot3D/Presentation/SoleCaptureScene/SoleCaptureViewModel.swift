@@ -13,6 +13,7 @@ final class SoleCaptureViewModel: BaseViewModel {
     
     // MARK: - Services
     let arSessionManager: ARSessionManager
+    let speechRecognier: SpeechRecognizer
     
     // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -20,9 +21,22 @@ final class SoleCaptureViewModel: BaseViewModel {
     
     // MARK: - Init
     init(outputs: [CaptureProcessedOutput],
-         arSessionManager: ARSessionManager) {
+         arSessionManager: ARSessionManager,
+         speechRecognier: SpeechRecognizer) {
         self.outputs = outputs
         self.arSessionManager = arSessionManager
+        self.speechRecognier = speechRecognier
         super.init()
+    }
+    
+    // MARK: - Lifecycle
+    override func onViewDidAppear() {
+        super.onViewDidAppear()
+        speechRecognier.startRecognition()
+    }
+    
+    override func onViewDidDisappear() {
+        super.onViewDidDisappear()
+        speechRecognier.stopRecognition()
     }
 }

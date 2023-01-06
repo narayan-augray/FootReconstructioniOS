@@ -152,7 +152,7 @@ extension CaptureOutputManagerImpl {
             try data.write(to: fileUrl)
             return fileUrl
         } catch {
-            debugPrint(error.localizedDescription)
+            log.error(error: error)
             return nil
         }
     }
@@ -164,7 +164,7 @@ extension CaptureOutputManagerImpl {
             try text.write(to: fileUrl, atomically: true, encoding: .utf8)
             return fileUrl
         } catch {
-            debugPrint(error.localizedDescription)
+            log.error(error: error)
             return nil
         }
     }
@@ -182,7 +182,7 @@ extension CaptureOutputManagerImpl {
             try data.write(to: fileUrl)
             return fileUrl
         } catch {
-            debugPrint(error.localizedDescription)
+            log.error(error: error)
             return nil
         }
     }

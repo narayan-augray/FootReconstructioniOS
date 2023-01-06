@@ -18,7 +18,8 @@ final class SoleCaptureModuleBuilder {
         outputs: [CaptureProcessedOutput]
     ) -> Module<SoleCaptureTransition, UIViewController> {
         let viewModel = SoleCaptureViewModel(outputs: outputs,
-                                             arSessionManager: container.arSessionManager)
+                                             arSessionManager: container.arSessionManager,
+                                             speechRecognier: container.speechRecognizer)
         let viewController = SoleCaptureViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

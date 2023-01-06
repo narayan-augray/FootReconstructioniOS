@@ -44,7 +44,7 @@ class AppCoordinator: Coordinator {
 
 // MARK: - Private
 private extension AppCoordinator {
-    func capture() {
+    func footCapture() {
         let module = FootCaptureModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] (transition) in
@@ -63,14 +63,14 @@ private extension AppCoordinator {
             .sink { [weak self] (transition) in
                 switch transition {
                 case .capture(let outputs):
-                    self?.voiceCapture(outputs: outputs)
+                    self?.soleCapture(outputs: outputs)
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController, animated: true)
     }
     
-    func voiceCapture(outputs: [CaptureProcessedOutput]) {
+    func soleCapture(outputs: [CaptureProcessedOutput]) {
         let module = SoleCaptureModuleBuilder.build(container: container, outputs: outputs)
         module.transitionPublisher
             .sink { (transition) in
@@ -86,7 +86,7 @@ private extension AppCoordinator {
             .sink { [unowned self] (transition) in
                 switch transition {
                 case .back:
-                    capture()
+                    footCapture()
                 }
             }
             .store(in: &cancellables)

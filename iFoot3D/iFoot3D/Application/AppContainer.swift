@@ -11,6 +11,7 @@ protocol AppContainer: AnyObject {
     var arSessionManager: ARSessionManager { get }
     var captureService: CaptureService { get }
     var captureOutputManager: CaptureOutputManager { get }
+    var speechRecognizer: SpeechRecognizer { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -18,6 +19,7 @@ final class AppContainerImpl: AppContainer {
     lazy var arSessionManager: ARSessionManager = setupARSessionManager()
     lazy var captureService: CaptureService = setupCaptureService()
     lazy var captureOutputManager: CaptureOutputManager = setupCaptureOutputManager()
+    lazy var speechRecognizer: SpeechRecognizer = setupSpeechRecognizer()
 }
 
 // MARK: - Setup
@@ -38,5 +40,9 @@ private extension AppContainerImpl {
             outputValuesFormat: .text
         )
         return CaptureOutputManagerImpl(outputSettings: outputSettings)
+    }
+    
+    func setupSpeechRecognizer() -> SpeechRecognizer {
+        return SpeechRecognizerImpl()
     }
 }
