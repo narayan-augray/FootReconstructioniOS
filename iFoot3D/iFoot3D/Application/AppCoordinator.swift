@@ -38,7 +38,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        instructions(outputs: [])
+        footCapture()
     }
 }
 
@@ -49,8 +49,8 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [unowned self] (transition) in
                 switch transition {
-                case .success(let outputs):
-                    success(outputs: outputs)
+                case .instructions(let outputs):
+                    instructions(outputs: outputs)
                 }
             }
             .store(in: &cancellables)
@@ -73,8 +73,11 @@ private extension AppCoordinator {
     func soleCapture(outputs: [CaptureProcessedOutput]) {
         let module = SoleCaptureModuleBuilder.build(container: container, outputs: outputs)
         module.transitionPublisher
-            .sink { (transition) in
-                
+            .sink { [weak self] (transition) in
+                switch transition {
+                case .success(let outputs):
+                    self?.success(outputs: outputs)
+                }
             }
             .store(in: &cancellables)
         setRoot(module.viewController, animated: true)

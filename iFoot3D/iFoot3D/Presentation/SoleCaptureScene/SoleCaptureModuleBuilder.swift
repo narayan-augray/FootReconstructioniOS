@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SoleCaptureTransition: Transition {
-    
+    case success(outputs: [CaptureProcessedOutput])
 }
 
 final class SoleCaptureModuleBuilder {
@@ -19,7 +19,9 @@ final class SoleCaptureModuleBuilder {
     ) -> Module<SoleCaptureTransition, UIViewController> {
         let viewModel = SoleCaptureViewModel(outputs: outputs,
                                              arSessionManager: container.arSessionManager,
-                                             speechRecognier: container.speechRecognizer)
+                                             speechRecognier: container.speechRecognizer,
+                                             captureService: container.captureService,
+                                             captureOutputManager: container.captureOutputManager)
         let viewController = SoleCaptureViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

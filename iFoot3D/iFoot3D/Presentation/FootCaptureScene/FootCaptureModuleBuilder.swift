@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum FootCaptureTransition: Transition {
-    case success(outputs: [CaptureProcessedOutput])
+    case instructions(outputs: [CaptureProcessedOutput])
 }
 
 final class FootCaptureModuleBuilder {

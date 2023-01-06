@@ -84,6 +84,7 @@ extension CaptureOutputManagerImpl {
     func finishProcessing() {
         operationQueue.addOperation { [weak self] in
             self?.eventSubject.send(.processedOutputs(outputs: self?.processedOutputs ?? []))
+            self?.processedOutputs.removeAll()
         }
     }
 }

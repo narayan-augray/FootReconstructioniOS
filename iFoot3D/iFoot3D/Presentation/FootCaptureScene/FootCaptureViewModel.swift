@@ -60,7 +60,7 @@ private extension FootCaptureViewModel {
             .sink { [unowned self] (event) in
                 switch event {
                 case .newFrame(let frame):
-                    captureService.handleNewFrame(frame: frame)
+                    captureService.handleNewFootFrame(frame: frame)
                     
                 default:
                     break
@@ -73,7 +73,7 @@ private extension FootCaptureViewModel {
             .sink { [unowned self] (event) in
                 switch event {
                 case .processedOutputs(let outputs):
-                    transitionSubject.send(.success(outputs: outputs))
+                    transitionSubject.send(.instructions(outputs: outputs))
                 }
             }
             .store(in: &cancellables)

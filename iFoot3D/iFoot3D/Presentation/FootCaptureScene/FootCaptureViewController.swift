@@ -59,11 +59,13 @@ private extension FootCaptureViewController {
                 case .capturePositions(let positions):
                     contentView.createPhoneNodes(positions: positions)
                     
-                case .captureOutput(let output):
+                case .captureOutput(let output, let capturePositionId):
                     playSound()
                     generateHapticFeedback()
                 
-                    contentView.highlightPhoneNode(id: output.capturePositionId)
+                    if let capturePositionId = capturePositionId {
+                        contentView.highlightPhoneNode(id: capturePositionId)
+                    }
                     
                     viewModel.processOutput(output: output)
                 }

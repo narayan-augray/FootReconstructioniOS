@@ -122,7 +122,6 @@ private extension SpeechRecognizerImpl {
             if let previousText = previousText {
                 outputText = textResult.replacingOccurrences(of: previousText, with: "")
             }
-            outputText = outputText.trimmingCharacters(in: .whitespaces)
             
             previousText = textResult
             
