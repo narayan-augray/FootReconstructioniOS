@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */; };
+		EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */; };
+		EA3D9D342967419C00331FEA /* SoleCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D302967419C00331FEA /* SoleCaptureView.swift */; };
+		EA3D9D352967419C00331FEA /* SoleCaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D312967419C00331FEA /* SoleCaptureViewModel.swift */; };
+		EA3D9D3B29674DED00331FEA /* InstructionsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D3729674DED00331FEA /* InstructionsModuleBuilder.swift */; };
+		EA3D9D3C29674DED00331FEA /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D3829674DED00331FEA /* InstructionsViewController.swift */; };
+		EA3D9D3D29674DED00331FEA /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D3929674DED00331FEA /* InstructionsView.swift */; };
+		EA3D9D3E29674DED00331FEA /* InstructionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D3A29674DED00331FEA /* InstructionsViewModel.swift */; };
+		EA3D9D452967532400331FEA /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D442967532400331FEA /* Instruction.swift */; };
+		EA3D9D4B296759DE00331FEA /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D4A296759DE00331FEA /* ReusableCell.swift */; };
+		EA3D9D4D29675A4500331FEA /* UICollectionView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D4C29675A4500331FEA /* UICollectionView+Cells.swift */; };
+		EA3D9D5029675AA600331FEA /* InstructionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D4F29675AA600331FEA /* InstructionCollectionViewCell.swift */; };
+		EA3D9D542967FCA800331FEA /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D532967FCA800331FEA /* SpeechRecognizer.swift */; };
+		EA3D9D572967FD3000331FEA /* SpeechRecognizerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D562967FD3000331FEA /* SpeechRecognizerEvent.swift */; };
 		EA6C9BE2295EBDD4009B6755 /* CapturePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */; };
 		EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F39295C147A00C488C4 /* AppDelegate.swift */; };
 		EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F3B295C147A00C488C4 /* SceneDelegate.swift */; };
@@ -32,10 +46,10 @@
 		EA743F98295C391A00C488C4 /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F97295C391A00C488C4 /* LogService.swift */; };
 		EA743F9D295C397700C488C4 /* LogType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F9C295C397700C488C4 /* LogType.swift */; };
 		EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F9E295C39C800C488C4 /* LogModel.swift */; };
-		EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */; };
-		EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C0295C5A99006EE033 /* CaptureViewController.swift */; };
-		EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C1295C5A99006EE033 /* CaptureView.swift */; };
-		EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */; };
+		EA7512C3295C5A99006EE033 /* FootCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512BF295C5A99006EE033 /* FootCaptureModuleBuilder.swift */; };
+		EA7512C4295C5A99006EE033 /* FootCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C0295C5A99006EE033 /* FootCaptureViewController.swift */; };
+		EA7512C5295C5A99006EE033 /* FootCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C1295C5A99006EE033 /* FootCaptureView.swift */; };
+		EA7512C6295C5A99006EE033 /* FootCaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512C2295C5A99006EE033 /* FootCaptureViewModel.swift */; };
 		EA7512D0295C6397006EE033 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = EA7512CF295C6397006EE033 /* Toast */; };
 		EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */; };
 		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
@@ -73,6 +87,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureModuleBuilder.swift; sourceTree = "<group>"; };
+		EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureViewController.swift; sourceTree = "<group>"; };
+		EA3D9D302967419C00331FEA /* SoleCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureView.swift; sourceTree = "<group>"; };
+		EA3D9D312967419C00331FEA /* SoleCaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureViewModel.swift; sourceTree = "<group>"; };
+		EA3D9D3729674DED00331FEA /* InstructionsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsModuleBuilder.swift; sourceTree = "<group>"; };
+		EA3D9D3829674DED00331FEA /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
+		EA3D9D3929674DED00331FEA /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
+		EA3D9D3A29674DED00331FEA /* InstructionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewModel.swift; sourceTree = "<group>"; };
+		EA3D9D442967532400331FEA /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
+		EA3D9D4A296759DE00331FEA /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
+		EA3D9D4C29675A4500331FEA /* UICollectionView+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Cells.swift"; sourceTree = "<group>"; };
+		EA3D9D4F29675AA600331FEA /* InstructionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA3D9D532967FCA800331FEA /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		EA3D9D562967FD3000331FEA /* SpeechRecognizerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerEvent.swift; sourceTree = "<group>"; };
 		EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePosition.swift; sourceTree = "<group>"; };
 		EA743F36295C147A00C488C4 /* iFoot3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFoot3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA743F39295C147A00C488C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,10 +127,10 @@
 		EA743F97295C391A00C488C4 /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		EA743F9C295C397700C488C4 /* LogType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogType.swift; sourceTree = "<group>"; };
 		EA743F9E295C39C800C488C4 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
-		EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureModuleBuilder.swift; sourceTree = "<group>"; };
-		EA7512C0295C5A99006EE033 /* CaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
-		EA7512C1295C5A99006EE033 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
-		EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewModel.swift; sourceTree = "<group>"; };
+		EA7512BF295C5A99006EE033 /* FootCaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootCaptureModuleBuilder.swift; sourceTree = "<group>"; };
+		EA7512C0295C5A99006EE033 /* FootCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootCaptureViewController.swift; sourceTree = "<group>"; };
+		EA7512C1295C5A99006EE033 /* FootCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootCaptureView.swift; sourceTree = "<group>"; };
+		EA7512C2295C5A99006EE033 /* FootCaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootCaptureViewModel.swift; sourceTree = "<group>"; };
 		EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
 		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -151,6 +179,93 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA3D9D2D2967417600331FEA /* SoleCaptureScene */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D302967419C00331FEA /* SoleCaptureView.swift */,
+				EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */,
+				EA3D9D312967419C00331FEA /* SoleCaptureViewModel.swift */,
+				EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */,
+			);
+			path = SoleCaptureScene;
+			sourceTree = "<group>";
+		};
+		EA3D9D3629674DA400331FEA /* InstructionsScene */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D3929674DED00331FEA /* InstructionsView.swift */,
+				EA3D9D3829674DED00331FEA /* InstructionsViewController.swift */,
+				EA3D9D3A29674DED00331FEA /* InstructionsViewModel.swift */,
+				EA3D9D3729674DED00331FEA /* InstructionsModuleBuilder.swift */,
+			);
+			path = InstructionsScene;
+			sourceTree = "<group>";
+		};
+		EA3D9D422967530800331FEA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D432967531B00331FEA /* Instruction */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EA3D9D432967531B00331FEA /* Instruction */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D442967532400331FEA /* Instruction.swift */,
+			);
+			path = Instruction;
+			sourceTree = "<group>";
+		};
+		EA3D9D472967599E00331FEA /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				EAE43DE129644D5D00405533 /* ActivityViewController */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		EA3D9D48296759B000331FEA /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D4E29675A7D00331FEA /* InstructionCollectionViewCell */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		EA3D9D49296759CE00331FEA /* ReusableCell */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D4A296759DE00331FEA /* ReusableCell.swift */,
+			);
+			path = ReusableCell;
+			sourceTree = "<group>";
+		};
+		EA3D9D4E29675A7D00331FEA /* InstructionCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D4F29675AA600331FEA /* InstructionCollectionViewCell.swift */,
+			);
+			path = InstructionCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		EA3D9D522967FC9000331FEA /* SpeechRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D552967FCF200331FEA /* Event */,
+				EA3D9D532967FCA800331FEA /* SpeechRecognizer.swift */,
+			);
+			path = SpeechRecognizer;
+			sourceTree = "<group>";
+		};
+		EA3D9D552967FCF200331FEA /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EA3D9D562967FD3000331FEA /* SpeechRecognizerEvent.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
 		EA6C9BDA295EBC93009B6755 /* FootNode */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +370,9 @@
 		EA743F52295C15F100C488C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				EA7512BE295C5A84006EE033 /* CaptureScene */,
+				EA7512BE295C5A84006EE033 /* FootCaptureScene */,
+				EA3D9D3629674DA400331FEA /* InstructionsScene */,
+				EA3D9D2D2967417600331FEA /* SoleCaptureScene */,
 				EAE43DD529644A3300405533 /* SuccessScene */,
 			);
 			path = Presentation;
@@ -358,6 +475,7 @@
 				EA743F8A295C338100C488C4 /* Base */,
 				EA7512C7295C5E06006EE033 /* Components */,
 				EA743F7A295C327200C488C4 /* Extensions */,
+				EA3D9D422967530800331FEA /* Models */,
 				EAF2434A295D879A000855C3 /* Nodes */,
 				EA743F8F295C342100C488C4 /* Protocols */,
 			);
@@ -377,6 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				EA743F7C295C32BD00C488C4 /* UIView+Constraints.swift */,
+				EA3D9D4C29675A4500331FEA /* UICollectionView+Cells.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -395,6 +514,7 @@
 		EA743F8F295C342100C488C4 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				EA3D9D49296759CE00331FEA /* ReusableCell */,
 				EA743F90295C343E00C488C4 /* ViewModel */,
 			);
 			path = Protocols;
@@ -454,21 +574,22 @@
 			path = Log;
 			sourceTree = "<group>";
 		};
-		EA7512BE295C5A84006EE033 /* CaptureScene */ = {
+		EA7512BE295C5A84006EE033 /* FootCaptureScene */ = {
 			isa = PBXGroup;
 			children = (
-				EA7512C1295C5A99006EE033 /* CaptureView.swift */,
-				EA7512C0295C5A99006EE033 /* CaptureViewController.swift */,
-				EA7512C2295C5A99006EE033 /* CaptureViewModel.swift */,
-				EA7512BF295C5A99006EE033 /* CaptureModuleBuilder.swift */,
+				EA7512C1295C5A99006EE033 /* FootCaptureView.swift */,
+				EA7512C0295C5A99006EE033 /* FootCaptureViewController.swift */,
+				EA7512C2295C5A99006EE033 /* FootCaptureViewModel.swift */,
+				EA7512BF295C5A99006EE033 /* FootCaptureModuleBuilder.swift */,
 			);
-			path = CaptureScene;
+			path = FootCaptureScene;
 			sourceTree = "<group>";
 		};
 		EA7512C7295C5E06006EE033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EAE43DE129644D5D00405533 /* ActivityViewController */,
+				EA3D9D48296759B000331FEA /* CollectionViewCells */,
+				EA3D9D472967599E00331FEA /* CustomViews */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -556,6 +677,7 @@
 			children = (
 				EAE43DBB29643DB400405533 /* CaptureOutputManager */,
 				EAE43DAB296401E200405533 /* CaptureService */,
+				EA3D9D522967FC9000331FEA /* SpeechRecognizer */,
 			);
 			path = Capture;
 			sourceTree = "<group>";
@@ -753,44 +875,58 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */,
-				EA7512C3295C5A99006EE033 /* CaptureModuleBuilder.swift in Sources */,
+				EA3D9D3D29674DED00331FEA /* InstructionsView.swift in Sources */,
+				EA7512C3295C5A99006EE033 /* FootCaptureModuleBuilder.swift in Sources */,
 				EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */,
 				EA7512DC295CCA65006EE033 /* Colors.swift in Sources */,
 				EAE43DE329644D6200405533 /* ActivityViewController.swift in Sources */,
-				EA7512C6295C5A99006EE033 /* CaptureViewModel.swift in Sources */,
-				EA7512C5295C5A99006EE033 /* CaptureView.swift in Sources */,
+				EA7512C6295C5A99006EE033 /* FootCaptureViewModel.swift in Sources */,
+				EA7512C5295C5A99006EE033 /* FootCaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
+				EA3D9D352967419C00331FEA /* SoleCaptureViewModel.swift in Sources */,
+				EA3D9D5029675AA600331FEA /* InstructionCollectionViewCell.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
 				EAE43DC029643E5100405533 /* CaptureOutputManager.swift in Sources */,
 				EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */,
 				EAE43DD42964455C00405533 /* CaptureConstants.swift in Sources */,
+				EA3D9D342967419C00331FEA /* SoleCaptureView.swift in Sources */,
 				EA743F94295C350F00C488C4 /* BaseViewModel.swift in Sources */,
 				EAE43DB62964394C00405533 /* CVPixelBuffer+Copy.swift in Sources */,
 				EA743F6B295C2E2E00C488C4 /* AppContainer.swift in Sources */,
 				EA743F9D295C397700C488C4 /* LogType.swift in Sources */,
 				EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */,
+				EA3D9D3C29674DED00331FEA /* InstructionsViewController.swift in Sources */,
+				EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */,
+				EA3D9D3E29674DED00331FEA /* InstructionsViewModel.swift in Sources */,
 				EAE43DC92964423000405533 /* String+InitFromArray.swift in Sources */,
+				EA3D9D4D29675A4500331FEA /* UICollectionView+Cells.swift in Sources */,
+				EA3D9D4B296759DE00331FEA /* ReusableCell.swift in Sources */,
 				EAE43DDA29644A4000405533 /* SuccessModuleBuilder.swift in Sources */,
 				EAE43DDC29644A4000405533 /* SuccessView.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
 				EAE43DBE29643E4100405533 /* CaptureOutputManagerEvent.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
 				EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */,
+				EA3D9D542967FCA800331FEA /* SpeechRecognizer.swift in Sources */,
 				EAE43DD02964439100405533 /* UIImage+Init.swift in Sources */,
+				EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */,
 				EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
 				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
 				EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */,
 				EAE43DDD29644A4000405533 /* SuccessViewModel.swift in Sources */,
+				EA3D9D3B29674DED00331FEA /* InstructionsModuleBuilder.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
+				EA3D9D572967FD3000331FEA /* SpeechRecognizerEvent.swift in Sources */,
 				EAE43DAD296401F900405533 /* CaptureService.swift in Sources */,
 				EA743F70295C2EB300C488C4 /* Coordinator.swift in Sources */,
+				EA3D9D452967532400331FEA /* Instruction.swift in Sources */,
 				EA6C9BE2295EBDD4009B6755 /* CapturePosition.swift in Sources */,
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
-				EA7512C4295C5A99006EE033 /* CaptureViewController.swift in Sources */,
+				EA7512C4295C5A99006EE033 /* FootCaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
 				EAE43DC229643F7200405533 /* CaptureOutputSettings.swift in Sources */,
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,

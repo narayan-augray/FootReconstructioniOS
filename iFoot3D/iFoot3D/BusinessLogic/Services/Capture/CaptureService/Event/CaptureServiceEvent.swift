@@ -9,5 +9,5 @@ import UIKit
 
 enum CaptureServiceEvent {
     case capturePositions(positions: [CapturePosition])
-    case captureOutput(output: CaptureOutput)
+    case captureOutput(output: CaptureOutput, capturePositionId: String?)
 }

@@ -29,6 +29,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>For foot capturing</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For foot capturing</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>For foot capturing</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>

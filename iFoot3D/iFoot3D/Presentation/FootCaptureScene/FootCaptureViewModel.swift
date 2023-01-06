@@ -1,5 +1,5 @@
 //
-//  CaptureViewModel.swift
+//  FootCaptureViewModel.swift
 //  iFoot3D
 //
 //  Created by Illia Khrypunov on 28.12.2022.
@@ -9,11 +9,11 @@ import Foundation
 import ARKit
 import Combine
 
-enum CaptureViewModelEvent {
+enum FootCaptureViewModelEvent {
     case capturePositions(positions: [SCNVector3])
 }
 
-final class CaptureViewModel: BaseViewModel {
+final class FootCaptureViewModel: BaseViewModel {
     // MARK: - Services
     let arSessionManager: ARSessionManager
     let captureService: CaptureService
@@ -21,7 +21,7 @@ final class CaptureViewModel: BaseViewModel {
     
     // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
-    private let transitionSubject = PassthroughSubject<CaptureTransition, Never>()
+    private let transitionSubject = PassthroughSubject<FootCaptureTransition, Never>()
     
     // MARK: - Init
     init(arSessionManager: ARSessionManager,
@@ -54,13 +54,13 @@ final class CaptureViewModel: BaseViewModel {
 }
 
 // MARK: - Private
-private extension CaptureViewModel {
+private extension FootCaptureViewModel {
     func setupBindings() {
         arSessionManager.eventPublisher
             .sink { [unowned self] (event) in
                 switch event {
                 case .newFrame(let frame):
-                    captureService.handleNewFrame(frame: frame)
+                    captureService.handleNewFootFrame(frame: frame)
                     
                 default:
                     break
@@ -73,7 +73,7 @@ private extension CaptureViewModel {
             .sink { [unowned self] (event) in
                 switch event {
                 case .processedOutputs(let outputs):
-                    transitionSubject.send(.success(outputs: outputs))
+                    transitionSubject.send(.instructions(outputs: outputs))
                 }
             }
             .store(in: &cancellables)

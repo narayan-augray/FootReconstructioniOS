@@ -38,19 +38,45 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        capture()
+        footCapture()
     }
 }
 
 // MARK: - Private
 private extension AppCoordinator {
-    func capture() {
-        let module = CaptureModuleBuilder.build(container: container)
+    func footCapture() {
+        let module = FootCaptureModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] (transition) in
                 switch transition {
+                case .instructions(let outputs):
+                    instructions(outputs: outputs)
+                }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController, animated: true)
+    }
+    
+    func instructions(outputs: [CaptureProcessedOutput]) {
+        let module = InstructionsModuleBuilder.build(container: container, outputs: outputs)
+        module.transitionPublisher
+            .sink { [weak self] (transition) in
+                switch transition {
+                case .capture(let outputs):
+                    self?.soleCapture(outputs: outputs)
+                }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController, animated: true)
+    }
+    
+    func soleCapture(outputs: [CaptureProcessedOutput]) {
+        let module = SoleCaptureModuleBuilder.build(container: container, outputs: outputs)
+        module.transitionPublisher
+            .sink { [weak self] (transition) in
+                switch transition {
                 case .success(let outputs):
-                    success(outputs: outputs)
+                    self?.success(outputs: outputs)
                 }
             }
             .store(in: &cancellables)
@@ -63,7 +89,7 @@ private extension AppCoordinator {
             .sink { [unowned self] (transition) in
                 switch transition {
                 case .back:
-                    capture()
+                    footCapture()
                 }
             }
             .store(in: &cancellables)

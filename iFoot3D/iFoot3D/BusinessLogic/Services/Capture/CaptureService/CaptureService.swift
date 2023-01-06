@@ -14,7 +14,8 @@ protocol CaptureService {
     
     // MARK: - Funcs
     func generateCapturePositions(with center: SCNVector3)
-    func handleNewFrame(frame: ARFrame)
+    func handleNewFootFrame(frame: ARFrame)
+    func handleNewSoleFrame(frame: ARFrame)
 }
 
 final class CaptureServiceImpl: CaptureService {
@@ -61,9 +62,9 @@ extension CaptureServiceImpl {
     }
 }
 
-// MARK: - Frames observing
+// MARK: - Foot frame
 extension CaptureServiceImpl {
-    func handleNewFrame(frame: ARFrame) {
+    func handleNewFootFrame(frame: ARFrame) {
         guard
             let index = currentCaptureTransform(camera: frame.camera),
             let originalPixelBuffer = frame.capturedImage.copy(),
@@ -74,10 +75,26 @@ extension CaptureServiceImpl {
         let output = CaptureOutput(originalPixelBuffer: originalPixelBuffer,
                                    depthPixelBuffer: depthPixelBuffer,
                                    intrinsics: frame.camera.intrinsics,
-                                   transform: frame.camera.transform,
-                                   capturePositionId: capturePositions[index].id)
-        eventSubject.send(.captureOutput(output: output))
+                                   transform: frame.camera.transform)
+        eventSubject.send(.captureOutput(output: output, capturePositionId: capturePositions[index].id))
         capturePositions.remove(at: index)
+    }
+}
+
+// MARK: - Sole frame
+extension CaptureServiceImpl {
+    func handleNewSoleFrame(frame: ARFrame) {
+        guard
+            let originalPixelBuffer = frame.capturedImage.copy(),
+            let depthPixelBuffer = frame.capturedDepthData?.depthDataMap.copy()
+        else {
+            return
+        }
+        let output = CaptureOutput(originalPixelBuffer: originalPixelBuffer,
+                                   depthPixelBuffer: depthPixelBuffer,
+                                   intrinsics: frame.camera.intrinsics,
+                                   transform: frame.camera.transform)
+        eventSubject.send(.captureOutput(output: output, capturePositionId: nil))
     }
 }
 
