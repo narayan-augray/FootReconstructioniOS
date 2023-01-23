@@ -447,18 +447,11 @@
 		EA743F72295C2F7900C488C4 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				EA743F7B295C328900C488C4 /* UIView */,
-				EA743F73295C2FA100C488C4 /* UIViewController */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
-		EA743F73295C2FA100C488C4 /* UIViewController */ = {
-			isa = PBXGroup;
-			children = (
+				EA743F7C295C32BD00C488C4 /* UIView+Constraints.swift */,
+				EA3D9D4C29675A4500331FEA /* UICollectionView+Cells.swift */,
 				EA743F74295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift */,
 			);
-			path = UIViewController;
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		EA743F79295C326600C488C4 /* CoreUI */ = {
@@ -481,15 +474,6 @@
 				EA743F72295C2F7900C488C4 /* UIKit */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		EA743F7B295C328900C488C4 /* UIView */ = {
-			isa = PBXGroup;
-			children = (
-				EA743F7C295C32BD00C488C4 /* UIView+Constraints.swift */,
-				EA3D9D4C29675A4500331FEA /* UICollectionView+Cells.swift */,
-			);
-			path = UIView;
 			sourceTree = "<group>";
 		};
 		EA743F8A295C338100C488C4 /* Base */ = {

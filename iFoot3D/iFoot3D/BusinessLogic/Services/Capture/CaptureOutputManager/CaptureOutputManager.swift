@@ -52,9 +52,9 @@ final class CaptureOutputManagerImpl: CaptureOutputManager {
 // MARK: - Process
 extension CaptureOutputManagerImpl {
     func processOutput(output: CaptureOutput) {
-        capturedFrames += 1
-        
         operationQueue.addOperation { [weak self] in
+            self?.capturedFrames += 1
+            
             guard
                 let self = self,
                 let originalImage = UIImage(pixelBuffer: output.originalPixelBuffer),
@@ -85,9 +85,11 @@ extension CaptureOutputManagerImpl {
         operationQueue.addOperation { [weak self] in
             self?.eventSubject.send(.processedOutputs(outputs: self?.processedOutputs ?? []))
             self?.processedOutputs.removeAll()
+            self?.capturedFrames = 0
         }
     }
 }
+
 // MARK: - Data values
 private extension CaptureOutputManagerImpl {
     func dataValues(dataMap: CVPixelBuffer?) -> [[Float32]]? {

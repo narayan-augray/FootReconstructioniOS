@@ -83,7 +83,8 @@ private extension SuccessViewController {
                     completion(zipFilePath)
                 }
             } catch {
-                print(error.localizedDescription)
+                log.error(error: error)
+                
                 DispatchQueue.main.async {
                     completion(nil)
                 }
