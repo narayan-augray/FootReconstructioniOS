@@ -52,9 +52,9 @@ final class CaptureOutputManagerImpl: CaptureOutputManager {
 // MARK: - Process
 extension CaptureOutputManagerImpl {
     func processOutput(output: CaptureOutput) {
+        capturedFrames += 1
+        
         operationQueue.addOperation { [weak self] in
-            self?.capturedFrames += 1
-            
             guard
                 let self = self,
                 let originalImage = UIImage(pixelBuffer: output.originalPixelBuffer),
