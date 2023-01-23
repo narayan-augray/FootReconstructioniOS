@@ -233,14 +233,6 @@
 			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
-		EA3D9D49296759CE00331FEA /* ReusableCell */ = {
-			isa = PBXGroup;
-			children = (
-				EA3D9D4A296759DE00331FEA /* ReusableCell.swift */,
-			);
-			path = ReusableCell;
-			sourceTree = "<group>";
-		};
 		EA3D9D4E29675A7D00331FEA /* InstructionCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,18 +506,10 @@
 		EA743F8F295C342100C488C4 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				EA3D9D49296759CE00331FEA /* ReusableCell */,
-				EA743F90295C343E00C488C4 /* ViewModel */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		EA743F90295C343E00C488C4 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
+				EA3D9D4A296759DE00331FEA /* ReusableCell.swift */,
 				EA743F91295C345200C488C4 /* ViewModel.swift */,
 			);
-			path = ViewModel;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		EA743F95295C38E400C488C4 /* Services */ = {

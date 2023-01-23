@@ -102,7 +102,6 @@ extension CaptureServiceImpl {
 private extension CaptureServiceImpl {
     func currentCaptureTransform(camera: ARCamera) -> Int? {
         let cameraPosition = camera.transform.position
-        let cameraRotation = camera.eulerAngles
         
         for index in 0..<capturePositions.count {
             let position = capturePositions[index]

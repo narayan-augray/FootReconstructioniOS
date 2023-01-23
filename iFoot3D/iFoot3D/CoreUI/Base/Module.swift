@@ -1,5 +1,5 @@
 //
-//  Transition.swift
+//  Module.swift
 //  iFoot3D
 //
 //  Created by Illia Khrypunov on 28.12.2022.
