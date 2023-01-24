@@ -17,6 +17,7 @@ protocol CaptureOutputManager {
     func getCaputredFrames() -> Int
     func processOutput(output: CaptureOutput)
     func finishProcessing()
+    func reset()
 }
 
 final class CaptureOutputManagerImpl: CaptureOutputManager {
@@ -85,8 +86,14 @@ extension CaptureOutputManagerImpl {
         operationQueue.addOperation { [weak self] in
             self?.eventSubject.send(.processedOutputs(outputs: self?.processedOutputs ?? []))
             self?.processedOutputs.removeAll()
-            self?.capturedFrames = 0
         }
+    }
+}
+
+// MARK: - Reset
+extension CaptureOutputManagerImpl {
+    func reset() {
+        capturedFrames = 0
     }
 }
 

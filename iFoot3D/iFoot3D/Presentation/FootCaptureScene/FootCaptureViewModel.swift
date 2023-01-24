@@ -31,6 +31,7 @@ final class FootCaptureViewModel: BaseViewModel {
         self.captureService = captureService
         self.captureOutputManager = captureOutputManager
         super.init()
+        setupServices()
         setupBindings()
     }
     
@@ -55,6 +56,10 @@ final class FootCaptureViewModel: BaseViewModel {
 
 // MARK: - Private
 private extension FootCaptureViewModel {
+    func setupServices() {
+        captureOutputManager.reset()
+    }
+    
     func setupBindings() {
         arSessionManager.eventPublisher
             .sink { [unowned self] (event) in
