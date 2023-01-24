@@ -19,6 +19,7 @@ final class SoleCaptureView: BaseView {
     // MARK: - Subviews
     private let sceneView = ARSCNView()
     private let coachingOverlay = ARCoachingOverlayView()
+    private let capturingOverlay = UIView()
     private let completeButton = UIButton()
     
     // MARK: - Actions
@@ -72,6 +73,16 @@ extension SoleCaptureView {
     func showCompleteButton() {
         completeButton.isHidden = false
     }
+    
+    func animate() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.capturingOverlay.alpha = 1
+        } completion: { _ in
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.capturingOverlay.alpha = 0
+            }
+        }
+    }
 }
 
 // MARK: - Private
@@ -103,12 +114,17 @@ private extension SoleCaptureView {
         completeButton.setTitleColor(.appWhite, for: .normal)
         completeButton.titleLabel?.font = Font.sfProTextBold(30)
         completeButton.setTitle("COMPLETE", for: .normal)
+        
+        capturingOverlay.alpha = 0
+        capturingOverlay.backgroundColor = .white
     }
 
     func setupLayout() {
         addSubview(sceneView, withEdgeInsets: Constant.sceneViewInsets)
         
         addSubview(coachingOverlay, withEdgeInsets: Constant.coachingViewInsets)
+        
+        addSubview(capturingOverlay, withEdgeInsets: Constant.capturingViewInsets)
         
         addSubview(completeButton, constraints: [
             completeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -124,6 +140,7 @@ private extension SoleCaptureView {
 private enum Constant {
     static let sceneViewInsets: UIEdgeInsets = .zero
     static let coachingViewInsets: UIEdgeInsets = .zero
+    static let capturingViewInsets: UIEdgeInsets = .zero
     static let completeButtonCornerRadius: CGFloat = 12.0
     static let completeButtonSize: CGSize = .init(width: 213.0, height: 59.0)
     static let completeButtonBottomOffset: CGFloat = 10.0

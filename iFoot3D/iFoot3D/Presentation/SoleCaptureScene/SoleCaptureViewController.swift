@@ -58,6 +58,8 @@ private extension SoleCaptureViewController {
                 
                     viewModel.processOutput(output: output)
                     
+                    contentView.animate()
+                    
                     contentView.showCompleteButton()
                 default:
                     break

@@ -447,8 +447,8 @@
 		EA743F72295C2F7900C488C4 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				EA743F7C295C32BD00C488C4 /* UIView+Constraints.swift */,
 				EA3D9D4C29675A4500331FEA /* UICollectionView+Cells.swift */,
+				EA743F7C295C32BD00C488C4 /* UIView+Constraints.swift */,
 				EA743F74295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift */,
 			);
 			path = UIKit;
