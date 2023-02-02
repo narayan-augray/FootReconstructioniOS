@@ -21,7 +21,7 @@ final class SuccessViewModel: BaseViewModel {
         super.init()
     }
     
-    // MARK: - Public
+    // MARK: - Navigation
     func navigateBack() {
         transitionSubject.send(.back)
     }
