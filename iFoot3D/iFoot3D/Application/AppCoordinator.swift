@@ -38,7 +38,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        instructions(outputs: [])
+        footCapture()
     }
 }
 
@@ -47,10 +47,10 @@ private extension AppCoordinator {
     func footCapture() {
         let module = FootCaptureModuleBuilder.build(container: container)
         module.transitionPublisher
-            .sink { [unowned self] (transition) in
+            .sink { [weak self] (transition) in
                 switch transition {
                 case .instructions(let outputs):
-                    instructions(outputs: outputs)
+                    self?.instructions(outputs: outputs)
                 }
             }
             .store(in: &cancellables)
@@ -75,21 +75,50 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {
-                case .success(let outputs):
-                    self?.success(outputs: outputs)
+                case .process(let outputs):
+                    self?.processing(outputs: outputs)
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController, animated: true)
     }
     
-    func success(outputs: [CaptureProcessedOutput]) {
-        let module = SuccessModuleBuilder.build(container: container, outputs: outputs)
+    func processing(outputs: [CaptureProcessedOutput]) {
+        let module = ProcessingModuleBuilder.build(container: container, outputs: outputs)
         module.transitionPublisher
-            .sink { [unowned self] (transition) in
+            .sink { [weak self] (transition) in
                 switch transition {
-                case .back:
-                    footCapture()
+                case .success(let outputs):
+                    self?.preview(outputs: outputs)
+                }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController)
+    }
+    
+    func preview(outputs: [CaptureProcessedOutput]) {
+        let module = PreviewModuleBuilder.build(container: container, outputs: outputs)
+        module.transitionPublisher
+            .sink { [weak self] (transition) in
+                switch transition {
+                case .close:
+                    self?.footCapture()
+                    
+                case .success:
+                    self?.success()
+                }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController)
+    }
+    
+    func success() {
+        let module = SuccessModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [weak self] (transition) in
+                switch transition {
+                case .scanAgain:
+                    self?.footCapture()
                 }
             }
             .store(in: &cancellables)

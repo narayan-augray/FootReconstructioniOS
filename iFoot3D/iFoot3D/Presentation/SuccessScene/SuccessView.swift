@@ -10,13 +10,13 @@ import Combine
 import CombineCocoa
 
 enum SuccessViewAction {
-    case export
+    case scanAgain
 }
 
 final class SuccessView: BaseView {
     // MARK: - Subviews
     private let titleLabel = UILabel()
-    private let exportButton = UIButton()
+    private let scanAgainButton = UIButton()
     
     // MARK: - Actions
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
@@ -42,9 +42,9 @@ private extension SuccessView {
     }
 
     func bindActions() {
-        exportButton.tapPublisher
+        scanAgainButton.tapPublisher
             .sink { [unowned self] in
-                actionSubject.send(.export)
+                actionSubject.send(.scanAgain)
             }
             .store(in: &cancellables)
     }
@@ -53,14 +53,14 @@ private extension SuccessView {
         backgroundColor = .white
         
         titleLabel.font = Font.sfProTextBold(24)
-        titleLabel.text = "CAPTURING COMPLETED!"
+        titleLabel.text = "SUCCESSFULLY EXPORTED!"
         
-        exportButton.clipsToBounds = true
-        exportButton.layer.cornerRadius = Constant.exportButtonCornerRadius
-        exportButton.backgroundColor = .appDarkGray
-        exportButton.setTitleColor(.appWhite, for: .normal)
-        exportButton.titleLabel?.font = Font.sfProTextBold(30)
-        exportButton.setTitle("EXPORT", for: .normal)
+        scanAgainButton.clipsToBounds = true
+        scanAgainButton.layer.cornerRadius = Constant.scanAgainButtonCornerRadius
+        scanAgainButton.backgroundColor = .appDarkGray
+        scanAgainButton.setTitleColor(.appWhite, for: .normal)
+        scanAgainButton.titleLabel?.font = Font.sfProTextBold(30)
+        scanAgainButton.setTitle("SCAN AGAIN", for: .normal)
     }
 
     func setupLayout() {
@@ -69,12 +69,12 @@ private extension SuccessView {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -Constant.labelCenterYOffset)
         ])
         
-        addSubview(exportButton, constraints: [
-            exportButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            exportButton.widthAnchor.constraint(equalToConstant: Constant.exportButtonSize.width),
-            exportButton.heightAnchor.constraint(equalToConstant: Constant.exportButtonSize.height),
-            exportButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
-                                                  constant: -Constant.exportButtonBottomOffset)
+        addSubview(scanAgainButton, constraints: [
+            scanAgainButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            scanAgainButton.widthAnchor.constraint(equalToConstant: Constant.scanAgainButtonSize.width),
+            scanAgainButton.heightAnchor.constraint(equalToConstant: Constant.scanAgainButtonSize.height),
+            scanAgainButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
+                                                  constant: -Constant.scanAgainButtonBottomOffset)
         ])
     }
 }
@@ -82,7 +82,7 @@ private extension SuccessView {
 // MARK: - View constants
 private enum Constant {
     static let labelCenterYOffset: CGFloat = 45
-    static let exportButtonCornerRadius: CGFloat = 12.0
-    static let exportButtonSize: CGSize = .init(width: 213.0, height: 59.0)
-    static let exportButtonBottomOffset: CGFloat = 10.0
+    static let scanAgainButtonCornerRadius: CGFloat = 12.0
+    static let scanAgainButtonSize: CGSize = .init(width: 213.0, height: 59.0)
+    static let scanAgainButtonBottomOffset: CGFloat = 10.0
 }

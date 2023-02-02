@@ -29,78 +29,10 @@ private extension SuccessViewController {
         contentView.actionPublisher
             .sink { [unowned self] (action) in
                 switch action {
-                case .export:
-                    export(outputs: viewModel.outputs)
+                case .scanAgain:
+                    viewModel.scanAgain()
                 }
             }
             .store(in: &cancellables)
-    }
-}
-
-// MARK: - Export
-private extension SuccessViewController {
-    func export(outputs: [CaptureProcessedOutput]) {
-        var fileUrls: [URL?] = outputs.getFilesUrls()
-        
-        viewModel.isLoadingSubject.send(true)
-        
-        getArchive(files: fileUrls) { [weak self] (zipFileUrl) in
-            guard let zipFileUrl = zipFileUrl else {
-                self?.deleteFiles(fileUrls: fileUrls)
-                self?.viewModel.navigateBack()
-                return
-            }
-            
-            fileUrls.append(zipFileUrl)
-            
-            self?.shareFile(fileUrl: zipFileUrl) {
-                self?.deleteFiles(fileUrls: fileUrls)
-                self?.viewModel.navigateBack()
-            }
-        }
-    }
-    
-    func getArchiveName() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH:mm"
-        return "\(UIDevice.modelName)_\(dateFormatter.string(from: Date()))"
-    }
-    
-    func deleteFiles(fileUrls: [URL?]) {
-        let fileManager = FileManager.default
-        for fileUrl in fileUrls where fileUrl != nil {
-            try? fileManager.removeItem(at: fileUrl!)
-        }
-    }
-    
-    func getArchive(files: [URL?], completion: @escaping (URL?) -> ()) {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            let archiveName = self.getArchiveName()
-            do {
-                let zipFilePath = try Zip.quickZipFiles(files.compactMap({ $0 }), fileName: archiveName)
-                DispatchQueue.main.async {
-                    completion(zipFilePath)
-                }
-            } catch {
-                log.error(error: error)
-                
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            }
-        }
-    }
-    
-    func shareFile(fileUrl: URL, completion: @escaping () -> ()) {
-        var filesToShare = [Any]()
-        filesToShare.append(fileUrl)
-        let activityViewController = ActivityViewController(activityItems: filesToShare, applicationActivities: nil)
-        activityViewController.onDismiss = {
-            completion()
-        }
-        present(activityViewController, animated: true) { [weak self] in
-            self?.viewModel.isLoadingSubject.send(false)
-        }
     }
 }

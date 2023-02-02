@@ -37,6 +37,8 @@ class BaseViewController<VM: ViewModel>: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.onViewWillAppear()
+        
+        hideNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,6 +64,10 @@ class BaseViewController<VM: ViewModel>: UIViewController {
 
 // MARK: - Private
 private extension BaseViewController {
+    func hideNavigationBar() {
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     func setupBindings() {
         viewModel.errorPublisher
             .sink { [weak self] (errorMessage) in

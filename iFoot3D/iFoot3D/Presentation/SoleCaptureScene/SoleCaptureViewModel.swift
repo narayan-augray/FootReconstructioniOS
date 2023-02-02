@@ -108,7 +108,7 @@ private extension SoleCaptureViewModel {
                 switch event {
                 case .processedOutputs(let soleOutputs):
                     outputs.append(contentsOf: soleOutputs)
-                    transitionSubject.send(.success(outputs: outputs))
+                    transitionSubject.send(.process(outputs: outputs))
                 }
             }
             .store(in: &cancellables)
