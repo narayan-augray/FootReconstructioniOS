@@ -9,10 +9,6 @@ import Foundation
 import ARKit
 import Combine
 
-enum FootCaptureViewModelEvent {
-    case capturePositions(positions: [SCNVector3])
-}
-
 final class FootCaptureViewModel: BaseViewModel {
     // MARK: - Services
     let arSessionManager: ARSessionManager

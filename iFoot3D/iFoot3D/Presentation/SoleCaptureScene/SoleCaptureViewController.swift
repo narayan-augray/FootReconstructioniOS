@@ -49,6 +49,19 @@ private extension SoleCaptureViewController {
             }
             .store(in: &cancellables)
         
+        viewModel.arSessionManager.eventPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] (event) in
+                switch event {
+                case .coachingDeactivated:
+                    contentView.showFootOverlay()
+                    
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
+        
         viewModel.captureService.eventPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] (event) in
@@ -64,6 +77,12 @@ private extension SoleCaptureViewController {
                 default:
                     break
                 }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.capturedFramesPublisher
+            .sink { [unowned self] (count) in
+                contentView.updateCountValue(count: count)
             }
             .store(in: &cancellables)
     }

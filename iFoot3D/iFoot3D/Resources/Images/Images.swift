@@ -12,6 +12,8 @@ enum Images: String {
     
     case firstInstruction
     case secondInstruction
+    
+    case footOverlay
 }
 
 // MARK: - Helpers
