@@ -118,8 +118,8 @@ private extension CaptureServiceImpl {
 // MARK: - Constants
 private struct Constant {
     static let circle = 2 * Float.pi
-    static let radius: Float = 0.2
-    static let yDistance: Float = 0.35
+    static let radius: Float = 0.3
+    static let yDistance: Float = 0.25
     static let xRotation: Float = .pi / 6
     
     static let positionThreshold: Float = 0.05
