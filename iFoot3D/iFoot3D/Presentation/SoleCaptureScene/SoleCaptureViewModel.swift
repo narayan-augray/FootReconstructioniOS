@@ -19,7 +19,10 @@ final class SoleCaptureViewModel: BaseViewModel {
     let captureService: CaptureService
     let captureOutputManager: CaptureOutputManager
     
-    // MARK: - Transition
+    // MARK: - Publisheres
+    private(set) lazy var capturedFramesPublisher = capturedFramesSubject.eraseToAnyPublisher()
+    private let capturedFramesSubject = CurrentValueSubject<Int, Never>(0)
+    
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SoleCaptureTransition, Never>()
     
@@ -73,7 +76,10 @@ private extension SoleCaptureViewModel {
                 case .newFrame(let frame):
                     if frame.capturedDepthData != nil, capture {
                         captureService.handleNewSoleFrame(frame: frame)
+                        
                         capture = false
+                        
+                        capturedFramesSubject.value += 1
                     }
                     
                 default:

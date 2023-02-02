@@ -38,7 +38,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        footCapture()
+        instructions(outputs: [])
     }
 }
 

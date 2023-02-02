@@ -40,7 +40,7 @@ private extension InstructionCollectionViewCell {
         backgroundColor = .clear
         
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = Constant.imageViewCornerRadius
         
         contentLabel.numberOfLines = 0
@@ -70,8 +70,8 @@ private extension InstructionCollectionViewCell {
 // MARK: - View constants
 private enum Constant {
     static let imageViewCornerRadius: CGFloat = 10.0
-    static let imageViewCenterYOffset: CGFloat = 150.0
-    static let imageViewHeight: CGFloat = 250.0
+    static let imageViewCenterYOffset: CGFloat = 100.0
+    static let imageViewHeight: CGFloat = 350.0
     static let contentLabelFontSize: CGFloat = 19.0
     static let contentLabelTopOffser: CGFloat = 25.0
     static let contentLabelSideOffset: CGFloat = 15.0

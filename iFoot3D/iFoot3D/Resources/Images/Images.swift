@@ -10,7 +10,10 @@ import UIKit
 enum Images: String {
     case foot
     
-    case instruction
+    case firstInstruction
+    case secondInstruction
+    
+    case footOverlay
 }
 
 // MARK: - Helpers

@@ -21,6 +21,9 @@ final class SoleCaptureView: BaseView {
     private let coachingOverlay = ARCoachingOverlayView()
     private let capturingOverlay = UIView()
     private let completeButton = UIButton()
+    private let counterLabel = UILabel()
+    private let counterContainerView = UIView()
+    private let overlayImageView = UIImageView()
     
     // MARK: - Actions
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
@@ -74,6 +77,16 @@ extension SoleCaptureView {
         completeButton.isHidden = false
     }
     
+    func showFootOverlay() {
+        overlayImageView.isHidden = false
+    }
+    
+    func updateCountValue(count: Int) {
+        counterContainerView.isHidden = count == 0
+        
+        counterLabel.text = "\(count)"
+    }
+    
     func animate() {
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.capturingOverlay.alpha = 1
@@ -115,14 +128,47 @@ private extension SoleCaptureView {
         completeButton.titleLabel?.font = Font.sfProTextBold(30)
         completeButton.setTitle("COMPLETE", for: .normal)
         
+        overlayImageView.isHidden = true
+        overlayImageView.contentMode = .scaleAspectFill
+        overlayImageView.image = Images.footOverlay.image()
+        
         capturingOverlay.alpha = 0
         capturingOverlay.backgroundColor = .white
+        
+        counterContainerView.isHidden = true
+        counterContainerView.clipsToBounds = true
+        counterContainerView.layer.cornerRadius = 8.0
+        counterContainerView.backgroundColor = .appBlue
+        
+        counterLabel.textColor = .white
+        counterLabel.font = Font.sfProTextMedium(30.0)
+        counterLabel.textAlignment = .center
     }
 
     func setupLayout() {
         addSubview(sceneView, withEdgeInsets: Constant.sceneViewInsets)
         
         addSubview(coachingOverlay, withEdgeInsets: Constant.coachingViewInsets)
+        
+        addSubview(overlayImageView, constraints: [
+            overlayImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            overlayImageView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                      constant: Constant.overlayImageViewSideOffset),
+            overlayImageView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                       constant: -Constant.overlayImageViewSideOffset),
+            overlayImageView.heightAnchor.constraint(equalTo: overlayImageView.widthAnchor,
+                                                     multiplier: Constant.overlayImageViewHeightMultiplier)
+        ])
+        
+        addSubview(counterContainerView, constraints: [
+            counterContainerView.topAnchor.constraint(equalTo: topAnchor,
+                                                      constant: Constant.counterContainerViewTopOffset),
+            counterContainerView.heightAnchor.constraint(equalToConstant: Constant.counterContainerViewHeight),
+            counterContainerView.widthAnchor.constraint(equalToConstant: Constant.counterContainerViewWidth),
+            counterContainerView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+        
+        counterContainerView.addSubview(counterLabel, withEdgeInsets: .zero)
         
         addSubview(capturingOverlay, withEdgeInsets: Constant.capturingViewInsets)
         
@@ -131,7 +177,7 @@ private extension SoleCaptureView {
             completeButton.widthAnchor.constraint(equalToConstant: Constant.completeButtonSize.width),
             completeButton.heightAnchor.constraint(equalToConstant: Constant.completeButtonSize.height),
             completeButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
-                                                  constant: -Constant.completeButtonBottomOffset)
+                                                   constant: -Constant.completeButtonBottomOffset)
         ])
     }
 }
@@ -144,4 +190,10 @@ private enum Constant {
     static let completeButtonCornerRadius: CGFloat = 12.0
     static let completeButtonSize: CGSize = .init(width: 213.0, height: 59.0)
     static let completeButtonBottomOffset: CGFloat = 10.0
+    static let overlayImageViewSideOffset: CGFloat = 15.0
+    static let overlayImageViewHeightMultiplier: CGFloat = 2.0
+    static let counterContainerViewTopOffset: CGFloat = 45.0
+    static let counterContainerViewHeight: CGFloat = 35.0
+    static let counterContainerViewWidth: CGFloat = 60.0
+    static let counterLabelEdgeInsets: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
 }

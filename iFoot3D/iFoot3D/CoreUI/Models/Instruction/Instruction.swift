@@ -10,7 +10,6 @@ import UIKit
 enum Instruction: Int, CaseIterable {
     case first
     case second
-    case third
 }
 
 // MARK: - Properties
@@ -18,15 +17,18 @@ extension Instruction {
     var description: String {
         switch self {
         case .first:
-            return "Put your phone on the floor, screen up."
+            return "Put your phone down, screen up.\nTake a position with your foot above the screen"
         case .second:
-            return "Hover your foot over the frontal camera so that the whole sole fits the screen."
-        case .third:
-            return "Say \"SNAP\"."
+            return "Snap your sole from a few angles by saying \"SNAP\""
         }
     }
     
     var image: UIImage? {
-        return Images.instruction.image()
+        switch self {
+        case .first:
+            return Images.firstInstruction.image()
+        case .second:
+            return Images.secondInstruction.image()
+        }
     }
 }
