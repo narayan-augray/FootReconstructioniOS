@@ -38,7 +38,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        preview(outputs: [])
+        success()
     }
 }
 
@@ -101,16 +101,19 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {
-                case .back:
+                case .capture:
                     self?.footCapture()
+                    
+                case .success:
+                    self?.success()
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
     
-    func success(outputs: [CaptureProcessedOutput]) {
-        let module = SuccessModuleBuilder.build(container: container, outputs: outputs)
+    func success() {
+        let module = SuccessModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {

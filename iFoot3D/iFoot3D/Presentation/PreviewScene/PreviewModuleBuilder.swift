@@ -9,7 +9,8 @@ import UIKit
 import Combine
 
 enum PreviewTransition: Transition {
-    case back
+    case capture
+    case success
 }
 
 final class PreviewModuleBuilder {

@@ -30,7 +30,7 @@ private extension SuccessViewController {
             .sink { [unowned self] (action) in
                 switch action {
                 case .export:
-                    export(outputs: viewModel.outputs)
+                    print("lol")
                 }
             }
             .store(in: &cancellables)

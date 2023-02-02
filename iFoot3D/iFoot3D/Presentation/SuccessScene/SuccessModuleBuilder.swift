@@ -13,11 +13,8 @@ enum SuccessTransition: Transition {
 }
 
 final class SuccessModuleBuilder {
-    class func build(
-        container: AppContainer,
-        outputs: [CaptureProcessedOutput]
-    ) -> Module<SuccessTransition, UIViewController> {
-        let viewModel = SuccessViewModel(outputs: outputs)
+    class func build(container: AppContainer) -> Module<SuccessTransition, UIViewController> {
+        let viewModel = SuccessViewModel()
         let viewController = SuccessViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

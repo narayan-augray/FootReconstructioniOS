@@ -30,10 +30,21 @@ private extension PreviewViewController {
             .sink { [unowned self] (action) in
                 switch action {
                 case .export:
-                    print("to do")
+                    viewModel.isLoadingSubject.send(true)
+                    viewModel.zipOutput()
                     
                 case .close:
-                    viewModel.navigateBack()
+                    viewModel.close()
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.actionPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] (action) in
+                switch action {
+                case .outputZipped(let zipUrl):
+                    shareFile(zipUrl: zipUrl)
                 }
             }
             .store(in: &cancellables)
@@ -41,5 +52,17 @@ private extension PreviewViewController {
     
     func setupPreview() {
         contentView.setupPreview(objectUrl: viewModel.objectUrl)
+    }
+    
+    func shareFile(zipUrl: URL) {
+        let filesToShare: [URL] = [zipUrl]
+        let activityViewController = ActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+        activityViewController.onDismiss = { [weak self] in
+            self?.viewModel.deleteFiles()
+            self?.viewModel.success()
+        }
+        present(activityViewController, animated: true) { [weak self] in
+            self?.viewModel.isLoadingSubject.send(false)
+        }
     }
 }
