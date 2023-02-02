@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SoleCaptureTransition: Transition {
-    case success(outputs: [CaptureProcessedOutput])
+    case process(outputs: [CaptureProcessedOutput])
 }
 
 final class SoleCaptureModuleBuilder {

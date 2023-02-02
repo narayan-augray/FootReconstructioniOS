@@ -21,6 +21,13 @@
 		EA3D9D5029675AA600331FEA /* InstructionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D4F29675AA600331FEA /* InstructionCollectionViewCell.swift */; };
 		EA3D9D542967FCA800331FEA /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D532967FCA800331FEA /* SpeechRecognizer.swift */; };
 		EA3D9D572967FD3000331FEA /* SpeechRecognizerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D562967FD3000331FEA /* SpeechRecognizerEvent.swift */; };
+		EA3EF189298C0B7C00DADE92 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EA3EF188298C0B7C00DADE92 /* Lottie */; };
+		EA3EF18E298C0BF800DADE92 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF18D298C0BF800DADE92 /* Animation.swift */; };
+		EA3EF190298C0C0400DADE92 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = EA3EF18F298C0C0400DADE92 /* loader.json */; };
+		EA3EF196298C0C2400DADE92 /* ProcessingModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF192298C0C2400DADE92 /* ProcessingModuleBuilder.swift */; };
+		EA3EF197298C0C2400DADE92 /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF193298C0C2400DADE92 /* ProcessingViewController.swift */; };
+		EA3EF198298C0C2400DADE92 /* ProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF194298C0C2400DADE92 /* ProcessingView.swift */; };
+		EA3EF199298C0C2400DADE92 /* ProcessingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF195298C0C2400DADE92 /* ProcessingViewModel.swift */; };
 		EA6C9BE2295EBDD4009B6755 /* CapturePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */; };
 		EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F39295C147A00C488C4 /* AppDelegate.swift */; };
 		EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F3B295C147A00C488C4 /* SceneDelegate.swift */; };
@@ -101,6 +108,12 @@
 		EA3D9D4F29675AA600331FEA /* InstructionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA3D9D532967FCA800331FEA /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		EA3D9D562967FD3000331FEA /* SpeechRecognizerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerEvent.swift; sourceTree = "<group>"; };
+		EA3EF18D298C0BF800DADE92 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		EA3EF18F298C0C0400DADE92 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
+		EA3EF192298C0C2400DADE92 /* ProcessingModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingModuleBuilder.swift; sourceTree = "<group>"; };
+		EA3EF193298C0C2400DADE92 /* ProcessingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
+		EA3EF194298C0C2400DADE92 /* ProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingView.swift; sourceTree = "<group>"; };
+		EA3EF195298C0C2400DADE92 /* ProcessingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingViewModel.swift; sourceTree = "<group>"; };
 		EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePosition.swift; sourceTree = "<group>"; };
 		EA743F36295C147A00C488C4 /* iFoot3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFoot3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA743F39295C147A00C488C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +186,7 @@
 				EAE43DE029644D1F00405533 /* Zip in Frameworks */,
 				EA7512D0295C6397006EE033 /* Toast in Frameworks */,
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
+				EA3EF189298C0B7C00DADE92 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +272,49 @@
 			path = Event;
 			sourceTree = "<group>";
 		};
+		EA3EF186298C097400DADE92 /* PreviewScene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PreviewScene;
+			sourceTree = "<group>";
+		};
+		EA3EF18A298C0BD800DADE92 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				EA3EF18C298C0BE400DADE92 /* Helpers */,
+				EA3EF18B298C0BDF00DADE92 /* Sources */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		EA3EF18B298C0BDF00DADE92 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				EA3EF18F298C0C0400DADE92 /* loader.json */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		EA3EF18C298C0BE400DADE92 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EA3EF18D298C0BF800DADE92 /* Animation.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EA3EF191298C0C1200DADE92 /* ProcessingScene */ = {
+			isa = PBXGroup;
+			children = (
+				EA3EF194298C0C2400DADE92 /* ProcessingView.swift */,
+				EA3EF193298C0C2400DADE92 /* ProcessingViewController.swift */,
+				EA3EF195298C0C2400DADE92 /* ProcessingViewModel.swift */,
+				EA3EF192298C0C2400DADE92 /* ProcessingModuleBuilder.swift */,
+			);
+			path = ProcessingScene;
+			sourceTree = "<group>";
+		};
 		EA6C9BDA295EBC93009B6755 /* FootNode */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +383,7 @@
 		EA743F4E295C157300C488C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA3EF18A298C0BD800DADE92 /* Animations */,
 				EA743F50295C158A00C488C4 /* Assets */,
 				EA7512DA295CCA4F006EE033 /* Colors */,
 				EA743F56295C2B8700C488C4 /* Fonts */,
@@ -365,6 +423,8 @@
 				EA7512BE295C5A84006EE033 /* FootCaptureScene */,
 				EA3D9D3629674DA400331FEA /* InstructionsScene */,
 				EA3D9D2D2967417600331FEA /* SoleCaptureScene */,
+				EA3EF191298C0C1200DADE92 /* ProcessingScene */,
+				EA3EF186298C097400DADE92 /* PreviewScene */,
 				EAE43DD529644A3300405533 /* SuccessScene */,
 			);
 			path = Presentation;
@@ -777,6 +837,7 @@
 				EA743F54295C17C800C488C4 /* CombineCocoa */,
 				EA7512CF295C6397006EE033 /* Toast */,
 				EAE43DDF29644D1F00405533 /* Zip */,
+				EA3EF188298C0B7C00DADE92 /* Lottie */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -810,6 +871,7 @@
 				EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */,
+				EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -828,6 +890,7 @@
 				EA743F46295C147C00C488C4 /* LaunchScreen.storyboard in Resources */,
 				EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */,
 				EA743F59295C2BAC00C488C4 /* FuturaBold.ttf in Resources */,
+				EA3EF190298C0C0400DADE92 /* loader.json in Resources */,
 				EA743F66295C2C8800C488C4 /* SF-Pro-Text-Medium.otf in Resources */,
 				EA743F69295C2C8800C488C4 /* SF-Pro-Text-Thin.otf in Resources */,
 				EA743F67295C2C8800C488C4 /* SF-Pro-Text-Regular.otf in Resources */,
@@ -855,6 +918,7 @@
 				EA3D9D5029675AA600331FEA /* InstructionCollectionViewCell.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
 				EAE43DC029643E5100405533 /* CaptureOutputManager.swift in Sources */,
+				EA3EF198298C0C2400DADE92 /* ProcessingView.swift in Sources */,
 				EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */,
 				EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */,
 				EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */,
@@ -865,6 +929,7 @@
 				EA743F6B295C2E2E00C488C4 /* AppContainer.swift in Sources */,
 				EA743F9D295C397700C488C4 /* LogType.swift in Sources */,
 				EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */,
+				EA3EF197298C0C2400DADE92 /* ProcessingViewController.swift in Sources */,
 				EA3D9D3C29674DED00331FEA /* InstructionsViewController.swift in Sources */,
 				EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */,
 				EA3D9D3E29674DED00331FEA /* InstructionsViewModel.swift in Sources */,
@@ -885,6 +950,7 @@
 				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
 				EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */,
 				EAE43DDD29644A4000405533 /* SuccessViewModel.swift in Sources */,
+				EA3EF199298C0C2400DADE92 /* ProcessingViewModel.swift in Sources */,
 				EA3D9D3B29674DED00331FEA /* InstructionsModuleBuilder.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
@@ -896,12 +962,14 @@
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
 				EA7512C4295C5A99006EE033 /* FootCaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
+				EA3EF18E298C0BF800DADE92 /* Animation.swift in Sources */,
 				EAE43DC229643F7200405533 /* CaptureOutputSettings.swift in Sources */,
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,
 				EAF2434D295D9178000855C3 /* Images.swift in Sources */,
 				EA743F8C295C33AC00C488C4 /* BaseView.swift in Sources */,
 				EAE43DD2296443C600405533 /* CaptureProcessedOutput.swift in Sources */,
 				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
+				EA3EF196298C0C2400DADE92 /* ProcessingModuleBuilder.swift in Sources */,
 				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
 				EAE43DCC2964424F00405533 /* OutputConstants.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,
@@ -1130,6 +1198,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -1157,6 +1233,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EA3EF188298C0B7C00DADE92 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		EA743F54295C17C800C488C4 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */;

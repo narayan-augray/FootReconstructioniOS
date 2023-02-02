@@ -38,7 +38,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        instructions(outputs: [])
+        processing(outputs: [])
     }
 }
 
@@ -75,8 +75,8 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {
-                case .success(let outputs):
-                    self?.success(outputs: outputs)
+                case .process(let outputs):
+                    self?.processing(outputs: outputs)
                 }
             }
             .store(in: &cancellables)
@@ -94,5 +94,15 @@ private extension AppCoordinator {
             }
             .store(in: &cancellables)
         setRoot(module.viewController, animated: true)
+    }
+    
+    func processing(outputs: [CaptureProcessedOutput]) {
+        let module = ProcessingModuleBuilder.build(container: container, outputs: outputs)
+        module.transitionPublisher
+            .sink { [unowned self] (transition) in
+                
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController)
     }
 }
