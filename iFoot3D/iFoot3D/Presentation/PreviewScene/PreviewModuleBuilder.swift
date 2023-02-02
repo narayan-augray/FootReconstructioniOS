@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum PreviewTransition: Transition {
-    case capture
+    case close
     case success
 }
 

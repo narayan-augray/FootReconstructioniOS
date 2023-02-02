@@ -13,7 +13,7 @@ final class SuccessViewModel: BaseViewModel {
     private let transitionSubject = PassthroughSubject<SuccessTransition, Never>()
     
     // MARK: - Navigation
-    func navigateBack() {
-        transitionSubject.send(.back)
+    func scanAgain() {
+        transitionSubject.send(.scanAgain)
     }
 }

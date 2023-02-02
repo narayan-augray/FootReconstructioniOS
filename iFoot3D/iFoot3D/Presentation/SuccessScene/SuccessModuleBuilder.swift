@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SuccessTransition: Transition {
-    case back
+    case scanAgain
 }
 
 final class SuccessModuleBuilder {

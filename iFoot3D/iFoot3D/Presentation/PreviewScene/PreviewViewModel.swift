@@ -36,7 +36,7 @@ final class PreviewViewModel: BaseViewModel {
     
     // MARK: - Navigation
     func close() {
-        transitionSubject.send(.capture)
+        transitionSubject.send(.close)
     }
     
     func success() {

@@ -38,7 +38,7 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        success()
+        footCapture()
     }
 }
 
@@ -101,7 +101,7 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {
-                case .capture:
+                case .close:
                     self?.footCapture()
                     
                 case .success:
@@ -117,7 +117,7 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {
-                case .back:
+                case .scanAgain:
                     self?.footCapture()
                 }
             }
