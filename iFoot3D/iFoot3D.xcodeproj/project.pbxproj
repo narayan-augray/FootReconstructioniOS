@@ -606,6 +606,7 @@
 				EA7512D7295CC9B3006EE033 /* AR */,
 				EAE43DB729643AA400405533 /* Capture */,
 				EA743F96295C390E00C488C4 /* Log */,
+				EAEE0C85299E4B7E007D5BB2 /* Reconstruction */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -631,6 +632,7 @@
 		EA743F9A295C393B00C488C4 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				EAEE0C87299E4BB4007D5BB2 /* Bridging */,
 				EA743F99295C393400C488C4 /* Models */,
 				EA743F95295C38E400C488C4 /* Services */,
 			);
@@ -825,6 +827,44 @@
 				EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		EAEE0C85299E4B7E007D5BB2 /* Reconstruction */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE0C86299E4B91007D5BB2 /* ReconstructionService */,
+			);
+			path = Reconstruction;
+			sourceTree = "<group>";
+		};
+		EAEE0C86299E4B91007D5BB2 /* ReconstructionService */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE0C88299E4BBF007D5BB2 /* Sources */,
+				EAEE0C89299E4BC4007D5BB2 /* Wrapper */,
+			);
+			path = ReconstructionService;
+			sourceTree = "<group>";
+		};
+		EAEE0C87299E4BB4007D5BB2 /* Bridging */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Bridging;
+			sourceTree = "<group>";
+		};
+		EAEE0C88299E4BBF007D5BB2 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		EAEE0C89299E4BC4007D5BB2 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Wrapper;
 			sourceTree = "<group>";
 		};
 		EAF2434A295D879A000855C3 /* Nodes */ = {
