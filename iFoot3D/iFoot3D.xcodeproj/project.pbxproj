@@ -92,6 +92,16 @@
 		EAE43DE329644D6200405533 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE229644D6200405533 /* ActivityViewController.swift */; };
 		EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE429644DA900405533 /* UIDevice+Model.swift */; };
 		EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */; };
+		EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */; };
+		EAEE0C9B299E6E01007D5BB2 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = EAEE0C8D299E6DFD007D5BB2 /* CMakeLists.txt */; };
+		EAEE0C9C299E6E01007D5BB2 /* reconstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C8F299E6DFE007D5BB2 /* reconstruction.cpp */; };
+		EAEE0C9D299E6E01007D5BB2 /* stitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C93299E6DFF007D5BB2 /* stitching.cpp */; };
+		EAEE0C9E299E6E01007D5BB2 /* postprocessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C95299E6E00007D5BB2 /* postprocessing.cpp */; };
+		EAEE0C9F299E6E01007D5BB2 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C96299E6E00007D5BB2 /* util.cpp */; };
+		EAEE0CA0299E6E01007D5BB2 /* segmentation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C98299E6E01007D5BB2 /* segmentation.cpp */; };
+		EAEE0CA1299E6E01007D5BB2 /* floor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C99299E6E01007D5BB2 /* floor.cpp */; };
+		EAEE0CA4299E6F27007D5BB2 /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0CA3299E6F27007D5BB2 /* io.cpp */; };
+		EAEE0CA7299E6F93007D5BB2 /* OpenCV in Frameworks */ = {isa = PBXBuildFile; productRef = EAEE0CA6299E6F93007D5BB2 /* OpenCV */; };
 		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
 		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
 		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
@@ -183,6 +193,24 @@
 		EAE43DE229644D6200405533 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EAE43DE429644DA900405533 /* UIDevice+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Model.swift"; sourceTree = "<group>"; };
 		EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutputArray+GetFiles.swift"; sourceTree = "<group>"; };
+		EAEE0C8A299E6DFB007D5BB2 /* iFoot3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iFoot3D-Bridging-Header.h"; sourceTree = "<group>"; };
+		EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = alignment.cpp; path = Reconstruction/pipeline/alignment.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C8C299E6DFC007D5BB2 /* reconstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reconstruction.h; path = Reconstruction/pipeline/reconstruction.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C8D299E6DFD007D5BB2 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Reconstruction/pipeline/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		EAEE0C8E299E6DFD007D5BB2 /* floor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = floor.h; path = Reconstruction/pipeline/floor.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C8F299E6DFE007D5BB2 /* reconstruction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = reconstruction.cpp; path = Reconstruction/pipeline/reconstruction.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C90299E6DFE007D5BB2 /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stitching.h; path = Reconstruction/pipeline/stitching.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C91299E6DFE007D5BB2 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util.h; path = Reconstruction/pipeline/util.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C92299E6DFE007D5BB2 /* alignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alignment.h; path = Reconstruction/pipeline/alignment.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C93299E6DFF007D5BB2 /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stitching.cpp; path = Reconstruction/pipeline/stitching.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C94299E6DFF007D5BB2 /* postprocessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = postprocessing.h; path = Reconstruction/pipeline/postprocessing.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C95299E6E00007D5BB2 /* postprocessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = postprocessing.cpp; path = Reconstruction/pipeline/postprocessing.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C96299E6E00007D5BB2 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = util.cpp; path = Reconstruction/pipeline/util.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C97299E6E00007D5BB2 /* segmentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = segmentation.h; path = Reconstruction/pipeline/segmentation.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C98299E6E01007D5BB2 /* segmentation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = segmentation.cpp; path = Reconstruction/pipeline/segmentation.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C99299E6E01007D5BB2 /* floor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = floor.cpp; path = Reconstruction/pipeline/floor.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0CA2299E6F27007D5BB2 /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = io.h; path = Reconstruction/pipeline/io.h; sourceTree = SOURCE_ROOT; };
+		EAEE0CA3299E6F27007D5BB2 /* io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = io.cpp; path = Reconstruction/pipeline/io.cpp; sourceTree = SOURCE_ROOT; };
 		EAF2434C295D9178000855C3 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		EAF2434E295D92DA000855C3 /* FootNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootNode.swift; sourceTree = "<group>"; };
 		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
@@ -201,6 +229,7 @@
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 				EA3EF189298C0B7C00DADE92 /* Lottie in Frameworks */,
 				EA1A53A9299E3C2300E5B193 /* Open3D-iOS in Frameworks */,
+				EAEE0CA7299E6F93007D5BB2 /* OpenCV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +878,7 @@
 		EAEE0C87299E4BB4007D5BB2 /* Bridging */ = {
 			isa = PBXGroup;
 			children = (
+				EAEE0C8A299E6DFB007D5BB2 /* iFoot3D-Bridging-Header.h */,
 			);
 			path = Bridging;
 			sourceTree = "<group>";
@@ -856,6 +886,23 @@
 		EAEE0C88299E4BBF007D5BB2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				EAEE0CA3299E6F27007D5BB2 /* io.cpp */,
+				EAEE0CA2299E6F27007D5BB2 /* io.h */,
+				EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */,
+				EAEE0C92299E6DFE007D5BB2 /* alignment.h */,
+				EAEE0C8D299E6DFD007D5BB2 /* CMakeLists.txt */,
+				EAEE0C99299E6E01007D5BB2 /* floor.cpp */,
+				EAEE0C8E299E6DFD007D5BB2 /* floor.h */,
+				EAEE0C95299E6E00007D5BB2 /* postprocessing.cpp */,
+				EAEE0C94299E6DFF007D5BB2 /* postprocessing.h */,
+				EAEE0C8F299E6DFE007D5BB2 /* reconstruction.cpp */,
+				EAEE0C8C299E6DFC007D5BB2 /* reconstruction.h */,
+				EAEE0C98299E6E01007D5BB2 /* segmentation.cpp */,
+				EAEE0C97299E6E00007D5BB2 /* segmentation.h */,
+				EAEE0C93299E6DFF007D5BB2 /* stitching.cpp */,
+				EAEE0C90299E6DFE007D5BB2 /* stitching.h */,
+				EAEE0C96299E6E00007D5BB2 /* util.cpp */,
+				EAEE0C91299E6DFE007D5BB2 /* util.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -923,6 +970,7 @@
 				EAE43DDF29644D1F00405533 /* Zip */,
 				EA3EF188298C0B7C00DADE92 /* Lottie */,
 				EA1A53A8299E3C2300E5B193 /* Open3D-iOS */,
+				EAEE0CA6299E6F93007D5BB2 /* OpenCV */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -940,6 +988,7 @@
 				TargetAttributes = {
 					EA743F35295C147A00C488C4 = {
 						CreatedOnToolsVersion = 14.0.1;
+						LastSwiftMigration = 1400;
 					};
 				};
 			};
@@ -958,6 +1007,7 @@
 				EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */,
 				EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */,
+				EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -977,6 +1027,7 @@
 				EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */,
 				EA743F59295C2BAC00C488C4 /* FuturaBold.ttf in Resources */,
 				EA3EF190298C0C0400DADE92 /* loader.json in Resources */,
+				EAEE0C9B299E6E01007D5BB2 /* CMakeLists.txt in Resources */,
 				EA743F66295C2C8800C488C4 /* SF-Pro-Text-Medium.otf in Resources */,
 				EA743F69295C2C8800C488C4 /* SF-Pro-Text-Thin.otf in Resources */,
 				EA3EF1A0298C0FC200DADE92 /* foot.obj in Resources */,
@@ -992,7 +1043,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAEE0CA4299E6F27007D5BB2 /* io.cpp in Sources */,
 				EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */,
+				EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */,
 				EA3D9D3D29674DED00331FEA /* InstructionsView.swift in Sources */,
 				EA7512C3295C5A99006EE033 /* FootCaptureModuleBuilder.swift in Sources */,
 				EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */,
@@ -1002,6 +1055,8 @@
 				EA7512C5295C5A99006EE033 /* FootCaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
 				EA3D9D352967419C00331FEA /* SoleCaptureViewModel.swift in Sources */,
+				EAEE0C9D299E6E01007D5BB2 /* stitching.cpp in Sources */,
+				EAEE0CA1299E6E01007D5BB2 /* floor.cpp in Sources */,
 				EA3D9D5029675AA600331FEA /* InstructionCollectionViewCell.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
 				EA3EF1A9298C10BA00DADE92 /* PreviewViewModel.swift in Sources */,
@@ -1032,9 +1087,11 @@
 				EAE43DBE29643E4100405533 /* CaptureOutputManagerEvent.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
 				EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */,
+				EAEE0C9C299E6E01007D5BB2 /* reconstruction.cpp in Sources */,
 				EA3D9D542967FCA800331FEA /* SpeechRecognizer.swift in Sources */,
 				EAE43DD02964439100405533 /* UIImage+Init.swift in Sources */,
 				EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */,
+				EAEE0C9E299E6E01007D5BB2 /* postprocessing.cpp in Sources */,
 				EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
 				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
@@ -1059,6 +1116,7 @@
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,
 				EAF2434D295D9178000855C3 /* Images.swift in Sources */,
 				EA743F8C295C33AC00C488C4 /* BaseView.swift in Sources */,
+				EAEE0C9F299E6E01007D5BB2 /* util.cpp in Sources */,
 				EAE43DD2296443C600405533 /* CaptureProcessedOutput.swift in Sources */,
 				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
 				EA3EF196298C0C2400DADE92 /* ProcessingModuleBuilder.swift in Sources */,
@@ -1068,6 +1126,7 @@
 				EAE43DC42964416600405533 /* CaptureOutputValuesFormat.swift in Sources */,
 				EAE43DCE2964429800405533 /* Matrix+ToString.swift in Sources */,
 				EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */,
+				EAEE0CA0299E6E01007D5BB2 /* segmentation.cpp in Sources */,
 				EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1205,10 +1264,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = VU7MDLXL25;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/include/open3d/3rdparty";
 				INFOPLIST_FILE = iFoot3D/Environment/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "For foot capturing";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1228,6 +1289,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "iFoot3D/BusinessLogic/Bridging/iFoot3D-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1238,10 +1301,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = VU7MDLXL25;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/include/open3d/3rdparty";
 				INFOPLIST_FILE = iFoot3D/Environment/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "For foot capturing";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1261,6 +1326,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "iFoot3D/BusinessLogic/Bridging/iFoot3D-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1330,6 +1396,14 @@
 				kind = branch;
 			};
 		};
+		EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://bitbucket.org/Zhats/lfa_opencv";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1357,6 +1431,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
+		};
+		EAEE0CA6299E6F93007D5BB2 /* OpenCV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */;
+			productName = OpenCV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

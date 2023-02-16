@@ -190,7 +190,11 @@ namespace ifoot3d {
         }
     }
 
-    void alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection) {
+    void alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries,
+                                         const Eigen::Vector3d& targetPoint,
+                                         const Eigen::Vector3d& sourcePoint,
+                                         const Eigen::Vector3d& targetDirection,
+                                         const Eigen::Vector3d& sourceDirection) {
         double angle = -getAngleBetweenVectors(targetDirection, sourceDirection);
         
         Eigen::Vector3d axis = targetDirection.cross(sourceDirection);

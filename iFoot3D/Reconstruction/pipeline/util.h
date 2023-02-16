@@ -56,7 +56,11 @@ namespace ifoot3d {
 	float getAngleBetweenVectors(const Eigen::Vector3d&, const Eigen::Vector3d&);
 	void repairFloorNormals(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legs, std::vector<Plane>& floors);
 	Eigen::Vector3d rotateVector(const Eigen::Vector3d& vector, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection);
-	void alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection);
+	void alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries,
+                                         const Eigen::Vector3d& targetPoint,
+                                         const Eigen::Vector3d& sourcePoint,
+                                         const Eigen::Vector3d& targetDirection,
+                                         const Eigen::Vector3d& sourceDirection);
 	void leaveVisibleMesh(std::shared_ptr<open3d::geometry::TriangleMesh>&mesh);
 	std::vector<std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d>> getBiggestTriangles(std::shared_ptr<open3d::geometry::TriangleMesh>& mesh, int num);
 	std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d> getBiggestTriangle(std::shared_ptr<open3d::geometry::TriangleMesh>& mesh);

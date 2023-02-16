@@ -4,6 +4,9 @@
 #include <vector>
 #include "alignment.h"
 #include <Eigen/Dense>
+#include "open3d/pipelines/registration/GlobalOptimization.h"
+#include "open3d/pipelines/registration/GlobalOptimizationMethod.h"
+#include "open3d/pipelines/registration/GlobalOptimizationConvergenceCriteria.h"
 
 namespace ifoot3d {
     auto pairwise_registration(const open3d::geometry::PointCloud& source,

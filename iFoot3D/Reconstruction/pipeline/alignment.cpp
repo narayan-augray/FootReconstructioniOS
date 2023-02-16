@@ -14,11 +14,22 @@ namespace ifoot3d {
         Eigen::Vector3d ReferenceToeProjection = referenceAxis.pointProjection(referenceToe);
         for (int i = 1; i < legs.size(); i++) {
             auto currentLegAxis = getLegAxis(legs[i], floors[i]);
-            alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>> { legs[i] }, referenceAxis.getPoint(), currentLegAxis.getPoint(), referenceAxis.getVector(), currentLegAxis.getVector());
+            auto geometries = std::vector<std::shared_ptr<open3d::geometry::Geometry3D>> { legs[i] };
+            
+            alignGeometriesByPointAndVector(geometries,
+                                            referenceAxis.getPoint(),
+                                            currentLegAxis.getPoint(),
+                                            referenceAxis.getVector(),
+                                            currentLegAxis.getVector());
             
             Eigen::Vector3d currentToe = getLegToe(legs[i], referenceAxis);
+                        
+            alignGeometriesByPointAndVector(geometries,
+                                            referenceAxis.getPoint(),
+                                            referenceAxis.getPoint(),
+                                            referenceToe - ReferenceToeProjection,
+                                            currentToe - ReferenceToeProjection);
             
-            alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>> { legs[i] }, referenceAxis.getPoint(), referenceAxis.getPoint(), referenceToe - ReferenceToeProjection, currentToe - ReferenceToeProjection);
             currentToe = getLegToe(legs[i], referenceAxis);
             legs[i]->Translate(referenceToe - currentToe);
         }
@@ -39,7 +50,9 @@ namespace ifoot3d {
         auto referenceNormal = get<1>(biggestTriangleAndNormal);
         
         Eigen::Vector3d referenceHeel = getSoleHeel(referenceTriangle);
-        Eigen::Vector3d referenceToe = getLegToe(referenceSole, Line(referenceNormal, referenceHeel));
+        
+        auto referenceToeParameter = Line(referenceNormal, referenceHeel);
+        Eigen::Vector3d referenceToe = getLegToe(referenceSole, referenceToeParameter);
         
         for (auto& sole : soles) {
 
@@ -52,19 +65,30 @@ namespace ifoot3d {
                 auto floorTriangle = get<0>(triangleData);
                 auto normal = get<1>(triangleData);
                 auto currentSole = make_shared<geometry::PointCloud>(geometry::PointCloud(*sole));
+                auto soleGeometry = vector<shared_ptr<geometry::Geometry3D>>{ currentSole };
                 Eigen::Vector3d soleHeel = getSoleHeel(floorTriangle);
 
-                alignGeometriesByPointAndVector(vector<shared_ptr<geometry::Geometry3D>>{ currentSole }, referenceHeel, soleHeel, referenceNormal, normal);
+                alignGeometriesByPointAndVector(soleGeometry,
+                                                referenceHeel,
+                                                soleHeel,
+                                                referenceNormal,
+                                                normal);
                 
-                Eigen::Vector3d soleToe = getLegToe(currentSole, Line(referenceHeel, referenceHeel));
-                alignGeometriesByPointAndVector(vector<shared_ptr<geometry::Geometry3D>>{ currentSole }, referenceHeel, referenceHeel, referenceToe - referenceHeel, soleToe - referenceHeel);
+                auto line = Line(referenceHeel, referenceHeel);
+                Eigen::Vector3d soleToe = getLegToe(currentSole, line);
+                
+                alignGeometriesByPointAndVector(soleGeometry,
+                                                referenceHeel,
+                                                referenceHeel,
+                                                referenceToe - referenceHeel,
+                                                soleToe - referenceHeel);
                 float threshold = 0.02;
                 auto registrationResult = pipelines::registration::RegistrationICP(
                     *currentSole, *referenceSole, threshold, Eigen::MatrixXd::Identity(4, 4),
                     pipelines::registration::TransformationEstimationPointToPlane());
                 if (registrationResult.correspondence_set_.size() > correspondenceSetSize) {
                     fittedSole = make_shared<geometry::PointCloud>(currentSole->Transform(registrationResult.transformation_));
-                    correspondenceSetSize = registrationResult.correspondence_set_.size();
+                    correspondenceSetSize = (int)registrationResult.correspondence_set_.size();
                 }
             }
             sole = fittedSole;
@@ -89,14 +113,28 @@ namespace ifoot3d {
 
         Eigen::Vector3d soleHeel = getSoleHeel(floorTriangle);
         Eigen::Vector3d legHeel = getLegHeel(leg, floor);
-        alignGeometriesByPointAndVector(vector<shared_ptr<geometry::Geometry3D>>{ hull, sole }, legHeel, soleHeel, floor.getNormal(), solePlane.getNormal());
-        Eigen::Vector3d soleToe = getLegToe(sole, getLegAxis(leg, floor));
-        Eigen::Vector3d legToe = getLegToe(leg, getLegAxis(leg, floor));
-        alignGeometriesByPointAndVector(vector<shared_ptr<geometry::Geometry3D>>{ hull, sole }, legHeel, legHeel, legToe - legHeel, soleToe - legHeel);
+        auto geometries = vector<shared_ptr<geometry::Geometry3D>>{ hull, sole };
+        alignGeometriesByPointAndVector(geometries,
+                                        legHeel,
+                                        soleHeel,
+                                        floor.getNormal(),
+                                        solePlane.getNormal());
+        auto legAxis = getLegAxis(leg, floor);
+        Eigen::Vector3d soleToe = getLegToe(sole, legAxis);
+        Eigen::Vector3d legToe = getLegToe(leg, legAxis);
+        alignGeometriesByPointAndVector(geometries,
+                                        legHeel,
+                                        legHeel,
+                                        legToe - legHeel,
+                                        soleToe - legHeel);
         tie(floorTriangle, floorNormal) = getBiggestTriangle(hull);
         solePlane = Plane(floorTriangle);
         solePlane.setNormal(floorNormal);
-        alignGeometriesByPointAndVector(vector<shared_ptr<geometry::Geometry3D>>{ hull, sole }, legHeel, legHeel, floor.getNormal(), solePlane.getNormal());
+        alignGeometriesByPointAndVector(geometries,
+                                        legHeel,
+                                        legHeel,
+                                        floor.getNormal(),
+                                        solePlane.getNormal());
         auto soleSilhouettePoints = getMeshBoundaries(hull, 0.002);
         vector<Eigen::Vector3d> soleSilhouette;
         for (const auto& point : soleSilhouettePoints) {
