@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA1A53A9299E3C2300E5B193 /* Open3D-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = EA1A53A8299E3C2300E5B193 /* Open3D-iOS */; };
 		EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */; };
 		EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */; };
 		EA3D9D342967419C00331FEA /* SoleCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D302967419C00331FEA /* SoleCaptureView.swift */; };
@@ -199,6 +200,7 @@
 				EA7512D0295C6397006EE033 /* Toast in Frameworks */,
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 				EA3EF189298C0B7C00DADE92 /* Lottie in Frameworks */,
+				EA1A53A9299E3C2300E5B193 /* Open3D-iOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,6 +882,7 @@
 				EA7512CF295C6397006EE033 /* Toast */,
 				EAE43DDF29644D1F00405533 /* Zip */,
 				EA3EF188298C0B7C00DADE92 /* Lottie */,
+				EA1A53A8299E3C2300E5B193 /* Open3D-iOS */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -914,6 +917,7 @@
 				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */,
 				EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -1246,6 +1250,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/charliegarrison/Open3D-iOS.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -1281,6 +1293,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EA1A53A8299E3C2300E5B193 /* Open3D-iOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */;
+			productName = "Open3D-iOS";
+		};
 		EA3EF188298C0B7C00DADE92 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */;
