@@ -31,6 +31,7 @@ final class PreviewViewModel: BaseViewModel {
     init(outputs: [CaptureProcessedOutput]) {
         self.outputs = outputs
         self.objectUrl = Bundle.main.url(forResource: Object.modelName, withExtension: Object.modelExtension)!
+        
         super.init()
     }
     

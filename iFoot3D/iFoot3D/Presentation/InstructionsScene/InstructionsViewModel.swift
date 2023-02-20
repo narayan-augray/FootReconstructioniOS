@@ -18,6 +18,7 @@ final class InstructionsViewModel: BaseViewModel {
     // MARK: - Init
     init(outputs: [CaptureProcessedOutput]) {
         self.outputs = outputs
+        
         super.init()
     }
 }

@@ -37,7 +37,9 @@ final class SoleCaptureViewModel: BaseViewModel {
         self.speechRecognier = speechRecognier
         self.captureService = captureService
         self.captureOutputManager = captureOutputManager
+        
         super.init()
+        
         setupBindings()
     }
     

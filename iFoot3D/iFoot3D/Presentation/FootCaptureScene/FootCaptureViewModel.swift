@@ -26,7 +26,9 @@ final class FootCaptureViewModel: BaseViewModel {
         self.arSessionManager = arSessionManager
         self.captureService = captureService
         self.captureOutputManager = captureOutputManager
+        
         super.init()
+        
         setupServices()
         setupBindings()
     }

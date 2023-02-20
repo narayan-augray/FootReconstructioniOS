@@ -10,4 +10,5 @@ import Foundation
 struct OutputConstants {
     static let extrinsicsKey = "extrinsic"
     static let intrinsicsKey = "intrinsics"
+    static let soleCaptureOutputIndex = -9999
 }

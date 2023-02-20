@@ -8,6 +8,7 @@
 import Foundation
 
 struct CaptureProcessedOutput {
+    let index: Int
     let originalImageUrl: URL
     let dataTextFileUrl: URL
     let calibrationTextFileUrl: URL?

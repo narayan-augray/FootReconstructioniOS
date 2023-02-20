@@ -43,7 +43,7 @@ namespace ifoot3d {
 
         string inputLegPath = "../../data/input/leg/", inputSolePath = "../../data/input/sole/";
         
-        auto inputData = ч
+        auto inputData = readMultipleInputData(inputLegPath, inputSolePath, vector<int> { 0, 7, 6 }, vector<int> { 0, 1, 2, 3 }, vector<int> { 2,0,1,3,5 });
         auto finalLeg = reconstructLeg(inputData);
         
         visualization::DrawGeometries({ finalLeg });
