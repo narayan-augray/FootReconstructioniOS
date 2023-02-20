@@ -138,6 +138,24 @@ namespace ifoot3d {
         return pcd;
     }
 
+    std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(const std::vector<std::vector<std::string>>& rightSidePaths, const std::vector<std::vector<std::string>>& leftSidePaths, const std::vector<std::vector<std::string>>& solePaths) {
+        using namespace std;
+        using namespace cv;
+
+        vector<vector<Mat>> rightLegData, leftLegData, soleData;
+        for (const auto& inputPaths : rightSidePaths) {
+            rightLegData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
+        }
+        for (const auto& inputPaths : leftSidePaths) {
+            leftLegData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
+        }
+        for (const auto& inputPaths : solePaths) {
+            soleData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
+        }
+
+        return { rightLegData, leftLegData, soleData };
+    }
+
     std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(std::string legDataPath, std::string soleDataPath, std::vector<int>& rightSideIndexes, std::vector<int>& leftSideIndexes, std::vector<int>& soleIndexes) {
         using namespace std;
         using namespace cv;

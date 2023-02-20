@@ -190,11 +190,29 @@ namespace ifoot3d {
         }
     }
 
-    void alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries,
-                                         const Eigen::Vector3d& targetPoint,
-                                         const Eigen::Vector3d& sourcePoint,
-                                         const Eigen::Vector3d& targetDirection,
-                                         const Eigen::Vector3d& sourceDirection) {
+    void alignGeometryByPointAndVector(std::shared_ptr<open3d::geometry::PointCloud>& geometry, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection) {
+        double angle = -getAngleBetweenVectors(targetDirection, sourceDirection);
+
+        Eigen::Vector3d axis = targetDirection.cross(sourceDirection);
+        axis /= axis.norm();
+
+        auto R = open3d::geometry::Geometry3D::GetRotationMatrixFromAxisAngle(angle * axis);
+        geometry->Translate(targetPoint - sourcePoint);
+        geometry->Rotate(R, targetPoint);
+    }
+
+    void alignGeometryByPointAndVector(std::shared_ptr<open3d::geometry::TriangleMesh>& geometry, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection) {
+        double angle = -getAngleBetweenVectors(targetDirection, sourceDirection);
+
+        Eigen::Vector3d axis = targetDirection.cross(sourceDirection);
+        axis /= axis.norm();
+
+        auto R = open3d::geometry::Geometry3D::GetRotationMatrixFromAxisAngle(angle * axis);
+        geometry->Translate(targetPoint - sourcePoint);
+        geometry->Rotate(R, targetPoint);
+    }
+
+    void alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection) {
         double angle = -getAngleBetweenVectors(targetDirection, sourceDirection);
         
         Eigen::Vector3d axis = targetDirection.cross(sourceDirection);

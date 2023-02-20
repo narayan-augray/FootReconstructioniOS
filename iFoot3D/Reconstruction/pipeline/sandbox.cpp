@@ -42,8 +42,12 @@ namespace ifoot3d {
         using namespace open3d;
 
         string inputLegPath = "../../data/input/leg/", inputSolePath = "../../data/input/sole/";
+
+        vector<int> rightIndexes { 0, 7, 6 };
+        vector<int> leftIndexes { 0, 1, 2, 3 };
+        vector<int> soleIndexes { 2,0,1,3,5 };
         
-        auto inputData = readMultipleInputData(inputLegPath, inputSolePath, vector<int> { 0, 7, 6 }, vector<int> { 0, 1, 2, 3 }, vector<int> { 2,0,1,3,5 });
+        auto inputData = readMultipleInputData(inputLegPath, inputSolePath, rightIndexes, leftIndexes, soleIndexes);
         auto finalLeg = reconstructLeg(inputData);
         
         visualization::DrawGeometries({ finalLeg });

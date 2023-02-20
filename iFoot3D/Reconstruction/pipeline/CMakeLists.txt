@@ -22,4 +22,4 @@ include_directories( ${OpenCV_INCLUDE_DIRS})
 
 add_library(pipeline ${SRCS})
 
-target_link_libraries(pipeline PRIVATE Open3D::Open3D ${OpenCV_LIBS} ../libs/tbb_static)
+target_link_libraries(pipeline PRIVATE Open3D::Open3D ${OpenCV_LIBS})

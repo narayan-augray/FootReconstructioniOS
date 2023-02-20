@@ -13,14 +13,16 @@ namespace ifoot3d {
         const open3d::geometry::PointCloud& target,
         const double max_correspondence_distance_coarse,
         const double max_correspondence_distance_fine) {
-        
+
         auto icp_coarse = open3d::pipelines::registration::RegistrationICP(source, target, max_correspondence_distance_coarse,
             Eigen::MatrixXd::Identity(4, 4), open3d::pipelines::registration::TransformationEstimationPointToPlane());
         auto icp_fine = open3d::pipelines::registration::RegistrationICP(source, target, max_correspondence_distance_fine,
             icp_coarse.transformation_, open3d::pipelines::registration::TransformationEstimationPointToPlane());
+        
         auto transformationICP = icp_fine.transformation_;
         auto informationICP = open3d::pipelines::registration::GetInformationMatrixFromPointClouds(source, target,
             max_correspondence_distance_fine, icp_fine.transformation_);
+
         return std::make_tuple(transformationICP, informationICP);
     }
 
@@ -67,7 +69,6 @@ namespace ifoot3d {
         auto option = open3d::pipelines::registration::GlobalOptimizationOption(maxCorrespondenceDistanceFine, 0.25, 0);
         pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
             pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
-        
         for (int i = 0; i < rightLegs.size(); i++) {
             rightLegs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
         }

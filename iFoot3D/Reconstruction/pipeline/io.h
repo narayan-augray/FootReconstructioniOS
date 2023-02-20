@@ -18,4 +18,6 @@ namespace ifoot3d {
 	std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(cv::Mat& image, cv::Mat& depth, cv::Mat& intrinsic);
 
 	std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(std::string legDataPath, std::string soleDataPath, std::vector<int>& rightSideIndexes, std::vector<int>& leftSideIndexes, std::vector<int>& soleIndexes);
+
+	std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(const std::vector<std::vector<std::string>>& rightSidePaths, const std::vector<std::vector<std::string>>& leftSidePaths, const std::vector<std::vector<std::string>>& solePaths);
 }
