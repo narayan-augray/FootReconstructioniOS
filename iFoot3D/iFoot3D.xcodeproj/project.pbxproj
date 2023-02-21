@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EA1A53A9299E3C2300E5B193 /* Open3D-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = EA1A53A8299E3C2300E5B193 /* Open3D-iOS */; };
+		EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */; };
 		EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */; };
 		EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */; };
 		EA3D9D342967419C00331FEA /* SoleCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D302967419C00331FEA /* SoleCaptureView.swift */; };
@@ -29,8 +30,6 @@
 		EA3EF197298C0C2400DADE92 /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF193298C0C2400DADE92 /* ProcessingViewController.swift */; };
 		EA3EF198298C0C2400DADE92 /* ProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF194298C0C2400DADE92 /* ProcessingView.swift */; };
 		EA3EF199298C0C2400DADE92 /* ProcessingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF195298C0C2400DADE92 /* ProcessingViewModel.swift */; };
-		EA3EF19E298C0FA600DADE92 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF19D298C0FA600DADE92 /* Object.swift */; };
-		EA3EF1A0298C0FC200DADE92 /* foot.obj in Resources */ = {isa = PBXBuildFile; fileRef = EA3EF19F298C0FC200DADE92 /* foot.obj */; };
 		EA3EF1A6298C10BA00DADE92 /* PreviewModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF1A2298C10BA00DADE92 /* PreviewModuleBuilder.swift */; };
 		EA3EF1A7298C10BA00DADE92 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF1A3298C10BA00DADE92 /* PreviewViewController.swift */; };
 		EA3EF1A8298C10BA00DADE92 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF1A4298C10BA00DADE92 /* PreviewView.swift */; };
@@ -88,7 +87,6 @@
 		EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD729644A4000405533 /* SuccessViewController.swift */; };
 		EAE43DDC29644A4000405533 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD829644A4000405533 /* SuccessView.swift */; };
 		EAE43DDD29644A4000405533 /* SuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD929644A4000405533 /* SuccessViewModel.swift */; };
-		EAE43DE029644D1F00405533 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = EAE43DDF29644D1F00405533 /* Zip */; };
 		EAE43DE329644D6200405533 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE229644D6200405533 /* ActivityViewController.swift */; };
 		EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE429644DA900405533 /* UIDevice+Model.swift */; };
 		EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */; };
@@ -114,6 +112,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingConstants.swift; sourceTree = "<group>"; };
 		EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureModuleBuilder.swift; sourceTree = "<group>"; };
 		EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureViewController.swift; sourceTree = "<group>"; };
 		EA3D9D302967419C00331FEA /* SoleCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureView.swift; sourceTree = "<group>"; };
@@ -134,8 +133,6 @@
 		EA3EF193298C0C2400DADE92 /* ProcessingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
 		EA3EF194298C0C2400DADE92 /* ProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingView.swift; sourceTree = "<group>"; };
 		EA3EF195298C0C2400DADE92 /* ProcessingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingViewModel.swift; sourceTree = "<group>"; };
-		EA3EF19D298C0FA600DADE92 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
-		EA3EF19F298C0FC200DADE92 /* foot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foot.obj; sourceTree = "<group>"; };
 		EA3EF1A2298C10BA00DADE92 /* PreviewModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModuleBuilder.swift; sourceTree = "<group>"; };
 		EA3EF1A3298C10BA00DADE92 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		EA3EF1A4298C10BA00DADE92 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -231,7 +228,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAE43DE029644D1F00405533 /* Zip in Frameworks */,
 				EA7512D0295C6397006EE033 /* Toast in Frameworks */,
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 				EA3EF189298C0B7C00DADE92 /* Lottie in Frameworks */,
@@ -358,31 +354,6 @@
 			path = ProcessingScene;
 			sourceTree = "<group>";
 		};
-		EA3EF19A298C0F6300DADE92 /* Object */ = {
-			isa = PBXGroup;
-			children = (
-				EA3EF19B298C0F7500DADE92 /* Helpers */,
-				EA3EF19C298C0F8400DADE92 /* Sources */,
-			);
-			path = Object;
-			sourceTree = "<group>";
-		};
-		EA3EF19B298C0F7500DADE92 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				EA3EF19D298C0FA600DADE92 /* Object.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		EA3EF19C298C0F8400DADE92 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				EA3EF19F298C0FC200DADE92 /* foot.obj */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
 		EA3EF1A1298C10A800DADE92 /* PreviewScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,7 +438,6 @@
 				EA7512DA295CCA4F006EE033 /* Colors */,
 				EA743F56295C2B8700C488C4 /* Fonts */,
 				EAF2434B295D9166000855C3 /* Images */,
-				EA3EF19A298C0F6300DADE92 /* Object */,
 				EA743F4F295C157900C488C4 /* Storyboards */,
 			);
 			path = Resources;
@@ -832,8 +802,9 @@
 		EAE43DCA2964424000405533 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				EAE43DCB2964424F00405533 /* OutputConstants.swift */,
 				EAE43DD32964455C00405533 /* CaptureConstants.swift */,
+				EAE43DCB2964424F00405533 /* OutputConstants.swift */,
+				EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1002,7 +973,6 @@
 			packageProductDependencies = (
 				EA743F54295C17C800C488C4 /* CombineCocoa */,
 				EA7512CF295C6397006EE033 /* Toast */,
-				EAE43DDF29644D1F00405533 /* Zip */,
 				EA3EF188298C0B7C00DADE92 /* Lottie */,
 				EA1A53A8299E3C2300E5B193 /* Open3D-iOS */,
 				EAEE0CA6299E6F93007D5BB2 /* OpenCV */,
@@ -1039,7 +1009,6 @@
 			packageReferences = (
 				EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
-				EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */,
 				EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */,
 				EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */,
@@ -1065,7 +1034,6 @@
 				EAEE0C9B299E6E01007D5BB2 /* CMakeLists.txt in Resources */,
 				EA743F66295C2C8800C488C4 /* SF-Pro-Text-Medium.otf in Resources */,
 				EA743F69295C2C8800C488C4 /* SF-Pro-Text-Thin.otf in Resources */,
-				EA3EF1A0298C0FC200DADE92 /* foot.obj in Resources */,
 				EA743F67295C2C8800C488C4 /* SF-Pro-Text-Regular.otf in Resources */,
 				EA743F68295C2C8800C488C4 /* SF-Pro-Text-Bold.otf in Resources */,
 			);
@@ -1119,7 +1087,6 @@
 				EA3D9D4B296759DE00331FEA /* ReusableCell.swift in Sources */,
 				EAE43DDA29644A4000405533 /* SuccessModuleBuilder.swift in Sources */,
 				EAE43DDC29644A4000405533 /* SuccessView.swift in Sources */,
-				EA3EF19E298C0FA600DADE92 /* Object.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
 				EAE43DBE29643E4100405533 /* CaptureOutputManagerEvent.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
@@ -1164,6 +1131,7 @@
 				EAE43DC42964416600405533 /* CaptureOutputValuesFormat.swift in Sources */,
 				EAE43DCE2964429800405533 /* Matrix+ToString.swift in Sources */,
 				EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */,
+				EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */,
 				EAEE0CA0299E6E01007D5BB2 /* segmentation.cpp in Sources */,
 				EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */,
 			);
@@ -1426,14 +1394,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/marmelroy/Zip.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://bitbucket.org/Zhats/lfa_opencv";
@@ -1464,11 +1424,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
-		};
-		EAE43DDF29644D1F00405533 /* Zip */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */;
-			productName = Zip;
 		};
 		EAEE0CA6299E6F93007D5BB2 /* OpenCV */ = {
 			isa = XCSwiftPackageProductDependency;

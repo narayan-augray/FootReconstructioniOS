@@ -23,4 +23,11 @@ extension CaptureProcessedOutput {
         }
         return files
     }
+    
+    func getFiles() -> [String] {
+        guard let calibrationTextFileUrl = calibrationTextFileUrl else {
+            return []
+        }
+        return [originalImageUrl.path, dataTextFileUrl.path, calibrationTextFileUrl.path]
+    }
 }
