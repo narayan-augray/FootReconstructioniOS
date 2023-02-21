@@ -40,10 +40,7 @@ final class ProcessingViewModel: BaseViewModel {
     // MARK: - Lifecycle
     override func onViewDidAppear() {
         super.onViewDidAppear()
-        //reconstruct()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            self?.actionSubject.send(.reconstructionFailed)
-        }
+        reconstruct()
     }
     
     // MARK: - Navigation
