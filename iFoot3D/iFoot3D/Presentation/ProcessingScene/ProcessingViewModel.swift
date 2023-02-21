@@ -107,6 +107,8 @@ private extension ProcessingViewModel {
                     transitionSubject.send(.success(modelPath: path))
                     
                 case .failure:
+                    deleteFiles(fileUrls: outputs.getFilesUrls())
+                    
                     actionSubject.send(.reconstructionFailed)
                 }
             }
