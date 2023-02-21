@@ -72,6 +72,7 @@ extension CaptureOutputManagerImpl {
             )
             
             self.processedOutputs.append(.init(
+                index: output.index,
                 originalImageUrl: originalImageUrl,
                 dataTextFileUrl: textDataUrl,
                 calibrationTextFileUrl: calibrationDataUrl)

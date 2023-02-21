@@ -42,9 +42,6 @@ extension PreviewView {
     func setupPreview(objectUrl: URL) {
         let scene = try? SCNScene(url: objectUrl)
         
-        let footNode = scene?.rootNode.childNodes.first
-        footNode?.scale = .init(2, 2, 2)
-        
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = Constant.sceneCameraNodePosition

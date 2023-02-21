@@ -35,6 +35,8 @@ extension CaptureServiceImpl {
         
         var result: [CapturePosition] = []
         
+        var currentIndex: Int = 1
+        
         let numberOfPositions = Float(CaptureConstants.requiredImagesCount)
         
         for angle in stride(from: 0.0, to: Constant.circle, by: Constant.circle / numberOfPositions) {
@@ -53,7 +55,14 @@ extension CaptureServiceImpl {
                 xRotation *= -1
             }
             
-            result.append(.init(position: .init(x: x, y: footPosition.y + Constant.yDistance, z: z),
+            currentIndex += 1
+            
+            if currentIndex >= CaptureConstants.requiredImagesCount {
+                currentIndex -= CaptureConstants.requiredImagesCount
+            }
+            
+            result.append(.init(index: currentIndex,
+                                position: .init(x: x, y: footPosition.y + Constant.yDistance, z: z),
                                 rotation: .init(xRotation, yRotation, 0)))
         }
         
@@ -72,7 +81,8 @@ extension CaptureServiceImpl {
         else {
             return
         }
-        let output = CaptureOutput(originalPixelBuffer: originalPixelBuffer,
+        let output = CaptureOutput(index: capturePositions[index].index,
+                                   originalPixelBuffer: originalPixelBuffer,
                                    depthPixelBuffer: depthPixelBuffer,
                                    intrinsics: frame.camera.intrinsics,
                                    transform: frame.camera.transform)
@@ -90,7 +100,8 @@ extension CaptureServiceImpl {
         else {
             return
         }
-        let output = CaptureOutput(originalPixelBuffer: originalPixelBuffer,
+        let output = CaptureOutput(index: OutputConstants.soleCaptureOutputIndex,
+                                   originalPixelBuffer: originalPixelBuffer,
                                    depthPixelBuffer: depthPixelBuffer,
                                    intrinsics: frame.camera.intrinsics,
                                    transform: frame.camera.transform)

@@ -31,32 +31,28 @@ private extension PreviewViewController {
                 switch action {
                 case .export:
                     viewModel.isLoadingSubject.send(true)
-                    viewModel.zipOutput()
+                    
+                    shareFile()
                     
                 case .close:
                     viewModel.close()
                 }
             }
             .store(in: &cancellables)
-        
-        viewModel.actionPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [unowned self] (action) in
-                switch action {
-                case .outputZipped(let zipUrl):
-                    shareFile(zipUrl: zipUrl)
-                }
-            }
-            .store(in: &cancellables)
     }
     
     func setupPreview() {
-        contentView.setupPreview(objectUrl: viewModel.objectUrl)
+        guard let objectUrl = viewModel.objectUrl else {
+            return
+        }
+        contentView.setupPreview(objectUrl: objectUrl)
     }
     
-    func shareFile(zipUrl: URL) {
-        let filesToShare: [URL] = [zipUrl]
-        let activityViewController = ActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+    func shareFile() {
+        guard let objectUrl = viewModel.objectUrl else {
+            return
+        }
+        let activityViewController = ActivityViewController(activityItems: [objectUrl], applicationActivities: nil)
         activityViewController.onDismiss = { [weak self] in
             self?.viewModel.deleteFiles()
             self?.viewModel.success()

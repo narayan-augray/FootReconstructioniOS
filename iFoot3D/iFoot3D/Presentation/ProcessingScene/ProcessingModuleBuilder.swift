@@ -9,7 +9,8 @@ import UIKit
 import Combine
 
 enum ProcessingTransition: Transition {
-    case success(outputs: [CaptureProcessedOutput])
+    case success(modelPath: String)
+    case capture
 }
 
 final class ProcessingModuleBuilder {
@@ -17,7 +18,8 @@ final class ProcessingModuleBuilder {
         container: AppContainer,
         outputs: [CaptureProcessedOutput]
     ) -> Module<ProcessingTransition, UIViewController> {
-        let viewModel = ProcessingViewModel(outputs: outputs)
+        let viewModel = ProcessingViewModel(outputs: outputs,
+                                            reconstructionService: container.reconstructionService)
         let viewController = ProcessingViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

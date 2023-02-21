@@ -25,6 +25,14 @@ class BaseViewModel: ViewModel {
     func onViewWillDisappear() {}
     func onViewDidDisappear() {}
     
+    // MARK: - Helpers
+    func deleteFiles(fileUrls: [URL?]) {
+        let fileManager = FileManager.default
+        for fileUrl in fileUrls where fileUrl != nil {
+            try? fileManager.removeItem(at: fileUrl!)
+        }
+    }
+    
     // MARK: - Deinit
     deinit {
         log.debug(message: "deinit of \(String(describing: self))")

@@ -88,16 +88,19 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {
-                case .success(let outputs):
-                    self?.preview(outputs: outputs)
+                case .success(let modelPath):
+                    self?.preview(modelPath: modelPath)
+                    
+                case .capture:
+                    self?.footCapture()
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
     
-    func preview(outputs: [CaptureProcessedOutput]) {
-        let module = PreviewModuleBuilder.build(container: container, outputs: outputs)
+    func preview(modelPath: String) {
+        let module = PreviewModuleBuilder.build(container: container, modelPath: modelPath)
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {

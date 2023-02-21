@@ -15,7 +15,9 @@ final class PhoneNode: SCNNode {
     // MARK: - Init
     init(position: CapturePosition) {
         self.id = position.id
+        
         super.init()
+        
         commonInit(position: position)
     }
     

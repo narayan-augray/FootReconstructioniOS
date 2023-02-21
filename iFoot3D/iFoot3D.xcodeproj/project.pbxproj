@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA1A53A9299E3C2300E5B193 /* Open3D-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = EA1A53A8299E3C2300E5B193 /* Open3D-iOS */; };
+		EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */; };
 		EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */; };
 		EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */; };
 		EA3D9D342967419C00331FEA /* SoleCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D302967419C00331FEA /* SoleCaptureView.swift */; };
@@ -28,8 +30,6 @@
 		EA3EF197298C0C2400DADE92 /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF193298C0C2400DADE92 /* ProcessingViewController.swift */; };
 		EA3EF198298C0C2400DADE92 /* ProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF194298C0C2400DADE92 /* ProcessingView.swift */; };
 		EA3EF199298C0C2400DADE92 /* ProcessingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF195298C0C2400DADE92 /* ProcessingViewModel.swift */; };
-		EA3EF19E298C0FA600DADE92 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF19D298C0FA600DADE92 /* Object.swift */; };
-		EA3EF1A0298C0FC200DADE92 /* foot.obj in Resources */ = {isa = PBXBuildFile; fileRef = EA3EF19F298C0FC200DADE92 /* foot.obj */; };
 		EA3EF1A6298C10BA00DADE92 /* PreviewModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF1A2298C10BA00DADE92 /* PreviewModuleBuilder.swift */; };
 		EA3EF1A7298C10BA00DADE92 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF1A3298C10BA00DADE92 /* PreviewViewController.swift */; };
 		EA3EF1A8298C10BA00DADE92 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EF1A4298C10BA00DADE92 /* PreviewView.swift */; };
@@ -87,19 +87,32 @@
 		EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD729644A4000405533 /* SuccessViewController.swift */; };
 		EAE43DDC29644A4000405533 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD829644A4000405533 /* SuccessView.swift */; };
 		EAE43DDD29644A4000405533 /* SuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DD929644A4000405533 /* SuccessViewModel.swift */; };
-		EAE43DE029644D1F00405533 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = EAE43DDF29644D1F00405533 /* Zip */; };
 		EAE43DE329644D6200405533 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE229644D6200405533 /* ActivityViewController.swift */; };
 		EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE429644DA900405533 /* UIDevice+Model.swift */; };
 		EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */; };
+		EAE5CF9729A49F910053CB98 /* ReconstructionServiceWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAE5CF9629A49F910053CB98 /* ReconstructionServiceWrapper.mm */; };
+		EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */; };
+		EAEE0C9B299E6E01007D5BB2 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = EAEE0C8D299E6DFD007D5BB2 /* CMakeLists.txt */; };
+		EAEE0C9C299E6E01007D5BB2 /* reconstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C8F299E6DFE007D5BB2 /* reconstruction.cpp */; };
+		EAEE0C9D299E6E01007D5BB2 /* stitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C93299E6DFF007D5BB2 /* stitching.cpp */; };
+		EAEE0C9E299E6E01007D5BB2 /* postprocessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C95299E6E00007D5BB2 /* postprocessing.cpp */; };
+		EAEE0C9F299E6E01007D5BB2 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C96299E6E00007D5BB2 /* util.cpp */; };
+		EAEE0CA0299E6E01007D5BB2 /* segmentation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C98299E6E01007D5BB2 /* segmentation.cpp */; };
+		EAEE0CA1299E6E01007D5BB2 /* floor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C99299E6E01007D5BB2 /* floor.cpp */; };
+		EAEE0CA4299E6F27007D5BB2 /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0CA3299E6F27007D5BB2 /* io.cpp */; };
+		EAEE0CA7299E6F93007D5BB2 /* OpenCV in Frameworks */ = {isa = PBXBuildFile; productRef = EAEE0CA6299E6F93007D5BB2 /* OpenCV */; };
 		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
 		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
 		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
 		EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */; };
 		EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */; };
 		EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24358295DD435000855C3 /* PhoneNode.swift */; };
+		EAF45DC029A4B5590000F3EC /* ReconstructionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF45DBF29A4B5590000F3EC /* ReconstructionService.swift */; };
+		EAF45DC329A4B5990000F3EC /* ReconstructionServiceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF45DC229A4B5980000F3EC /* ReconstructionServiceEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingConstants.swift; sourceTree = "<group>"; };
 		EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureModuleBuilder.swift; sourceTree = "<group>"; };
 		EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureViewController.swift; sourceTree = "<group>"; };
 		EA3D9D302967419C00331FEA /* SoleCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureView.swift; sourceTree = "<group>"; };
@@ -120,8 +133,6 @@
 		EA3EF193298C0C2400DADE92 /* ProcessingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
 		EA3EF194298C0C2400DADE92 /* ProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingView.swift; sourceTree = "<group>"; };
 		EA3EF195298C0C2400DADE92 /* ProcessingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingViewModel.swift; sourceTree = "<group>"; };
-		EA3EF19D298C0FA600DADE92 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
-		EA3EF19F298C0FC200DADE92 /* foot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foot.obj; sourceTree = "<group>"; };
 		EA3EF1A2298C10BA00DADE92 /* PreviewModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModuleBuilder.swift; sourceTree = "<group>"; };
 		EA3EF1A3298C10BA00DADE92 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		EA3EF1A4298C10BA00DADE92 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -182,12 +193,34 @@
 		EAE43DE229644D6200405533 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EAE43DE429644DA900405533 /* UIDevice+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Model.swift"; sourceTree = "<group>"; };
 		EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutputArray+GetFiles.swift"; sourceTree = "<group>"; };
+		EAE5CF9529A49CE30053CB98 /* ReconstructionServiceWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReconstructionServiceWrapper.h; sourceTree = "<group>"; };
+		EAE5CF9629A49F910053CB98 /* ReconstructionServiceWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ReconstructionServiceWrapper.mm; sourceTree = "<group>"; };
+		EAEE0C8A299E6DFB007D5BB2 /* iFoot3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iFoot3D-Bridging-Header.h"; sourceTree = "<group>"; };
+		EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = alignment.cpp; path = Reconstruction/pipeline/alignment.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C8C299E6DFC007D5BB2 /* reconstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reconstruction.h; path = Reconstruction/pipeline/reconstruction.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C8D299E6DFD007D5BB2 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Reconstruction/pipeline/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		EAEE0C8E299E6DFD007D5BB2 /* floor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = floor.h; path = Reconstruction/pipeline/floor.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C8F299E6DFE007D5BB2 /* reconstruction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = reconstruction.cpp; path = Reconstruction/pipeline/reconstruction.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C90299E6DFE007D5BB2 /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stitching.h; path = Reconstruction/pipeline/stitching.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C91299E6DFE007D5BB2 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util.h; path = Reconstruction/pipeline/util.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C92299E6DFE007D5BB2 /* alignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alignment.h; path = Reconstruction/pipeline/alignment.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C93299E6DFF007D5BB2 /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stitching.cpp; path = Reconstruction/pipeline/stitching.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C94299E6DFF007D5BB2 /* postprocessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = postprocessing.h; path = Reconstruction/pipeline/postprocessing.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C95299E6E00007D5BB2 /* postprocessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = postprocessing.cpp; path = Reconstruction/pipeline/postprocessing.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C96299E6E00007D5BB2 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = util.cpp; path = Reconstruction/pipeline/util.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C97299E6E00007D5BB2 /* segmentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = segmentation.h; path = Reconstruction/pipeline/segmentation.h; sourceTree = SOURCE_ROOT; };
+		EAEE0C98299E6E01007D5BB2 /* segmentation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = segmentation.cpp; path = Reconstruction/pipeline/segmentation.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0C99299E6E01007D5BB2 /* floor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = floor.cpp; path = Reconstruction/pipeline/floor.cpp; sourceTree = SOURCE_ROOT; };
+		EAEE0CA2299E6F27007D5BB2 /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = io.h; path = Reconstruction/pipeline/io.h; sourceTree = SOURCE_ROOT; };
+		EAEE0CA3299E6F27007D5BB2 /* io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = io.cpp; path = Reconstruction/pipeline/io.cpp; sourceTree = SOURCE_ROOT; };
 		EAF2434C295D9178000855C3 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		EAF2434E295D92DA000855C3 /* FootNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootNode.swift; sourceTree = "<group>"; };
 		EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+WorldPosition.swift"; sourceTree = "<group>"; };
 		EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Transform.swift"; sourceTree = "<group>"; };
 		EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionCombinedDelegate.swift; sourceTree = "<group>"; };
 		EAF24358295DD435000855C3 /* PhoneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNode.swift; sourceTree = "<group>"; };
+		EAF45DBF29A4B5590000F3EC /* ReconstructionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconstructionService.swift; sourceTree = "<group>"; };
+		EAF45DC229A4B5980000F3EC /* ReconstructionServiceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconstructionServiceEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,10 +228,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAE43DE029644D1F00405533 /* Zip in Frameworks */,
 				EA7512D0295C6397006EE033 /* Toast in Frameworks */,
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 				EA3EF189298C0B7C00DADE92 /* Lottie in Frameworks */,
+				EA1A53A9299E3C2300E5B193 /* Open3D-iOS in Frameworks */,
+				EAEE0CA7299E6F93007D5BB2 /* OpenCV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,31 +354,6 @@
 			path = ProcessingScene;
 			sourceTree = "<group>";
 		};
-		EA3EF19A298C0F6300DADE92 /* Object */ = {
-			isa = PBXGroup;
-			children = (
-				EA3EF19B298C0F7500DADE92 /* Helpers */,
-				EA3EF19C298C0F8400DADE92 /* Sources */,
-			);
-			path = Object;
-			sourceTree = "<group>";
-		};
-		EA3EF19B298C0F7500DADE92 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				EA3EF19D298C0FA600DADE92 /* Object.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		EA3EF19C298C0F8400DADE92 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				EA3EF19F298C0FC200DADE92 /* foot.obj */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
 		EA3EF1A1298C10A800DADE92 /* PreviewScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,7 +438,6 @@
 				EA7512DA295CCA4F006EE033 /* Colors */,
 				EA743F56295C2B8700C488C4 /* Fonts */,
 				EAF2434B295D9166000855C3 /* Images */,
-				EA3EF19A298C0F6300DADE92 /* Object */,
 				EA743F4F295C157900C488C4 /* Storyboards */,
 			);
 			path = Resources;
@@ -604,6 +612,7 @@
 				EA7512D7295CC9B3006EE033 /* AR */,
 				EAE43DB729643AA400405533 /* Capture */,
 				EA743F96295C390E00C488C4 /* Log */,
+				EAEE0C85299E4B7E007D5BB2 /* Reconstruction */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -629,6 +638,7 @@
 		EA743F9A295C393B00C488C4 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				EAEE0C87299E4BB4007D5BB2 /* Bridging */,
 				EA743F99295C393400C488C4 /* Models */,
 				EA743F95295C38E400C488C4 /* Services */,
 			);
@@ -792,8 +802,9 @@
 		EAE43DCA2964424000405533 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				EAE43DCB2964424F00405533 /* OutputConstants.swift */,
 				EAE43DD32964455C00405533 /* CaptureConstants.swift */,
+				EAE43DCB2964424F00405533 /* OutputConstants.swift */,
+				EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -823,6 +834,82 @@
 				EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		EAE5CF9329A49C990053CB98 /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				EAE5CF9529A49CE30053CB98 /* ReconstructionServiceWrapper.h */,
+				EAE5CF9629A49F910053CB98 /* ReconstructionServiceWrapper.mm */,
+			);
+			path = ObjectiveC;
+			sourceTree = "<group>";
+		};
+		EAE5CF9429A49CA20053CB98 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EAF45DC129A4B5750000F3EC /* Event */,
+				EAF45DBF29A4B5590000F3EC /* ReconstructionService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EAEE0C85299E4B7E007D5BB2 /* Reconstruction */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE0C86299E4B91007D5BB2 /* ReconstructionService */,
+			);
+			path = Reconstruction;
+			sourceTree = "<group>";
+		};
+		EAEE0C86299E4B91007D5BB2 /* ReconstructionService */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE0C88299E4BBF007D5BB2 /* Sources */,
+				EAEE0C89299E4BC4007D5BB2 /* Wrapper */,
+			);
+			path = ReconstructionService;
+			sourceTree = "<group>";
+		};
+		EAEE0C87299E4BB4007D5BB2 /* Bridging */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE0C8A299E6DFB007D5BB2 /* iFoot3D-Bridging-Header.h */,
+			);
+			path = Bridging;
+			sourceTree = "<group>";
+		};
+		EAEE0C88299E4BBF007D5BB2 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				EAEE0CA3299E6F27007D5BB2 /* io.cpp */,
+				EAEE0CA2299E6F27007D5BB2 /* io.h */,
+				EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */,
+				EAEE0C92299E6DFE007D5BB2 /* alignment.h */,
+				EAEE0C8D299E6DFD007D5BB2 /* CMakeLists.txt */,
+				EAEE0C99299E6E01007D5BB2 /* floor.cpp */,
+				EAEE0C8E299E6DFD007D5BB2 /* floor.h */,
+				EAEE0C95299E6E00007D5BB2 /* postprocessing.cpp */,
+				EAEE0C94299E6DFF007D5BB2 /* postprocessing.h */,
+				EAEE0C8F299E6DFE007D5BB2 /* reconstruction.cpp */,
+				EAEE0C8C299E6DFC007D5BB2 /* reconstruction.h */,
+				EAEE0C98299E6E01007D5BB2 /* segmentation.cpp */,
+				EAEE0C97299E6E00007D5BB2 /* segmentation.h */,
+				EAEE0C93299E6DFF007D5BB2 /* stitching.cpp */,
+				EAEE0C90299E6DFE007D5BB2 /* stitching.h */,
+				EAEE0C96299E6E00007D5BB2 /* util.cpp */,
+				EAEE0C91299E6DFE007D5BB2 /* util.h */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		EAEE0C89299E4BC4007D5BB2 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				EAE5CF9329A49C990053CB98 /* ObjectiveC */,
+				EAE5CF9429A49CA20053CB98 /* Service */,
+			);
+			path = Wrapper;
 			sourceTree = "<group>";
 		};
 		EAF2434A295D879A000855C3 /* Nodes */ = {
@@ -859,6 +946,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		EAF45DC129A4B5750000F3EC /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EAF45DC229A4B5980000F3EC /* ReconstructionServiceEvent.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -878,8 +973,9 @@
 			packageProductDependencies = (
 				EA743F54295C17C800C488C4 /* CombineCocoa */,
 				EA7512CF295C6397006EE033 /* Toast */,
-				EAE43DDF29644D1F00405533 /* Zip */,
 				EA3EF188298C0B7C00DADE92 /* Lottie */,
+				EA1A53A8299E3C2300E5B193 /* Open3D-iOS */,
+				EAEE0CA6299E6F93007D5BB2 /* OpenCV */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -897,6 +993,7 @@
 				TargetAttributes = {
 					EA743F35295C147A00C488C4 = {
 						CreatedOnToolsVersion = 14.0.1;
+						LastSwiftMigration = 1400;
 					};
 				};
 			};
@@ -912,8 +1009,9 @@
 			packageReferences = (
 				EA743F53295C17C800C488C4 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
-				EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */,
 				EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */,
+				EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -933,9 +1031,9 @@
 				EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */,
 				EA743F59295C2BAC00C488C4 /* FuturaBold.ttf in Resources */,
 				EA3EF190298C0C0400DADE92 /* loader.json in Resources */,
+				EAEE0C9B299E6E01007D5BB2 /* CMakeLists.txt in Resources */,
 				EA743F66295C2C8800C488C4 /* SF-Pro-Text-Medium.otf in Resources */,
 				EA743F69295C2C8800C488C4 /* SF-Pro-Text-Thin.otf in Resources */,
-				EA3EF1A0298C0FC200DADE92 /* foot.obj in Resources */,
 				EA743F67295C2C8800C488C4 /* SF-Pro-Text-Regular.otf in Resources */,
 				EA743F68295C2C8800C488C4 /* SF-Pro-Text-Bold.otf in Resources */,
 			);
@@ -948,7 +1046,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAEE0CA4299E6F27007D5BB2 /* io.cpp in Sources */,
 				EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */,
+				EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */,
+				EAE5CF9729A49F910053CB98 /* ReconstructionServiceWrapper.mm in Sources */,
 				EA3D9D3D29674DED00331FEA /* InstructionsView.swift in Sources */,
 				EA7512C3295C5A99006EE033 /* FootCaptureModuleBuilder.swift in Sources */,
 				EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */,
@@ -958,7 +1059,10 @@
 				EA7512C5295C5A99006EE033 /* FootCaptureView.swift in Sources */,
 				EA743F75295C2FD400C488C4 /* UIViewController+ControllerForPresentation.swift in Sources */,
 				EA3D9D352967419C00331FEA /* SoleCaptureViewModel.swift in Sources */,
+				EAEE0C9D299E6E01007D5BB2 /* stitching.cpp in Sources */,
+				EAEE0CA1299E6E01007D5BB2 /* floor.cpp in Sources */,
 				EA3D9D5029675AA600331FEA /* InstructionCollectionViewCell.swift in Sources */,
+				EAF45DC329A4B5990000F3EC /* ReconstructionServiceEvent.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
 				EA3EF1A9298C10BA00DADE92 /* PreviewViewModel.swift in Sources */,
 				EAE43DC029643E5100405533 /* CaptureOutputManager.swift in Sources */,
@@ -983,14 +1087,15 @@
 				EA3D9D4B296759DE00331FEA /* ReusableCell.swift in Sources */,
 				EAE43DDA29644A4000405533 /* SuccessModuleBuilder.swift in Sources */,
 				EAE43DDC29644A4000405533 /* SuccessView.swift in Sources */,
-				EA3EF19E298C0FA600DADE92 /* Object.swift in Sources */,
 				EA743F98295C391A00C488C4 /* LogService.swift in Sources */,
 				EAE43DBE29643E4100405533 /* CaptureOutputManagerEvent.swift in Sources */,
 				EA743F9F295C39C800C488C4 /* LogModel.swift in Sources */,
 				EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */,
+				EAEE0C9C299E6E01007D5BB2 /* reconstruction.cpp in Sources */,
 				EA3D9D542967FCA800331FEA /* SpeechRecognizer.swift in Sources */,
 				EAE43DD02964439100405533 /* UIImage+Init.swift in Sources */,
 				EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */,
+				EAEE0C9E299E6E01007D5BB2 /* postprocessing.cpp in Sources */,
 				EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */,
 				EA743F8E295C33FC00C488C4 /* BaseViewController.swift in Sources */,
 				EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */,
@@ -1015,15 +1120,19 @@
 				EA743F77295C305200C488C4 /* AppCoordinator.swift in Sources */,
 				EAF2434D295D9178000855C3 /* Images.swift in Sources */,
 				EA743F8C295C33AC00C488C4 /* BaseView.swift in Sources */,
+				EAEE0C9F299E6E01007D5BB2 /* util.cpp in Sources */,
 				EAE43DD2296443C600405533 /* CaptureProcessedOutput.swift in Sources */,
 				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
 				EA3EF196298C0C2400DADE92 /* ProcessingModuleBuilder.swift in Sources */,
+				EAF45DC029A4B5590000F3EC /* ReconstructionService.swift in Sources */,
 				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
 				EAE43DCC2964424F00405533 /* OutputConstants.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,
 				EAE43DC42964416600405533 /* CaptureOutputValuesFormat.swift in Sources */,
 				EAE43DCE2964429800405533 /* Matrix+ToString.swift in Sources */,
 				EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */,
+				EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */,
+				EAEE0CA0299E6E01007D5BB2 /* segmentation.cpp in Sources */,
 				EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1161,10 +1270,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = VU7MDLXL25;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/include/open3d/3rdparty";
 				INFOPLIST_FILE = iFoot3D/Environment/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "For foot capturing";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1184,6 +1295,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "iFoot3D/BusinessLogic/Bridging/iFoot3D-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1194,10 +1307,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = VU7MDLXL25;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/include/open3d/3rdparty";
 				INFOPLIST_FILE = iFoot3D/Environment/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "For foot capturing";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1217,6 +1332,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "iFoot3D/BusinessLogic/Bridging/iFoot3D-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1246,6 +1362,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/charliegarrison/Open3D-iOS.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -1270,9 +1394,9 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */ = {
+		EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/marmelroy/Zip.git";
+			repositoryURL = "https://bitbucket.org/Zhats/lfa_opencv";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -1281,6 +1405,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EA1A53A8299E3C2300E5B193 /* Open3D-iOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */;
+			productName = "Open3D-iOS";
+		};
 		EA3EF188298C0B7C00DADE92 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */;
@@ -1296,10 +1425,10 @@
 			package = EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
 		};
-		EAE43DDF29644D1F00405533 /* Zip */ = {
+		EAEE0CA6299E6F93007D5BB2 /* OpenCV */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EAE43DDE29644D1F00405533 /* XCRemoteSwiftPackageReference "Zip" */;
-			productName = Zip;
+			package = EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */;
+			productName = OpenCV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

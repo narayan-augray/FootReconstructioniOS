@@ -8,6 +8,7 @@
 import Foundation
 
 struct CaptureProcessedOutput {
+    let index: Int
     let originalImageUrl: URL
     let dataTextFileUrl: URL
     let calibrationTextFileUrl: URL?
@@ -21,5 +22,12 @@ extension CaptureProcessedOutput {
             files.append(calibrationTextFileUrl)
         }
         return files
+    }
+    
+    func getFiles() -> [String] {
+        guard let calibrationTextFileUrl = calibrationTextFileUrl else {
+            return []
+        }
+        return [originalImageUrl.path, dataTextFileUrl.path, calibrationTextFileUrl.path]
     }
 }
