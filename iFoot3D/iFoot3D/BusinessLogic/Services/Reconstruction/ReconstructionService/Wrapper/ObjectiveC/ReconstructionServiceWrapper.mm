@@ -19,7 +19,7 @@
 }
 
 // MARK: - Reconstruction
-- (void) reconstruct: (NSArray<NSArray<NSString *> *> *) rightSidePaths
+- (bool) reconstruct: (NSArray<NSArray<NSString *> *> *) rightSidePaths
        leftSidePaths: (NSArray<NSArray<NSString *> *> *) leftSide
            solePaths: (NSArray<NSArray<NSString *> *> *) sole
           outputPath: (NSString *) output {
@@ -33,7 +33,7 @@
                                                                                           leftPaths,
                                                                                           solePaths);
     
-    ifoot3d::reconstructAndSaveLeg(input, outputPath);
+    return ifoot3d::reconstructAndSaveLeg(input, outputPath);
 }
 
 // MARK: - Helpers

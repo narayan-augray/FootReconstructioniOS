@@ -43,12 +43,25 @@ final class ReconstructionServiceImpl: ReconstructionService {
         outputPath: String
     ) {
         operationQueue.addOperation { [weak self] in
-            self?.reconstructor = ReconstructionServiceWrapper()
-            self?.reconstructor?.reconstruct(rightSidePaths,
-                                             leftSidePaths: leftSidePaths,
-                                             solePaths: solePaths,
-                                             outputPath: outputPath)
-            self?.eventSubject.send(.reconstructed(path: outputPath))
+            guard let self = self else {
+                return
+            }
+            
+            self.reconstructor = ReconstructionServiceWrapper()
+            
+            guard
+                let isSuccess = self.reconstructor?.reconstruct(
+                    rightSidePaths,
+                    leftSidePaths: leftSidePaths,
+                    solePaths: solePaths,
+                    outputPath: outputPath
+                )
+            else {
+                self.eventSubject.send(.failure)
+                return
+            }
+            
+            self.eventSubject.send(isSuccess ? .reconstructed(path: outputPath) : .failure)
         }
     }
 }

@@ -59,10 +59,12 @@ private extension ProcessingViewModel {
         
         let outputPath = FileManager.filePath(filename: ProcessingConstants.legScanFileName).path
         
-        reconstructionService.reconstruct(rightSidePaths: input.right,
-                                          leftSidePaths: input.left,
-                                          solePaths: input.sole,
-                                          outputPath: outputPath)
+        reconstructionService.reconstruct(
+            rightSidePaths: input.right,
+            leftSidePaths: input.left,
+            solePaths: input.sole,
+            outputPath: outputPath
+        )
     }
     
     func prepareInput() -> (right: [[String]], left: [[String]], sole: [[String]]) {
@@ -103,6 +105,9 @@ private extension ProcessingViewModel {
                     deleteFiles(fileUrls: outputs.getFilesUrls())
                     
                     transitionSubject.send(.success(modelPath: path))
+                    
+                case .failure:
+                    actionSubject.send(.reconstructionFailed)
                 }
             }
             .store(in: &cancellables)

@@ -9,4 +9,5 @@ import Foundation
 
 enum ReconstructionServiceEvent {
     case reconstructed(path: String)
+    case failure
 }

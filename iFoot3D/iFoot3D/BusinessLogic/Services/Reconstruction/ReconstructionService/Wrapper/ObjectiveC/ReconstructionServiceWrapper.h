@@ -15,7 +15,7 @@
 - (nonnull instancetype) init;
 
 // MARK: - Reconstruction
-- (void) reconstruct: (nonnull NSArray<NSArray<NSString *> *> *) rightSidePaths
+- (bool) reconstruct: (nonnull NSArray<NSArray<NSString *> *> *) rightSidePaths
        leftSidePaths: (nonnull NSArray<NSArray<NSString *> *> *) leftSide
            solePaths: (nonnull NSArray<NSArray<NSString *> *> *) sole
           outputPath: (nonnull NSString *) output;
