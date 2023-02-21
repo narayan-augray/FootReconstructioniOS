@@ -109,6 +109,8 @@
 		EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */; };
 		EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */; };
 		EAF24359295DD435000855C3 /* PhoneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24358295DD435000855C3 /* PhoneNode.swift */; };
+		EAF45DC029A4B5590000F3EC /* ReconstructionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF45DBF29A4B5590000F3EC /* ReconstructionService.swift */; };
+		EAF45DC329A4B5990000F3EC /* ReconstructionServiceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF45DC229A4B5980000F3EC /* ReconstructionServiceEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,6 +222,8 @@
 		EAF24353295DA19A000855C3 /* SCNVector3+Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Transform.swift"; sourceTree = "<group>"; };
 		EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionCombinedDelegate.swift; sourceTree = "<group>"; };
 		EAF24358295DD435000855C3 /* PhoneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNode.swift; sourceTree = "<group>"; };
+		EAF45DBF29A4B5590000F3EC /* ReconstructionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconstructionService.swift; sourceTree = "<group>"; };
+		EAF45DC229A4B5980000F3EC /* ReconstructionServiceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconstructionServiceEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -873,6 +877,8 @@
 		EAE5CF9429A49CA20053CB98 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				EAF45DC129A4B5750000F3EC /* Event */,
+				EAF45DBF29A4B5590000F3EC /* ReconstructionService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -967,6 +973,14 @@
 				EAF24356295DA921000855C3 /* ARSessionCombinedDelegate.swift */,
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		EAF45DC129A4B5750000F3EC /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EAF45DC229A4B5980000F3EC /* ReconstructionServiceEvent.swift */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1080,6 +1094,7 @@
 				EAEE0C9D299E6E01007D5BB2 /* stitching.cpp in Sources */,
 				EAEE0CA1299E6E01007D5BB2 /* floor.cpp in Sources */,
 				EA3D9D5029675AA600331FEA /* InstructionCollectionViewCell.swift in Sources */,
+				EAF45DC329A4B5990000F3EC /* ReconstructionServiceEvent.swift in Sources */,
 				EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */,
 				EA3EF1A9298C10BA00DADE92 /* PreviewViewModel.swift in Sources */,
 				EAE43DC029643E5100405533 /* CaptureOutputManager.swift in Sources */,
@@ -1142,6 +1157,7 @@
 				EAE43DD2296443C600405533 /* CaptureProcessedOutput.swift in Sources */,
 				EAF24357295DA921000855C3 /* ARSessionCombinedDelegate.swift in Sources */,
 				EA3EF196298C0C2400DADE92 /* ProcessingModuleBuilder.swift in Sources */,
+				EAF45DC029A4B5590000F3EC /* ReconstructionService.swift in Sources */,
 				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
 				EAE43DCC2964424F00405533 /* OutputConstants.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,

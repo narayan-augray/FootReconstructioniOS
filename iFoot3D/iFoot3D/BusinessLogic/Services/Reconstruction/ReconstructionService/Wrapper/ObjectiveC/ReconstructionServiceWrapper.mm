@@ -19,11 +19,11 @@
 }
 
 // MARK: - Reconstruction
-- (void) reconstruct: (NSArray<NSArray<NSString *> *> *) rightSide
+- (void) reconstruct: (NSArray<NSArray<NSString *> *> *) rightSidePaths
        leftSidePaths: (NSArray<NSArray<NSString *> *> *) leftSide
            solePaths: (NSArray<NSArray<NSString *> *> *) sole
           outputPath: (NSString *) output {
-    std::vector<std::vector<std::string>> rightPaths = [self getPaths:rightSide];
+    std::vector<std::vector<std::string>> rightPaths = [self getPaths:rightSidePaths];
     std::vector<std::vector<std::string>> leftPaths = [self getPaths:leftSide];
     std::vector<std::vector<std::string>> solePaths = [self getPaths:sole];
     
