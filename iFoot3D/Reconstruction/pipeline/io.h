@@ -14,8 +14,12 @@ namespace ifoot3d {
 	cv::Mat createIntrinsicsLidar(const cv::Mat& mInt, const cv::Size2i& shI, const cv::Size2i& shL);
 
 	std::vector<cv::Mat> readInputData(const std::string& imagePath, const std::string& depthPath, const std::string& calibrationPath);
+	
+	Eigen::Matrix4d fixExtrinsics(const cv::Mat& extrinsic);
 
 	std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(cv::Mat& image, cv::Mat& depth, cv::Mat& intrinsic);
+
+	std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(cv::Mat& image, cv::Mat& depth, cv::Mat& intrinsic, const cv::Mat& extrinsic);
 
 	std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(std::string legDataPath, std::string soleDataPath, std::vector<int>& rightSideIndexes, std::vector<int>& leftSideIndexes, std::vector<int>& soleIndexes);
 

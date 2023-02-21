@@ -6,7 +6,7 @@
 #include "util.h"
 
 namespace ifoot3d {
-	std::tuple<std::shared_ptr<open3d::geometry::PointCloud>, Plane> segmentLeg(std::shared_ptr<open3d::geometry::PointCloud> pcd) {
+	std::tuple<std::shared_ptr<open3d::geometry::PointCloud>, Plane> segmentLeg(std::shared_ptr<open3d::geometry::PointCloud> pcd, const Eigen::Vector3d& cameraPos) {
         using namespace std;
 
         Plane floor;
@@ -24,7 +24,7 @@ namespace ifoot3d {
 		// leave only clusters with 4 or more points and of appropriate volume
 		copy_if(clusters.begin(), clusters.end(), back_inserter(filteredClusters), [](shared_ptr<open3d::geometry::PointCloud> pcd) {return (pcd->points_.size() > 50) && (pcd->GetOrientedBoundingBox().Volume() > 0.5e-3); });
 		// get the closest cluster
-		auto leg = *min_element(filteredClusters.begin(), filteredClusters.end(), [](shared_ptr<open3d::geometry::PointCloud> pcd1, shared_ptr<open3d::geometry::PointCloud> pcd2) {return open3d::geometry::PointCloud({ {0,0,0} }).ComputePointCloudDistance(*pcd1)[0] < open3d::geometry::PointCloud({ {0,0,0} }).ComputePointCloudDistance(*pcd2)[0]; });
+		auto leg = *min_element(filteredClusters.begin(), filteredClusters.end(), [cameraPos](shared_ptr<open3d::geometry::PointCloud> pcd1, shared_ptr<open3d::geometry::PointCloud> pcd2) {return open3d::geometry::PointCloud({ cameraPos }).ComputePointCloudDistance(*pcd1)[0] < open3d::geometry::PointCloud({ cameraPos }).ComputePointCloudDistance(*pcd2)[0]; });
         // crop the leg
         vector<size_t> indices;
         for (int i = 0; i < leg->points_.size(); ++i) {
@@ -65,8 +65,8 @@ namespace ifoot3d {
         vector<int> labels = get<0>(sole2ind)->ClusterDBSCAN(0.01, 3);
         vector<shared_ptr<open3d::geometry::PointCloud>> clusters = separateCloudForClusters(get<0>(sole2ind), labels);
 
-        // Find the closest cluster to origin
-        open3d::geometry::PointCloud pcdOrigin({ Eigen::Vector3d(0, 0, 0) });
+        // Find the closest cluster to camera
+        open3d::geometry::PointCloud pcdOrigin({ cameraPos });
         vector<double> distsToClusters;
         for (const auto& clust : clusters) {
             distsToClusters.push_back(pcdOrigin.ComputePointCloudDistance(*clust)[0]);

@@ -14,7 +14,6 @@ namespace ifoot3d {
         Eigen::Vector3d ReferenceToeProjection = referenceAxis.pointProjection(referenceToe);
         for (int i = 1; i < legs.size(); i++) {
             auto currentLegAxis = getLegAxis(legs[i], floors[i]);
-            
             alignGeometryByPointAndVector(legs[i],
                                           referenceAxis.getPoint(),
                                           currentLegAxis.getPoint(),
@@ -109,17 +108,22 @@ namespace ifoot3d {
         Eigen::Vector3d soleHeel = getSoleHeel(floorTriangle);
         Eigen::Vector3d legHeel = getLegHeel(leg, floor);
 
+        auto soleHeelSphere = geometry::TriangleMesh::CreateSphere(0.003);
+        soleHeelSphere->Translate(soleHeel);
+
+        auto legHeelSphere = geometry::TriangleMesh::CreateSphere(0.003);
+        legHeelSphere->Translate(legHeel);
+
         vector<shared_ptr<geometry::Geometry3D>> hullAndSole{ hull, sole };
 
         alignGeometriesByPointAndVector(hullAndSole,
-                                        legHeel, soleHeel,
+                                        legHeel,
+                                        soleHeel,
                                         floor.getNormal(),
                                         solePlane.getNormal());
-        
+
         Line legAxis = getLegAxis(leg, floor);
-        
         Eigen::Vector3d soleToe = getLegToe(sole, legAxis);
-        
         Eigen::Vector3d legToe = getLegToe(leg, legAxis);
         
         alignGeometriesByPointAndVector(hullAndSole,
@@ -127,9 +131,7 @@ namespace ifoot3d {
                                         legHeel,
                                         legToe - legHeel,
                                         soleToe - legHeel);
-        
         tie(floorTriangle, floorNormal) = getBiggestTriangle(hull);
-        
         solePlane = Plane(floorTriangle);
         solePlane.setNormal(floorNormal);
         
@@ -146,13 +148,15 @@ namespace ifoot3d {
         }
         auto soleSilhouettePCD = geometry::PointCloud(soleSilhouette);
         auto legSilhouette = getLegContour(leg, floor);
-        auto legSilhouettePCD = geometry::PointCloud(legSilhouette);
+        auto legSilhouettePCD = make_shared<geometry::PointCloud>(legSilhouette);
 
-        sole->Translate(legSilhouettePCD.GetCenter() - soleSilhouettePCD.GetCenter());
-        soleSilhouettePCD.Translate(legSilhouettePCD.GetCenter() - soleSilhouettePCD.GetCenter());
+        
+
+        sole->Translate(legSilhouettePCD->GetCenter() - soleSilhouettePCD.GetCenter());
+        soleSilhouettePCD.Translate(legSilhouettePCD->GetCenter() - soleSilhouettePCD.GetCenter());
         double threshold = 0.1;
         auto regP2P = pipelines::registration::RegistrationICP(
-            soleSilhouettePCD, legSilhouettePCD, threshold, Eigen::MatrixXd::Identity(4, 4),
+            soleSilhouettePCD, *legSilhouettePCD, threshold, Eigen::MatrixXd::Identity(4, 4),
             pipelines::registration::TransformationEstimationPointToPoint()
         );
         sole->Transform(regP2P.transformation_);

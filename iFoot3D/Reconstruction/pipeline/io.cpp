@@ -41,12 +41,16 @@ namespace ifoot3d {
 		vector<float> intrinsicValues = parseFloatData(intrinsic_lines, ",");
 		vector<float> extrinsicValues = parseFloatData(extrinsic_lines, ",");
 
-        Mat intrinsic(3, 3, CV_64F), extrinsic(3, 3, CV_64F);
+        Mat intrinsic(3, 3, CV_64F), extrinsic(4, 4, CV_64F);
         
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 intrinsic.at<double>(i,j) = intrinsicValues[3 * i + j];
-                extrinsic.at<double>(i, j) = extrinsicValues[3 * i + j];
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                extrinsic.at<double>(i, j) = extrinsicValues[4 * i + j];
             }
         }
 
@@ -101,9 +105,59 @@ namespace ifoot3d {
 
         Mat img = imread(imagePath);
         Mat depth = lidTxtToArray(depthPath);
-        Mat mInt = readIntrinsicsExtrinsics(calibrationPath)[0];
+        vector<Mat> IntExt = readIntrinsicsExtrinsics(calibrationPath);
+        Mat mInt = IntExt[0];
+        Mat mExtr = IntExt[1];
 
-        return { img, depth, mInt };
+        return { img, depth, mInt, mExtr};
+    }
+
+    Eigen::Matrix4d fixExtrinsics(const cv::Mat& extrinsic) {
+        cv::Mat fixMatrix = (cv::Mat_<double>(4, 4) << 1,0,0,0,0,-1,0,0,0,0,-1,0,0,0,0,1);
+
+        cv::Mat fixedExtrinsic = extrinsic * fixMatrix;
+        
+        Eigen::Matrix4d res;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                res(i,j) = fixedExtrinsic.at<double>(i, j);
+            }
+        }
+        res = res.inverse();
+        return res;
+    }
+
+    std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(cv::Mat& image, cv::Mat& depth, cv::Mat& intrinsic, const cv::Mat& extrinsic) {
+        using namespace std;
+        using namespace cv;
+
+        //rotate(image, image, ROTATE_90_COUNTERCLOCKWISE);
+        Mat imgSmall, imgSmallRgb;
+        resize(image, imgSmall, depth.size());
+        cvtColor(imgSmall, imgSmallRgb, COLOR_BGR2RGB);
+        Mat mIntLid = createIntrinsicsLidar(intrinsic, image.size(), depth.size());
+        int imW = depth.cols, imH = depth.rows;
+        open3d::geometry::Image colorRaw;
+        colorRaw.Prepare(imW, imH, 3, 1);  // int8 rgb
+        memcpy(colorRaw.data_.data(), imgSmallRgb.data, imW * imH * 3);
+
+        Mat depth32F;
+        depth.convertTo(depth32F, CV_32F);
+        CV_Assert(depth32F.type() == CV_32F);
+        open3d::geometry::Image depthRaw;
+        depthRaw.Prepare(imW, imH, 1, 4);  // fp32 1-channel
+        memcpy(depthRaw.data_.data(), depth32F.data, imW * imH * 4);
+
+        // RGBD, PCD
+        shared_ptr<open3d::geometry::RGBDImage> rgbdImage =
+            open3d::geometry::RGBDImage::CreateFromColorAndDepth(colorRaw, depthRaw, 1., 1000., false);
+
+        open3d::camera::PinholeCameraIntrinsic intrinsicO3D;
+        intrinsicO3D.width_ = imW;
+        intrinsicO3D.height_ = imH;
+        intrinsicO3D.intrinsic_matrix_ = Eigen::Map<Eigen::Matrix3d>((double*)mIntLid.data).transpose();
+        shared_ptr<open3d::geometry::PointCloud> pcd = open3d::geometry::PointCloud::CreateFromRGBDImage(*rgbdImage, intrinsicO3D, fixExtrinsics(extrinsic));
+        return pcd;
     }
 
     std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(cv::Mat& image, cv::Mat& depth, cv::Mat& intrinsic) {

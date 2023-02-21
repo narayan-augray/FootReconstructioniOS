@@ -3,6 +3,6 @@
 #include "util.h"
 
 namespace ifoot3d {
-	std::tuple<std::shared_ptr<open3d::geometry::PointCloud>, Plane> segmentLeg(std::shared_ptr<open3d::geometry::PointCloud> pcd);
+	std::tuple<std::shared_ptr<open3d::geometry::PointCloud>, Plane> segmentLeg(std::shared_ptr<open3d::geometry::PointCloud> pcd, const Eigen::Vector3d& cameraPos);
 	std::shared_ptr<open3d::geometry::PointCloud> segmentSole(const std::shared_ptr<open3d::geometry::PointCloud>& pcdIn, double shift);
 }

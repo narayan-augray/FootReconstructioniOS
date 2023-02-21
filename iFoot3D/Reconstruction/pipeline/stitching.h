@@ -18,4 +18,10 @@ namespace ifoot3d {
         std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors);
 
     void stitchSoles(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole);
+
+    struct StitchingException : public std::exception {
+        const char* what() const throw () {
+            return "ICP failed";
+        }
+    };
 }
