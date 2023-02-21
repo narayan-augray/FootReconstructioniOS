@@ -6,7 +6,9 @@
 #include <string>
 #include <algorithm>
 
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 #include <open3d/Open3D.h>
 #include "util.h"
 
@@ -40,8 +42,7 @@ namespace ifoot3d {
 		vector<float> extrinsicValues = parseFloatData(extrinsic_lines, ",");
 
         Mat intrinsic(3, 3, CV_64F), extrinsic(3, 3, CV_64F);
-        double* intrData = (double*)intrinsic.data;
-        double* extrData = (double*)extrinsic.data;
+        
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 intrinsic.at<double>(i,j) = intrinsicValues[3 * i + j];
