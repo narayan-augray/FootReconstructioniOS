@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProcessingConstants {
-    static let legScanFileName = "leg.obj"
+    static let legScanFileName = "foot.obj"
     
     static let rightSideOutputIndices: [Int] = [1, 2, 3]
     static let leftSideOutputIndices: [Int] = [5, 6, 7]
