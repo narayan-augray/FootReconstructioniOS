@@ -92,6 +92,7 @@
 		EAE43DE329644D6200405533 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE229644D6200405533 /* ActivityViewController.swift */; };
 		EAE43DE529644DA900405533 /* UIDevice+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE429644DA900405533 /* UIDevice+Model.swift */; };
 		EAE43DE829644E1100405533 /* OutputArray+GetFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */; };
+		EAE5CF9729A49F910053CB98 /* ReconstructionServiceWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAE5CF9629A49F910053CB98 /* ReconstructionServiceWrapper.mm */; };
 		EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */; };
 		EAEE0C9B299E6E01007D5BB2 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = EAEE0C8D299E6DFD007D5BB2 /* CMakeLists.txt */; };
 		EAEE0C9C299E6E01007D5BB2 /* reconstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C8F299E6DFE007D5BB2 /* reconstruction.cpp */; };
@@ -193,6 +194,8 @@
 		EAE43DE229644D6200405533 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EAE43DE429644DA900405533 /* UIDevice+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Model.swift"; sourceTree = "<group>"; };
 		EAE43DE729644E1100405533 /* OutputArray+GetFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutputArray+GetFiles.swift"; sourceTree = "<group>"; };
+		EAE5CF9529A49CE30053CB98 /* ReconstructionServiceWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReconstructionServiceWrapper.h; sourceTree = "<group>"; };
+		EAE5CF9629A49F910053CB98 /* ReconstructionServiceWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ReconstructionServiceWrapper.mm; sourceTree = "<group>"; };
 		EAEE0C8A299E6DFB007D5BB2 /* iFoot3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iFoot3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = alignment.cpp; path = Reconstruction/pipeline/alignment.cpp; sourceTree = SOURCE_ROOT; };
 		EAEE0C8C299E6DFC007D5BB2 /* reconstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reconstruction.h; path = Reconstruction/pipeline/reconstruction.h; sourceTree = SOURCE_ROOT; };
@@ -858,6 +861,22 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		EAE5CF9329A49C990053CB98 /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				EAE5CF9529A49CE30053CB98 /* ReconstructionServiceWrapper.h */,
+				EAE5CF9629A49F910053CB98 /* ReconstructionServiceWrapper.mm */,
+			);
+			path = ObjectiveC;
+			sourceTree = "<group>";
+		};
+		EAE5CF9429A49CA20053CB98 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		EAEE0C85299E4B7E007D5BB2 /* Reconstruction */ = {
 			isa = PBXGroup;
 			children = (
@@ -910,6 +929,8 @@
 		EAEE0C89299E4BC4007D5BB2 /* Wrapper */ = {
 			isa = PBXGroup;
 			children = (
+				EAE5CF9329A49C990053CB98 /* ObjectiveC */,
+				EAE5CF9429A49CA20053CB98 /* Service */,
 			);
 			path = Wrapper;
 			sourceTree = "<group>";
@@ -1046,6 +1067,7 @@
 				EAEE0CA4299E6F27007D5BB2 /* io.cpp in Sources */,
 				EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */,
 				EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */,
+				EAE5CF9729A49F910053CB98 /* ReconstructionServiceWrapper.mm in Sources */,
 				EA3D9D3D29674DED00331FEA /* InstructionsView.swift in Sources */,
 				EA7512C3295C5A99006EE033 /* FootCaptureModuleBuilder.swift in Sources */,
 				EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */,
