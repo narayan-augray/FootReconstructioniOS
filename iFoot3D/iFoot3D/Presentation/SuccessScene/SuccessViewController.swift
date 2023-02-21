@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Zip
 
 final class SuccessViewController: BaseViewController<SuccessViewModel> {
     // MARK: - Views
