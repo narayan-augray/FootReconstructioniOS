@@ -10,6 +10,7 @@ import Combine
 
 enum ProcessingTransition: Transition {
     case success(modelPath: String)
+    case capture
 }
 
 final class ProcessingModuleBuilder {

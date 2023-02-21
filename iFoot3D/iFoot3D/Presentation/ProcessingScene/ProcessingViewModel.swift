@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+enum ProcessingViewModelAction {
+    case reconstructionFailed
+}
+
 final class ProcessingViewModel: BaseViewModel {
     // MARK: - Properties
     let outputs: [CaptureProcessedOutput]
@@ -16,6 +20,9 @@ final class ProcessingViewModel: BaseViewModel {
     let reconstructionService: ReconstructionService
     
     // MARK: - Transition
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<ProcessingViewModelAction, Never>()
+
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<ProcessingTransition, Never>()
     
@@ -33,7 +40,15 @@ final class ProcessingViewModel: BaseViewModel {
     // MARK: - Lifecycle
     override func onViewDidAppear() {
         super.onViewDidAppear()
-        reconstruct()
+        //reconstruct()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            self?.actionSubject.send(.reconstructionFailed)
+        }
+    }
+    
+    // MARK: - Navigation
+    func capture() {
+        transitionSubject.send(.capture)
     }
 }
 

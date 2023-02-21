@@ -25,11 +25,21 @@ final class ProcessingViewController: BaseViewController<ProcessingViewModel> {
 // MARK: - Private
 private extension ProcessingViewController {
     func setupBindings() {
-        contentView.actionPublisher
-            .sink { [unowned self] action in
+        viewModel.actionPublisher
+            .sink { [unowned self] (action) in
                 switch action {
+                case .reconstructionFailed:
+                    contentView.showFailure()
+                    
+                    restartAfterDelay()
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func restartAfterDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            self?.viewModel.capture()
+        }
     }
 }

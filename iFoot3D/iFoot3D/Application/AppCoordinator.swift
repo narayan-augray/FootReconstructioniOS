@@ -38,7 +38,8 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        footCapture()
+        //footCapture()
+        processing(outputs: [])
     }
 }
 
@@ -90,6 +91,9 @@ private extension AppCoordinator {
                 switch transition {
                 case .success(let modelPath):
                     self?.preview(modelPath: modelPath)
+                    
+                case .capture:
+                    self?.footCapture()
                 }
             }
             .store(in: &cancellables)
