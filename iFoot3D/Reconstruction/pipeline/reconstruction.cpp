@@ -71,8 +71,13 @@ namespace ifoot3d {
         postprocess(sole, finalLeg, rightFloors[0], 0.015);
 
         *finalLeg += *sole;
-        auto legMesh = reconstructSurfacePoisson(finalLeg, 7);
+        auto legMesh = reconstructSurfacePoisson(finalLeg, 6);
 
         return legMesh;
+    }
+
+    void reconstructAndSaveLeg(std::vector<std::vector<std::vector<cv::Mat>>>& inputData, const std::string& path) {
+        auto legMesh = reconstructLeg(inputData);
+        open3d::io::WriteTriangleMesh(path, *legMesh);
     }
 }
