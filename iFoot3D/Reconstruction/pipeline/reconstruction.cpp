@@ -44,7 +44,6 @@ namespace ifoot3d {
         for (int i = 1; i < leftLegs.size(); i++) {
             *finalLeg += *leftLegs[i];
         }
-;
 
         vector<shared_ptr<geometry::PointCloud>> soles;
         shared_ptr<geometry::PointCloud> referenceSole;
