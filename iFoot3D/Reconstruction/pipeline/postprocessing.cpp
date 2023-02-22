@@ -9,6 +9,7 @@ namespace ifoot3d {
         using namespace open3d;
         
         auto mesh = get<0>(geometry::TriangleMesh::CreateFromPointCloudPoisson(*pcd, depth));
+        //mesh->FilterSmoothSimple(2);
         return mesh;
     }
 
@@ -24,6 +25,7 @@ namespace ifoot3d {
                 indices.push_back(i);
         }
         sole = sole->SelectByIndex(indices);
+        sole = sole->VoxelDownSample(0.002);
 
         indices.clear();
         for (int i = 0; i < leg->points_.size(); ++i) {
@@ -31,5 +33,15 @@ namespace ifoot3d {
                 indices.push_back(i);
         }
         leg = leg->SelectByIndex(indices);
+        leg = leg->VoxelDownSample(0.002);
+        *leg += *sole;
+
+        alignGeometryByPointAndVector(leg, { 0,0,0 }, leg->GetCenter(), { 0, 1, 0 }, -floor.getNormal());
+        
+        Line line = getLegAxis(leg, floor);
+        
+        Eigen::Vector3d toe = getLegToe(sole, line);
+        toe[1] = 0;
+        alignGeometryByPointAndVector(leg, { 0,0,0 }, { 0,0,0 }, { 1, 0, 0 }, toe);
     }
 }

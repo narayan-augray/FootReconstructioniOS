@@ -24,10 +24,6 @@ namespace ifoot3d {
         auto informationICP = open3d::pipelines::registration::GetInformationMatrixFromPointClouds(source, target,
             max_correspondence_distance_fine, icp_fine.transformation_);
 
-        /*if (icp_fine.correspondence_set_.size() == 0) {
-            throw StitchingException();
-        }*/
-
         return std::make_tuple(transformationICP, informationICP);
     }
 
@@ -63,8 +59,6 @@ namespace ifoot3d {
         std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors) {
         using namespace std;
         using namespace open3d;
-
-        //initLegsPositions(rightLegs, rightFloors);
  
         double voxelSize = 0.003;
         double maxCorrespondenceDistanceCoarse = voxelSize * 5;
@@ -75,15 +69,25 @@ namespace ifoot3d {
         pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
             pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
         for (int i = 0; i < rightLegs.size(); i++) {
+            if (i > 0) {
+                auto regRes = open3d::pipelines::registration::EvaluateRegistration(*rightLegs[i], *rightLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+                if (regRes.correspondence_set_.size() == 0) {
+                    throw StitchingException();
+                }
+            }
             rightLegs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
         }
-
-        //initLegsPositions(leftLegs, leftFloors);
 
         poseGraph = full_registration(leftLegs, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
         pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
             pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
         for (int i = 0; i < leftLegs.size(); i++) {
+            if (i > 0) {
+                auto regRes = open3d::pipelines::registration::EvaluateRegistration(*leftLegs[i], *leftLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+                if (regRes.correspondence_set_.size() == 0) {
+                    throw StitchingException();
+                }
+            }
             leftLegs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
         }
     }
@@ -93,6 +97,7 @@ namespace ifoot3d {
         using namespace open3d;
         
         initSolesPositions(soles, referenceSole);
+
         soles.insert(soles.begin(), referenceSole);
                 
         double voxelSize = 0.003;
@@ -103,7 +108,14 @@ namespace ifoot3d {
         pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
             pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
         for (int i = 0; i < soles.size(); i++) {
+            if (i > 0) {
+                auto regRes = open3d::pipelines::registration::EvaluateRegistration(*soles[i], *soles[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_);
+                if (regRes.correspondence_set_.size() == 0) {
+                    throw StitchingException();
+                }
+            }
             soles[i]->Transform(poseGraph.nodes_[i].pose_);
         }
+        soles.insert(soles.begin(), referenceSole);
     }
 }

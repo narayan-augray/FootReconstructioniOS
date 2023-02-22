@@ -42,7 +42,8 @@ namespace ifoot3d {
 		vector<float> extrinsicValues = parseFloatData(extrinsic_lines, ",");
 
         Mat intrinsic(3, 3, CV_64F), extrinsic(4, 4, CV_64F);
-        
+        double* intrData = (double*)intrinsic.data;
+        double* extrData = (double*)extrinsic.data;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 intrinsic.at<double>(i,j) = intrinsicValues[3 * i + j];
@@ -115,7 +116,7 @@ namespace ifoot3d {
     Eigen::Matrix4d fixExtrinsics(const cv::Mat& extrinsic) {
         double fixData[16] = { 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1 };
         cv::Mat fixMatrix = cv::Mat(4, 4, CV_64F, fixData);
-        
+
         cv::Mat fixedExtrinsic = extrinsic * fixMatrix;
         
         Eigen::Matrix4d res;
@@ -124,11 +125,8 @@ namespace ifoot3d {
                 res(i,j) = fixedExtrinsic.at<double>(i, j);
             }
         }
-        
-        std::cout << res << std::endl;
-        
-        res = res.inverse().eval();
-        return res;
+        Eigen::Matrix4d resInversed = res.inverse().eval();
+        return resInversed;
     }
 
     std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(cv::Mat& image, cv::Mat& depth, cv::Mat& intrinsic, const cv::Mat& extrinsic) {
