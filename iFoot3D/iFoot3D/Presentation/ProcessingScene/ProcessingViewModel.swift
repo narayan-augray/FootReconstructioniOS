@@ -108,9 +108,12 @@ private extension ProcessingViewModel {
                                                     input: input))
                     
                 case .failure:
-                    deleteFiles(fileUrls: outputs.getFilesUrls())
+                    errorSubject.send("Reconstuction failed")
                     
-                    actionSubject.send(.reconstructionFailed)
+                    let modelPath = Bundle.main.path(forResource: "foor", ofType: "obj")
+                    transitionSubject.send(.success(modelPath: modelPath ?? "",
+                                                    outputs: outputs,
+                                                    input: input))
                 }
             }
             .store(in: &cancellables)
