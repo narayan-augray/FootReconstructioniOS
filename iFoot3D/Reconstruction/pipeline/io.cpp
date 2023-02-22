@@ -113,8 +113,9 @@ namespace ifoot3d {
     }
 
     Eigen::Matrix4d fixExtrinsics(const cv::Mat& extrinsic) {
-        cv::Mat fixMatrix = (cv::Mat_<double>(4, 4) << 1,0,0,0,0,-1,0,0,0,0,-1,0,0,0,0,1);
-
+        double fixData[16] = { 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1 };
+        cv::Mat fixMatrix = cv::Mat(4, 4, CV_64F, fixData);
+        
         cv::Mat fixedExtrinsic = extrinsic * fixMatrix;
         
         Eigen::Matrix4d res;
@@ -123,7 +124,10 @@ namespace ifoot3d {
                 res(i,j) = fixedExtrinsic.at<double>(i, j);
             }
         }
-        res = res.inverse();
+        
+        std::cout << res << std::endl;
+        
+        res = res.inverse().eval();
         return res;
     }
 
