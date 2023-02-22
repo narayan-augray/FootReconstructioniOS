@@ -15,6 +15,7 @@ enum ProcessingViewModelAction {
 final class ProcessingViewModel: BaseViewModel {
     // MARK: - Properties
     let outputs: [CaptureProcessedOutput]
+    var input: ReconstructionInput!
     
     // MARK: - Services
     let reconstructionService: ReconstructionService
@@ -52,7 +53,7 @@ final class ProcessingViewModel: BaseViewModel {
 // MARK: - Reconstruction
 private extension ProcessingViewModel {
     func reconstruct() {
-        let input = prepareInput()
+        input = prepareInput()
         
         let outputPath = FileManager.filePath(filename: ProcessingConstants.legScanFileName).path
         
@@ -64,7 +65,7 @@ private extension ProcessingViewModel {
         )
     }
     
-    func prepareInput() -> (right: [[String]], left: [[String]], sole: [[String]]) {
+    func prepareInput() -> ReconstructionInput {
         var right: [[String]] = []
         var left: [[String]] = []
         var sole: [[String]] = []
@@ -87,7 +88,7 @@ private extension ProcessingViewModel {
             }
         }
         
-        return (right, left, sole)
+        return .init(right: right, left: left, sole: sole)
     }
 }
 
@@ -99,9 +100,9 @@ private extension ProcessingViewModel {
             .sink { [unowned self] (event) in
                 switch event {
                 case .reconstructed(let path):
-                    deleteFiles(fileUrls: outputs.getFilesUrls())
-                    
-                    transitionSubject.send(.success(modelPath: path))
+                    transitionSubject.send(.success(modelPath: path,
+                                                    outputs: outputs,
+                                                    input: input))
                     
                 case .failure:
                     deleteFiles(fileUrls: outputs.getFilesUrls())

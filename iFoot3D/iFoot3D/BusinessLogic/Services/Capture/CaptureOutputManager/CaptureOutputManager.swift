@@ -60,16 +60,21 @@ extension CaptureOutputManagerImpl {
                 let self = self,
                 let originalImage = UIImage(pixelBuffer: output.originalPixelBuffer),
                 let dataValues = self.dataValues(dataMap: output.depthPixelBuffer),
-                let textDataUrl = self.saveDataValues(values: dataValues, filename: self.outputSettings.dataTextFileName),
-                let originalImageUrl = self.saveImage(image: originalImage, filename: self.outputSettings.originalFileName)
+                let textDataUrl = self.saveDataValues(
+                    values: dataValues,
+                    filename: self.outputSettings.dataTextFileName
+                ),
+                let originalImageUrl = self.saveImage(
+                    image: originalImage,
+                    filename: self.outputSettings.originalFileName
+                ),
+                let calibrationDataUrl = self.saveTextData(
+                    text: self.calibrationText(extrinsics: output.transform, intrinsics: output.intrinsics),
+                    filename: self.outputSettings.calibrationTextFileName
+                )
             else {
                 return
             }
-            
-            let calibrationDataUrl = self.saveTextData(
-                text: self.calibrationText(extrinsics: output.transform, intrinsics: output.intrinsics),
-                filename: self.outputSettings.calibrationTextFileName
-            )
             
             self.processedOutputs.append(.init(
                 index: output.index,
