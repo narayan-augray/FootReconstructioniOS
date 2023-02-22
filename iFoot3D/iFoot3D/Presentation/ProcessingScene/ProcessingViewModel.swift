@@ -110,10 +110,15 @@ private extension ProcessingViewModel {
                 case .failure:
                     errorSubject.send("Reconstuction failed")
                     
-                    let modelPath = Bundle.main.path(forResource: "foor", ofType: "obj")
-                    transitionSubject.send(.success(modelPath: modelPath ?? "",
-                                                    outputs: outputs,
-                                                    input: input))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                        guard let self = self else {
+                            return
+                        }
+                        let modelPath = Bundle.main.path(forResource: "foot", ofType: "obj")
+                        self.transitionSubject.send(.success(modelPath: modelPath ?? "",
+                                                             outputs: self.outputs,
+                                                             input: self.input))
+                    }
                 }
             }
             .store(in: &cancellables)
