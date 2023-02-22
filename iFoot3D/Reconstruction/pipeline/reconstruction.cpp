@@ -8,6 +8,7 @@
 #include "alignment.h"
 #include "postprocessing.h"
 
+
 namespace ifoot3d {
     std::shared_ptr<open3d::geometry::TriangleMesh> reconstructLeg(std::vector<std::vector<std::vector<cv::Mat>>>& inputData) {
         using namespace std;
@@ -98,6 +99,7 @@ namespace ifoot3d {
             rightLegs.push_back(leg);
             rightFloors.push_back(get<1>(legPCDFloor));
         }
+
         for (int i = 0; i < inputData[1].size(); i++) {
             auto pcd = generatePointCLoud(inputData[1][i][0], inputData[1][i][1], inputData[1][i][2], inputData[1][i][3]);
             auto extrinsics = fixExtrinsics(inputData[1][i][3]);
@@ -111,7 +113,9 @@ namespace ifoot3d {
             leftFloors.push_back(get<1>(legPCDFloor));
         }
         repairFloorNormals(rightLegs, rightFloors);
+
         stitchLegs(rightLegs, rightFloors, leftLegs, leftFloors);
+
 
         shared_ptr<geometry::PointCloud> finalLeg(new geometry::PointCloud());
         for (auto& segment : rightLegs) {
@@ -121,6 +125,7 @@ namespace ifoot3d {
         for (int i = 1; i < leftLegs.size(); i++) {
             *finalLeg += *leftLegs[i];
         }
+
 
         vector<shared_ptr<geometry::PointCloud>> soles;
         shared_ptr<geometry::PointCloud> referenceSole;
@@ -136,6 +141,7 @@ namespace ifoot3d {
                 soles.push_back(sole);
         }
 
+
         stitchSoles(soles, referenceSole);
 
         shared_ptr<geometry::PointCloud> sole(new geometry::PointCloud());
@@ -145,15 +151,16 @@ namespace ifoot3d {
 
         alignSoleWithLeg(sole, finalLeg, rightFloors[0]);
 
+
         postprocess(sole, finalLeg, rightFloors[0], 0.015);
 
-        *finalLeg += *sole;
         auto legMesh = reconstructSurfacePoisson(finalLeg, 6);
 
         return legMesh;
     }
 
     bool reconstructAndSaveLeg(std::vector<std::vector<std::vector<cv::Mat>>>& inputData, const std::string& path) {
+        using namespace std;
         try {
             auto legMesh = reconstructLegExtrinsics(inputData);
             open3d::io::WriteTriangleMesh(path, *legMesh);

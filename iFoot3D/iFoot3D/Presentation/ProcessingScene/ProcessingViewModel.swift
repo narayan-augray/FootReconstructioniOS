@@ -70,21 +70,24 @@ private extension ProcessingViewModel {
         var left: [[String]] = []
         var sole: [[String]] = []
         
-        for output in outputs {
-            let paths: [String] = output.getFiles()
-            
-            if ProcessingConstants.leftSideOutputIndices.contains(output.index) {
-                left.append(paths)
+        let rightIndices = [0, 1, 2, 3, 4]
+        let leftIndices = [0, 7, 6, 5, 4]
+        
+        for index in rightIndices {
+            if let output = outputs.first(where: { $0.index == index }) {
+                right.append(output.getFiles())
             }
-            if ProcessingConstants.rightSideOutputIndices.contains(output.index) {
-                right.append(paths)
+        }
+        
+        for index in leftIndices {
+            if let output = outputs.first(where: { $0.index == index }) {
+                left.append(output.getFiles())
             }
-            if ProcessingConstants.sharedOutputIndices.contains(output.index) {
-                left.append(paths)
-                right.append(paths)
-            }
+        }
+        
+        for output in outputs.sorted(by: { $0.index < $1.index }) {
             if output.index == OutputConstants.soleCaptureOutputIndex {
-                sole.append(paths)
+                sole.append(output.getFiles())
             }
         }
         
