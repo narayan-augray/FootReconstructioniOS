@@ -43,8 +43,8 @@ private extension FootCaptureViewController {
         contentView.actionPublisher
             .sink { [unowned self] (action) in
                 switch action {
-                case .selectPossition(let position):
-                    viewModel.selectFootPosition(position: position)
+                case .selectPossition(let position, let angle):
+                    viewModel.selectFootPosition(position: position, angle: angle)
                    
                 case .error(let message):
                     viewModel.handleError(messsage: message)

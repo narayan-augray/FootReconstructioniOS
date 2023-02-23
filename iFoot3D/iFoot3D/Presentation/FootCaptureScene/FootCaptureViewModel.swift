@@ -38,8 +38,8 @@ final class FootCaptureViewModel: BaseViewModel {
         errorSubject.send(messsage)
     }
     
-    func selectFootPosition(position: SCNVector3) {
-        captureService.generateCapturePositions(with: position)
+    func selectFootPosition(position: SCNVector3, angle: Float) {
+        captureService.generateCapturePositions(with: position, rotationAngle: angle)
     }
     
     func processOutput(output: CaptureOutput) {

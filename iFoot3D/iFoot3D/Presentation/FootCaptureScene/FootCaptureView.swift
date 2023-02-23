@@ -11,7 +11,7 @@ import Combine
 import CombineCocoa
 
 enum FootCaptureViewAction {
-    case selectPossition(position: SCNVector3)
+    case selectPossition(position: SCNVector3, angle: Float)
     case error(message: String)
 }
 
@@ -115,7 +115,8 @@ extension FootCaptureView {
 extension FootCaptureView {
     func createPhoneNodes(positions: [CapturePosition]) {
         for position in positions {
-            let phoneNode = PhoneNode(position: position)
+            let color: UIColor = position.index == 0 ? .red : .appBlue
+            let phoneNode = PhoneNode(position: position, color: color)
             sceneView.scene.rootNode.addChildNode(phoneNode)
         }
     }
@@ -143,7 +144,8 @@ private extension FootCaptureView {
         confirmButton.tapPublisher
             .sink { [unowned self] in
                 currentState = .capture
-                actionSubject.send(.selectPossition(position: footNode.position))
+                actionSubject.send(.selectPossition(position: footNode.position,
+                                                    angle: footNode.eulerAngles.y))
             }
             .store(in: &cancellables)
     }

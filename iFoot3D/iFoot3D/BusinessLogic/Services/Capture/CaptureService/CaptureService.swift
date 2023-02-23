@@ -13,7 +13,7 @@ protocol CaptureService {
     var eventPublisher: AnyPublisher<CaptureServiceEvent, Never> { get }
     
     // MARK: - Funcs
-    func generateCapturePositions(with center: SCNVector3)
+    func generateCapturePositions(with center: SCNVector3, rotationAngle: Float)
     func handleNewFootFrame(frame: ARFrame)
     func handleNewSoleFrame(frame: ARFrame)
 }
@@ -30,7 +30,7 @@ final class CaptureServiceImpl: CaptureService {
 
 // MARK: - Positions generation
 extension CaptureServiceImpl {
-    func generateCapturePositions(with center: SCNVector3) {
+    func generateCapturePositions(with center: SCNVector3, rotationAngle: Float) {
         footPosition = center
         
         var result: [CapturePosition] = []
@@ -40,12 +40,14 @@ extension CaptureServiceImpl {
         let numberOfPositions = Float(CaptureConstants.requiredImagesCount)
         
         for angle in stride(from: 0.0, to: Constant.circle, by: Constant.circle / numberOfPositions) {
-            let x = footPosition.x + Constant.radius * cos(angle)
-            let z = footPosition.z + Constant.radius * sin(angle)
+            let shiftedAngle = angle - rotationAngle
             
-            var yRotation = angle
+            let x = footPosition.x + Constant.radius * cos(shiftedAngle)
+            let z = footPosition.z + Constant.radius * sin(shiftedAngle)
+            
+            var yRotation = angle + rotationAngle
             if angle == 3 * .pi / 2 {
-                yRotation = 0
+                yRotation = rotationAngle
             } else if angle.truncatingRemainder(dividingBy: .pi / 2) == 0 {
                 yRotation -= .pi / 2
             }
@@ -56,7 +58,7 @@ extension CaptureServiceImpl {
             }
             
             currentIndex += 1
-            
+           
             if currentIndex >= CaptureConstants.requiredImagesCount {
                 currentIndex -= CaptureConstants.requiredImagesCount
             }
