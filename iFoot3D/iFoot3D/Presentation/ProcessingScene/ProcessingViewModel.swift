@@ -70,8 +70,8 @@ private extension ProcessingViewModel {
         var left: [[String]] = []
         var sole: [[String]] = []
         
-        let rightIndices = [0, 1, 2, 3, 4]
-        let leftIndices = [0, 7, 6, 5, 4]
+        let rightIndices = [1, 2, 3, 4]
+        let leftIndices = [1, 7, 6, 5]
         
         for index in rightIndices {
             if let output = outputs.first(where: { $0.index == index }) {
