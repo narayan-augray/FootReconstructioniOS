@@ -125,8 +125,8 @@ namespace ifoot3d {
                 res(i,j) = fixedExtrinsic.at<double>(i, j);
             }
         }
-        Eigen::Matrix4d resInversed = res.inverse().eval();
-        return resInversed;
+        res = res.inverse().eval();
+        return res;
     }
 
     std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(cv::Mat& image, cv::Mat& depth, cv::Mat& intrinsic, const cv::Mat& extrinsic) {

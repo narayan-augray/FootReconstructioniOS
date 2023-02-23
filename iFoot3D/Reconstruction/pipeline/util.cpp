@@ -441,7 +441,7 @@ namespace ifoot3d {
 
     std::vector<Eigen::Vector3d> getLegContour(std::shared_ptr<open3d::geometry::PointCloud>& leg, Plane& floor) {
         const auto& points = leg->points_;
-        auto closePoints = getCloseToFloorPoints(leg, floor, 0.01);
+        auto closePoints = getCloseToFloorPoints(leg, floor, 0.015);
         std::vector<Eigen::Vector3d> legSilhouette;
         for (const auto& point : closePoints) {
             legSilhouette.push_back(point - floor.signedDistanceFromPoint(point) * floor.getNormal());

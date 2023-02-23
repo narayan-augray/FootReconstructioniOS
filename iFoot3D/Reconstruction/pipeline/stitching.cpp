@@ -71,7 +71,7 @@ namespace ifoot3d {
         for (int i = 0; i < rightLegs.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*rightLegs[i], *rightLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.correspondence_set_.size() == 0) {
+                if (regRes.fitness_ < 0.4) {
                     throw StitchingException();
                 }
             }
@@ -84,7 +84,7 @@ namespace ifoot3d {
         for (int i = 0; i < leftLegs.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*leftLegs[i], *leftLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.correspondence_set_.size() == 0) {
+                if (regRes.fitness_ < 0.4) {
                     throw StitchingException();
                 }
             }
@@ -110,12 +110,13 @@ namespace ifoot3d {
         for (int i = 0; i < soles.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*soles[i], *soles[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_);
-                if (regRes.correspondence_set_.size() == 0) {
+                if (regRes.fitness_ < 0.4) {
                     throw StitchingException();
                 }
             }
             soles[i]->Transform(poseGraph.nodes_[i].pose_);
         }
         soles.insert(soles.begin(), referenceSole);
+        
     }
 }

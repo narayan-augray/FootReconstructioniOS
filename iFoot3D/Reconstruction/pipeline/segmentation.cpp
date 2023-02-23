@@ -14,7 +14,7 @@ namespace ifoot3d {
 		auto floor_indexes = findFloor(pcd, 0.008);
 		tie(floor, indexes) = floor_indexes;
 		pcd = pcd->SelectByIndex(indexes, true);
-		pcd = get<0>(pcd->RemoveRadiusOutliers(10, 0.01));
+		pcd = get<0>(pcd->RemoveRadiusOutliers(20, 0.01));
 
 		auto labels = pcd->ClusterDBSCAN(0.01, 3);
 		auto clusters = separateCloudForClusters(pcd, labels);
