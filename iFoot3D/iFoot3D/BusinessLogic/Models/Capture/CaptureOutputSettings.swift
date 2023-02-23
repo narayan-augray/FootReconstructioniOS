@@ -11,5 +11,4 @@ struct CaptureOutputSettings {
     let originalFileName: String
     let dataTextFileName: String
     let calibrationTextFileName: String
-    let outputValuesFormat: CaptureOutputValuesFormat
 }

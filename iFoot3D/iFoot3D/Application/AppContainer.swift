@@ -38,8 +38,7 @@ private extension AppContainerImpl {
         let outputSettings = CaptureOutputSettings(
             originalFileName: "original",
             dataTextFileName: "depth_logs",
-            calibrationTextFileName: "depth_calibration",
-            outputValuesFormat: .text
+            calibrationTextFileName: "depth_calibration"
         )
         return CaptureOutputManagerImpl(outputSettings: outputSettings)
     }

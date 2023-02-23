@@ -17,9 +17,28 @@ struct ReconstructionInput {
 extension ReconstructionInput {
     func toString() -> String {
         return """
-        right: \(right),
-        left: \(left),
-        sole: \(sole)
+        right:
+        \(getInputString(paths: right))
+        
+        left:
+        \(getInputString(paths: left))
+        
+        sole:
+        \(getInputString(paths: sole))
         """
+    }
+}
+
+// MARK: - Helpers
+private extension ReconstructionInput {
+    func getInputString(paths: [[String]]) -> String {
+        var result = ""
+        
+        for path in paths {
+            let pathsString = "\(path.compactMap({ URL(fileURLWithPath: $0).lastPathComponent }))"
+            result += "\(pathsString)\n"
+        }
+        
+        return result
     }
 }

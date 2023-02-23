@@ -78,7 +78,6 @@
 		EAE43DBE29643E4100405533 /* CaptureOutputManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DBD29643E4100405533 /* CaptureOutputManagerEvent.swift */; };
 		EAE43DC029643E5100405533 /* CaptureOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DBF29643E5100405533 /* CaptureOutputManager.swift */; };
 		EAE43DC229643F7200405533 /* CaptureOutputSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC129643F7200405533 /* CaptureOutputSettings.swift */; };
-		EAE43DC42964416600405533 /* CaptureOutputValuesFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC32964416600405533 /* CaptureOutputValuesFormat.swift */; };
 		EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC6296441CA00405533 /* FileManager+FilePath.swift */; };
 		EAE43DC92964423000405533 /* String+InitFromArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DC82964423000405533 /* String+InitFromArray.swift */; };
 		EAE43DCC2964424F00405533 /* OutputConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DCB2964424F00405533 /* OutputConstants.swift */; };
@@ -183,7 +182,6 @@
 		EAE43DBD29643E4100405533 /* CaptureOutputManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputManagerEvent.swift; sourceTree = "<group>"; };
 		EAE43DBF29643E5100405533 /* CaptureOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputManager.swift; sourceTree = "<group>"; };
 		EAE43DC129643F7200405533 /* CaptureOutputSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputSettings.swift; sourceTree = "<group>"; };
-		EAE43DC32964416600405533 /* CaptureOutputValuesFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOutputValuesFormat.swift; sourceTree = "<group>"; };
 		EAE43DC6296441CA00405533 /* FileManager+FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+FilePath.swift"; sourceTree = "<group>"; };
 		EAE43DC82964423000405533 /* String+InitFromArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+InitFromArray.swift"; sourceTree = "<group>"; };
 		EAE43DCB2964424F00405533 /* OutputConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputConstants.swift; sourceTree = "<group>"; };
@@ -792,7 +790,6 @@
 				EAE43DB929643ACB00405533 /* CaptureOutput.swift */,
 				EAE43DC129643F7200405533 /* CaptureOutputSettings.swift */,
 				EAE43DD1296443C600405533 /* CaptureProcessedOutput.swift */,
-				EAE43DC32964416600405533 /* CaptureOutputValuesFormat.swift */,
 			);
 			path = Capture;
 			sourceTree = "<group>";
@@ -1156,7 +1153,6 @@
 				EAF24354295DA19A000855C3 /* SCNVector3+Transform.swift in Sources */,
 				EAE43DCC2964424F00405533 /* OutputConstants.swift in Sources */,
 				EA743F7D295C32BD00C488C4 /* UIView+Constraints.swift in Sources */,
-				EAE43DC42964416600405533 /* CaptureOutputValuesFormat.swift in Sources */,
 				EAE43DCE2964429800405533 /* Matrix+ToString.swift in Sources */,
 				EAE43DDB29644A4000405533 /* SuccessViewController.swift in Sources */,
 				EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */,
