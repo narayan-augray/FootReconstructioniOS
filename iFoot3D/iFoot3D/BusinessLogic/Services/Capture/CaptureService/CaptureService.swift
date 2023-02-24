@@ -39,22 +39,18 @@ extension CaptureServiceImpl {
         
         let numberOfPositions = Float(CaptureConstants.requiredImagesCount)
         
+        var yRotation: Float = Constant.defaultYRotation
+        
         for angle in stride(from: 0.0, to: Constant.circle, by: Constant.circle / numberOfPositions) {
             let shiftedAngle = angle - rotationAngle
             
             let x = footPosition.x + Constant.radius * cos(shiftedAngle)
             let z = footPosition.z + Constant.radius * sin(shiftedAngle)
             
-            var yRotation = angle + rotationAngle
-            if angle == 3 * .pi / 2 {
-                yRotation = rotationAngle
-            } else if angle.truncatingRemainder(dividingBy: .pi / 2) == 0 {
-                yRotation -= .pi / 2
-            }
-            
-            var xRotation = Constant.xRotation
-            if angle == 5 * .pi / 4 || angle == .pi / 4 || angle == .pi / 2 {
-                xRotation *= -1
+            if yRotation == Constant.defaultYRotation {
+                yRotation = angle + rotationAngle + .pi / 2
+            } else {
+                yRotation -= Constant.circle / numberOfPositions
             }
             
             currentIndex += 1
@@ -65,7 +61,7 @@ extension CaptureServiceImpl {
             
             result.append(.init(index: currentIndex,
                                 position: .init(x: x, y: footPosition.y + Constant.yDistance, z: z),
-                                rotation: .init(xRotation, yRotation, 0)))
+                                rotation: .init(Constant.xRotation, yRotation, 0)))
         }
         
         capturePositions = result
@@ -133,7 +129,8 @@ private struct Constant {
     static let circle = 2 * Float.pi
     static let radius: Float = 0.3
     static let yDistance: Float = 0.25
-    static let xRotation: Float = .pi / 6
+    static let xRotation: Float = -.pi / 6
+    static let defaultYRotation: Float = -9999
     
     static let positionThreshold: Float = 0.05
     static let rotationThreshold: Float = 0.02
