@@ -162,9 +162,13 @@ namespace ifoot3d {
         }
         leftSide = leftSide->VoxelDownSample(0.002);
 
+        /*visualization::DrawGeometries({ leftSide });
+        visualization::DrawGeometries({ rightSide });*/
+
         auto transform = get<0>(pairwise_registration(*rightSide, *leftSide, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine));
         rightSide->Transform(transform);
         *rightSide += *leftSide;
+        /*visualization::DrawGeometries({ rightSide });*/
         return rightSide;
     }
 
@@ -186,7 +190,7 @@ namespace ifoot3d {
         for (int i = 0; i < soles.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*soles[i], *soles[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_);
-                if (regRes.fitness_ < 0.3) {
+                if (regRes.fitness_ < -0.3) {
                     throw StitchingException();
                 }
             }

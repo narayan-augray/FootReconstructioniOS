@@ -115,6 +115,16 @@ namespace ifoot3d {
             leftFloors.push_back(get<1>(legPCDFloor));
         }
 
+        /*shared_ptr<geometry::PointCloud> beforeStitching(new geometry::PointCloud());
+        for (auto& segment : leftLegs) {
+            *beforeStitching += *segment;
+        }
+        for (auto& segment : rightLegs) {
+            *beforeStitching += *segment;
+        }
+
+        visualization::DrawGeometries({ beforeStitching });*/
+
         repairFloorNormals(rightLegs, rightFloors);
 
         auto finalLeg = stitchLegsSeparate(rightLegs, leftLegs);
@@ -133,7 +143,6 @@ namespace ifoot3d {
                 soles.push_back(sole);
         }
 
-
         stitchSoles(soles, referenceSole);
 
         shared_ptr<geometry::PointCloud> sole(new geometry::PointCloud());
@@ -143,7 +152,7 @@ namespace ifoot3d {
 
         alignSoleWithLeg(sole, finalLeg, rightFloors[0]);
 
-        postprocess(sole, finalLeg, rightFloors[0], 0.015);
+        postprocess(sole, finalLeg, rightFloors[0], 0.01);
 
         auto legMesh = reconstructSurfacePoisson(finalLeg, 7);
 
