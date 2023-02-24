@@ -55,8 +55,8 @@ namespace ifoot3d {
         return pose_graph;
     }
 
-    void stitchLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs, std::vector<Plane>& rightFloors,
-        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors) {
+    void stitchLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs,
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs) {
         using namespace std;
         using namespace open3d;
  
@@ -71,7 +71,7 @@ namespace ifoot3d {
         for (int i = 0; i < rightLegs.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*rightLegs[i], *rightLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.fitness_ < 0.4) {
+                if (regRes.fitness_ < 0.3) {
                     throw StitchingException();
                 }
             }
@@ -84,12 +84,88 @@ namespace ifoot3d {
         for (int i = 0; i < leftLegs.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*leftLegs[i], *leftLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.fitness_ < 0.4) {
+                if (regRes.fitness_ < 0.3) {
                     throw StitchingException();
                 }
             }
             leftLegs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
         }
+    }
+
+    void stitchAllLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legs) {
+        using namespace std;
+        using namespace open3d;
+
+        double voxelSize = 0.003;
+        double maxCorrespondenceDistanceCoarse = voxelSize * 5;
+        double maxCorrespondenceDistanceFine = voxelSize * 3;
+
+        auto poseGraph = full_registration(legs, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
+        auto option = open3d::pipelines::registration::GlobalOptimizationOption(maxCorrespondenceDistanceCoarse, 0.25, 0);
+        pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
+            pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
+        for (int i = 0; i < legs.size(); i++) {
+            if (i > 0) {
+                auto regRes = open3d::pipelines::registration::EvaluateRegistration(*legs[i], *legs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+                if (regRes.fitness_ < -0.3) {
+                    throw StitchingException();
+                }
+            }
+            legs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+        }
+    }
+
+    std::shared_ptr<open3d::geometry::PointCloud> stitchLegsSeparate(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs,
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs) {
+        using namespace std;
+        using namespace open3d;
+
+        double voxelSize = 0.003;
+        double maxCorrespondenceDistanceCoarse = voxelSize * 5;
+        double maxCorrespondenceDistanceFine = voxelSize * 3;
+
+        auto poseGraph = full_registration(rightLegs, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
+        auto option = open3d::pipelines::registration::GlobalOptimizationOption(maxCorrespondenceDistanceFine, 0.25, 0);
+        pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
+            pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
+        for (int i = 0; i < rightLegs.size(); i++) {
+            if (i > 0) {
+                auto regRes = open3d::pipelines::registration::EvaluateRegistration(*rightLegs[i], *rightLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+                if (regRes.fitness_ < -0.3) {
+                    throw StitchingException();
+                }
+            }
+            rightLegs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+        }
+
+        shared_ptr<geometry::PointCloud> rightSide(new geometry::PointCloud());
+        for (auto& segment : rightLegs) {
+            *rightSide += *segment;
+        }
+        rightSide = rightSide->VoxelDownSample(0.002);
+
+        poseGraph = full_registration(leftLegs, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
+        pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
+            pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
+        for (int i = 0; i < leftLegs.size(); i++) {
+            if (i > 0) {
+                auto regRes = open3d::pipelines::registration::EvaluateRegistration(*leftLegs[i], *leftLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+                if (regRes.fitness_ < -0.3) {
+                    throw StitchingException();
+                }
+            }
+            leftLegs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
+        }
+        shared_ptr<geometry::PointCloud> leftSide(new geometry::PointCloud());
+        for (auto& segment : leftLegs) {
+            *leftSide += *segment;
+        }
+        leftSide = leftSide->VoxelDownSample(0.002);
+
+        auto transform = get<0>(pairwise_registration(*rightSide, *leftSide, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine));
+        rightSide->Transform(transform);
+        *rightSide += *leftSide;
+        return rightSide;
     }
 
     void stitchSoles(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole) {
@@ -110,7 +186,7 @@ namespace ifoot3d {
         for (int i = 0; i < soles.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*soles[i], *soles[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_);
-                if (regRes.fitness_ < 0.4) {
+                if (regRes.fitness_ < 0.3) {
                     throw StitchingException();
                 }
             }

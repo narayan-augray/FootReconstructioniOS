@@ -37,7 +37,7 @@ namespace ifoot3d {
             leftLegs.push_back(leg);
             leftFloors.push_back(get<1>(legPCDFloor));
         }
-        stitchLegs(rightLegs, rightFloors, leftLegs, leftFloors);
+        stitchLegs(rightLegs, leftLegs);
         shared_ptr<geometry::PointCloud> finalLeg (new geometry::PointCloud());
         for (auto& segment : rightLegs) {
             *finalLeg += *segment;
@@ -89,6 +89,7 @@ namespace ifoot3d {
 
         for (int i = 0; i < inputData[0].size(); i++) {
             auto pcd = generatePointCLoud(inputData[0][i][0], inputData[0][i][1], inputData[0][i][2], inputData[0][i][3]);
+
             auto extrinsics = fixExtrinsics(inputData[0][i][3]);
             Eigen::Vector4d cameraPosition = extrinsics.inverse() * cameraPositionCamera;
             Eigen::Vector3d cameraPositionWorld = cameraPosition.head<3>();
@@ -102,6 +103,7 @@ namespace ifoot3d {
 
         for (int i = 0; i < inputData[1].size(); i++) {
             auto pcd = generatePointCLoud(inputData[1][i][0], inputData[1][i][1], inputData[1][i][2], inputData[1][i][3]);
+
             auto extrinsics = fixExtrinsics(inputData[1][i][3]);
             Eigen::Vector4d cameraPosition = extrinsics.inverse() * cameraPositionCamera;
             Eigen::Vector3d cameraPositionWorld = cameraPosition.head<3>();
@@ -112,20 +114,10 @@ namespace ifoot3d {
             leftLegs.push_back(leg);
             leftFloors.push_back(get<1>(legPCDFloor));
         }
+
         repairFloorNormals(rightLegs, rightFloors);
 
-        stitchLegs(rightLegs, rightFloors, leftLegs, leftFloors);
-
-
-        shared_ptr<geometry::PointCloud> finalLeg(new geometry::PointCloud());
-        for (auto& segment : rightLegs) {
-            *finalLeg += *segment;
-        }
-        // starting from 1 because the first pcd is the same for right and left
-        for (int i = 1; i < leftLegs.size(); i++) {
-            *finalLeg += *leftLegs[i];
-        }
-
+        auto finalLeg = stitchLegsSeparate(rightLegs, leftLegs);
 
         vector<shared_ptr<geometry::PointCloud>> soles;
         shared_ptr<geometry::PointCloud> referenceSole;
@@ -151,10 +143,9 @@ namespace ifoot3d {
 
         alignSoleWithLeg(sole, finalLeg, rightFloors[0]);
 
-
         postprocess(sole, finalLeg, rightFloors[0], 0.015);
 
-        auto legMesh = reconstructSurfacePoisson(finalLeg, 6);
+        auto legMesh = reconstructSurfacePoisson(finalLeg, 7);
 
         return legMesh;
     }
