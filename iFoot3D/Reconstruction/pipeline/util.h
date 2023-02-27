@@ -24,6 +24,8 @@ namespace ifoot3d {
 		
 		Eigen::Vector3d getNormal();
 
+        std::shared_ptr<open3d::geometry::PointCloud> getPointCloud(float size, int density, Eigen::Vector3d& point);
+
 		void setNormal(Eigen::Vector3d);
 
 		double signedDistanceFromPoint(const Eigen::Vector3d& point);

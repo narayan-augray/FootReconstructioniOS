@@ -14,8 +14,11 @@ namespace ifoot3d {
         const double max_correspondence_distance_coarse,
         const double max_correspondence_distance_fine);
 
-    void stitchLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs,
-        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs);
+    std::shared_ptr<open3d::geometry::PointCloud> stitchLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs, std::vector<Plane>& rightFloors,
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors);
+
+    std::shared_ptr<open3d::geometry::PointCloud> stitchLegsWithFloors(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs, std::vector<Plane>& rightFloors,
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors);
 
     void stitchAllLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legs);
     

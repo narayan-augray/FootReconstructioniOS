@@ -98,6 +98,24 @@ namespace ifoot3d {
         this->points.push_back(point2);
     }
 
+    std::shared_ptr<open3d::geometry::PointCloud> Plane::getPointCloud(float size, int density, Eigen::Vector3d& point) {
+        using namespace std;
+        using namespace open3d;
+
+        vector<Eigen::Vector3d> points;
+        for (int i = 0; i <= density; i++) {
+            for (int j = 0; j <= density; j++) {
+                points.push_back({(double) i / density * size,(double) j / density * size, 0.0});
+            }
+        }
+        auto pcd = make_shared<geometry::PointCloud>(points);
+
+        pcd->EstimateNormals();
+        pcd->OrientNormalsToAlignWithDirection({0,0,-1});
+        alignGeometryByPointAndVector(pcd, point, { size / 2, size / 2, 0 }, this->normal, { 0,0,1 });
+        return pcd;
+    }
+
     std::vector<Eigen::Vector3d> Plane::getPoints() {
         return this->points;
     }

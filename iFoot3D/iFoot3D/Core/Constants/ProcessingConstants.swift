@@ -10,6 +10,6 @@ import Foundation
 struct ProcessingConstants {
     static let legScanFileName = "foot.obj"
     
-    static let rightSideOutputIndices: [Int] = [0, 1, 2, 3, 4]
-    static let leftSideOutputIndices: [Int] = [6, 7, 8, 9]
+    static let rightSideOutputIndices: [Int] = [0, 1, 2, 3]
+    static let leftSideOutputIndices: [Int] = [0, 9, 8, 7, 6]
 }

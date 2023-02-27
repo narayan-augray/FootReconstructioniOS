@@ -11,7 +11,7 @@ namespace ifoot3d {
 
         Plane floor;
 		vector< size_t > indexes;
-		auto floor_indexes = findFloor(pcd, 0.01);
+		auto floor_indexes = findFloor(pcd, 0.008);
 		tie(floor, indexes) = floor_indexes;
 		pcd = pcd->SelectByIndex(indexes, true);
 		pcd = get<0>(pcd->RemoveRadiusOutliers(20, 0.01));
@@ -32,6 +32,12 @@ namespace ifoot3d {
                 indices.push_back(i);
         }
         leg = leg->SelectByIndex(indices);
+        /*auto leg_floor_indexes = findFloor(leg, 0.001);
+        if (get<1>(leg_floor_indexes).size() > 100) {
+            tie(floor, indexes) = leg_floor_indexes;
+            leg = leg->SelectByIndex(indexes, true);
+        }*/
+        
         return { leg, floor };
 	}
 

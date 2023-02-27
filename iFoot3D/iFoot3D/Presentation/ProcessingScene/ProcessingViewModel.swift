@@ -70,9 +70,6 @@ private extension ProcessingViewModel {
         var left: [[String]] = []
         var sole: [[String]] = []
         
-        let rightIndices = [0, 1, 2, 3, 4]
-        let leftIndices = [5, 6, 7, 8, 9]
-        
         for index in ProcessingConstants.rightSideOutputIndices {
             if let output = outputs.first(where: { $0.index == index }) {
                 right.append(output.getFiles())

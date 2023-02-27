@@ -37,16 +37,7 @@ namespace ifoot3d {
             leftLegs.push_back(leg);
             leftFloors.push_back(get<1>(legPCDFloor));
         }
-        stitchLegs(rightLegs, leftLegs);
-        shared_ptr<geometry::PointCloud> finalLeg (new geometry::PointCloud());
-        for (auto& segment : rightLegs) {
-            *finalLeg += *segment;
-        }
-        // starting from 1 because the first pcd is the same for right and left
-        for (int i = 1; i < leftLegs.size(); i++) {
-            *finalLeg += *leftLegs[i];
-        }
-;
+        auto finalLeg = stitchLegsWithFloors(rightLegs, rightFloors, leftLegs, leftFloors);
 
         vector<shared_ptr<geometry::PointCloud>> soles;
         shared_ptr<geometry::PointCloud> referenceSole;
@@ -69,10 +60,13 @@ namespace ifoot3d {
             *sole += *segment;
         }
 
-        alignSoleWithLeg(sole, finalLeg, rightFloors[0]);
-        postprocess(sole, finalLeg, rightFloors[0], 0.015);
+        //visualization::DrawGeometries({ sole });
 
-        *finalLeg += *sole;
+        alignSoleWithLeg(sole, finalLeg, rightFloors[0]);
+        postprocess(sole, finalLeg, rightFloors[0], 0.01);
+
+        //visualization::DrawGeometries({ finalLeg });
+
         auto legMesh = reconstructSurfacePoisson(finalLeg, 6);
 
         return legMesh;
@@ -115,7 +109,7 @@ namespace ifoot3d {
             leftFloors.push_back(get<1>(legPCDFloor));
         }
 
-        /*shared_ptr<geometry::PointCloud> beforeStitching(new geometry::PointCloud());
+        shared_ptr<geometry::PointCloud> beforeStitching(new geometry::PointCloud());
         for (auto& segment : leftLegs) {
             *beforeStitching += *segment;
         }
@@ -123,7 +117,7 @@ namespace ifoot3d {
             *beforeStitching += *segment;
         }
 
-        visualization::DrawGeometries({ beforeStitching });*/
+        //visualization::DrawGeometries({ beforeStitching });
 
         repairFloorNormals(rightLegs, rightFloors);
 
@@ -162,7 +156,7 @@ namespace ifoot3d {
     bool reconstructAndSaveLeg(std::vector<std::vector<std::vector<cv::Mat>>>& inputData, const std::string& path) {
         using namespace std;
         try {
-            auto legMesh = reconstructLegExtrinsics(inputData);
+            auto legMesh = reconstructLeg(inputData);
             open3d::io::WriteTriangleMesh(path, *legMesh);
             return true;
         }

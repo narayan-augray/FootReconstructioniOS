@@ -11,14 +11,16 @@ namespace ifoot3d {
         auto referenceFloor = floors[0];
         auto referenceAxis = getLegAxis(referenceLeg, referenceFloor);
         Eigen::Vector3d referenceToe = getLegToe(referenceLeg, referenceAxis);
-        Eigen::Vector3d ReferenceToeProjection = referenceAxis.pointProjection(referenceToe);
+        Eigen::Vector3d ReferenceToeFloorProjection = referenceToe - referenceFloor.signedDistanceFromPoint(referenceToe) * referenceFloor.getNormal();
+        Eigen::Vector3d referenceHeel = getLegHeel(referenceLeg, referenceFloor);
         for (int i = 1; i < legs.size(); i++) {
             auto currentLegAxis = getLegAxis(legs[i], floors[i]);
             alignGeometryByPointAndVector(legs[i], referenceAxis.getPoint(), currentLegAxis.getPoint(), referenceAxis.getVector(), currentLegAxis.getVector());
             
             Eigen::Vector3d currentToe = getLegToe(legs[i], referenceAxis);
             
-            alignGeometryByPointAndVector(legs[i], referenceAxis.getPoint(), referenceAxis.getPoint(), referenceToe - ReferenceToeProjection, currentToe - ReferenceToeProjection);
+            Eigen::Vector3d currentToeFloorProjection = currentToe - referenceFloor.signedDistanceFromPoint(currentToe) * referenceFloor.getNormal();
+            alignGeometryByPointAndVector(legs[i], referenceAxis.getPoint(), referenceAxis.getPoint(), ReferenceToeFloorProjection - referenceHeel, currentToeFloorProjection - referenceHeel);
             currentToe = getLegToe(legs[i], referenceAxis);
             legs[i]->Translate(referenceToe - currentToe);
         }
