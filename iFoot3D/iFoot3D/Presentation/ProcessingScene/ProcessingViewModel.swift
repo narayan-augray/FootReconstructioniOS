@@ -41,7 +41,8 @@ final class ProcessingViewModel: BaseViewModel {
     // MARK: - Lifecycle
     override func onViewDidAppear() {
         super.onViewDidAppear()
-        reconstruct()
+        
+        reconstruct(usingPathes: false)
     }
     
     // MARK: - Navigation
@@ -52,43 +53,74 @@ final class ProcessingViewModel: BaseViewModel {
 
 // MARK: - Reconstruction
 private extension ProcessingViewModel {
-    func reconstruct() {
-        input = prepareInput()
-        
+    func reconstruct(usingPathes: Bool) {
         let outputPath = FileManager.filePath(filename: ProcessingConstants.legScanFileName).path
         
-        reconstructionService.reconstruct(
-            rightSidePaths: input.right,
-            leftSidePaths: input.left,
-            solePaths: input.sole,
-            outputPath: outputPath
-        )
+        input = prepareInput(usingPathes: usingPathes)
+        
+        switch input {
+        case .pathes(let right, let left, let sole):
+            reconstructionService.reconstruct(
+                rightSidePaths: right,
+                leftSidePaths: left,
+                solePaths: sole,
+                outputPath: outputPath
+            )
+            
+        case .combined(let path, let sole):
+            reconstructionService.reconstruct(
+                legPath: path,
+                solePaths: sole,
+                outputPath: outputPath
+            )
+            
+        default:
+            break
+        }
     }
-    
-    func prepareInput() -> ReconstructionInput {
-        var right: [[String]] = []
-        var left: [[String]] = []
-        var sole: [[String]] = []
-        
-        for index in ProcessingConstants.rightSideOutputIndices {
-            if let output = outputs.first(where: { $0.index == index }) {
-                right.append(output.getFiles())
+}
+
+// MARK: - Input
+private extension ProcessingViewModel {
+    func prepareInput(usingPathes: Bool) -> ReconstructionInput {
+        if usingPathes {
+            var right: [[String]] = []
+            var left: [[String]] = []
+            var sole: [[String]] = []
+            
+            for index in ProcessingConstants.rightSideOutputIndices {
+                if let output = outputs.first(where: { $0.index == index }) {
+                    right.append(output.getFiles())
+                }
             }
-        }
-        
-        for index in ProcessingConstants.leftSideOutputIndices {
-            if let output = outputs.first(where: { $0.index == index }) {
-                left.append(output.getFiles())
+            
+            for index in ProcessingConstants.leftSideOutputIndices {
+                if let output = outputs.first(where: { $0.index == index }) {
+                    left.append(output.getFiles())
+                }
             }
-        }
-        
-        for output in outputs.sorted(by: { $0.index < $1.index }) {
-            if output.index == OutputConstants.soleCaptureOutputIndex {
-                sole.append(output.getFiles())
+            
+            for output in outputs.sorted(by: { $0.index < $1.index }) {
+                if output.index == OutputConstants.soleCaptureOutputIndex {
+                    sole.append(output.getFiles())
+                }
             }
+            
+            return .pathes(right: right, left: left, sole: sole)
+        } else {
+            let legPath = outputs.first!.originalImageUrl
+                .deletingLastPathComponent()
+                .path + "/"
+            
+            var sole: [[String]] = []
+            for output in outputs.sorted(by: { $0.index < $1.index }) {
+                if output.index == OutputConstants.soleCaptureOutputIndex {
+                    sole.append(output.getFiles())
+                }
+            }
+            
+            return .combined(path: legPath, sole: sole)
         }
-        
-        return .init(right: right, left: left, sole: sole)
     }
 }
 

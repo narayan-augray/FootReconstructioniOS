@@ -190,7 +190,7 @@ private enum Constant {
     static let completeButtonCornerRadius: CGFloat = 12.0
     static let completeButtonSize: CGSize = .init(width: 213.0, height: 59.0)
     static let completeButtonBottomOffset: CGFloat = 10.0
-    static let overlayImageViewSideOffset: CGFloat = 15.0
+    static let overlayImageViewSideOffset: CGFloat = 25.0
     static let overlayImageViewHeightMultiplier: CGFloat = 2.0
     static let counterContainerViewTopOffset: CGFloat = 45.0
     static let counterContainerViewHeight: CGFloat = 35.0

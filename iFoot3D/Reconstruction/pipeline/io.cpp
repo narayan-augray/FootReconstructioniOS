@@ -42,8 +42,7 @@ namespace ifoot3d {
 		vector<float> extrinsicValues = parseFloatData(extrinsic_lines, ",");
 
         Mat intrinsic(3, 3, CV_64F), extrinsic(4, 4, CV_64F);
-        double* intrData = (double*)intrinsic.data;
-        double* extrData = (double*)extrinsic.data;
+        
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 intrinsic.at<double>(i,j) = intrinsicValues[3 * i + j];
@@ -229,6 +228,28 @@ namespace ifoot3d {
         for (int i : soleIndexes) {
             auto soleInputData = readInputData(soleDataPath + "original_" + to_string(i) + ".png", soleDataPath + "depth_logs_" + to_string(i) + ".txt", soleDataPath + "depth_calibration_logs_" + to_string(i) + ".txt");
             soleData.push_back(soleInputData);
+        }
+        return { rightLegData, leftLegData, soleData };
+    }
+
+    std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(std::string legDataPath,
+                                                                         std::vector<int>& rightSideIndexes,
+                                                                         std::vector<int>& leftSideIndexes,
+                                                                         const std::vector<std::vector<std::string>>& solePaths) {
+        using namespace std;
+        using namespace cv;
+        
+        vector<vector<Mat>> rightLegData, leftLegData, soleData;
+        for (int i : rightSideIndexes) {
+            auto legInputData = readInputData(legDataPath + "original_" + to_string(i) + ".png", legDataPath + "depth_logs_" + to_string(i) + ".txt", legDataPath + "depth_calibration_" + to_string(i) + ".txt");
+            rightLegData.push_back(legInputData);
+        }
+        for (int i : leftSideIndexes) {
+            auto legInputData = readInputData(legDataPath + "original_" + to_string(i) + ".png", legDataPath + "depth_logs_" + to_string(i) + ".txt", legDataPath + "depth_calibration_" + to_string(i) + ".txt");
+            leftLegData.push_back(legInputData);
+        }
+        for (const auto& inputPaths : solePaths) {
+            soleData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
         }
         return { rightLegData, leftLegData, soleData };
     }

@@ -24,4 +24,6 @@ namespace ifoot3d {
 	std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(std::string legDataPath, std::string soleDataPath, std::vector<int>& rightSideIndexes, std::vector<int>& leftSideIndexes, std::vector<int>& soleIndexes);
 
 	std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(const std::vector<std::vector<std::string>>& rightSidePaths, const std::vector<std::vector<std::string>>& leftSidePaths, const std::vector<std::vector<std::string>>& solePaths);
+
+    std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(std::string legDataPath, std::vector<int>& rightSideIndexes, std::vector<int>& leftSideIndexes, const std::vector<std::vector<std::string>>& solePaths);
 }

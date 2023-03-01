@@ -17,6 +17,9 @@ protocol ReconstructionService: AnyObject {
                      leftSidePaths: [[String]],
                      solePaths: [[String]],
                      outputPath: String)
+    func reconstruct(legPath: String,
+                     solePaths: [[String]],
+                     outputPath: String)
 }
 
 final class ReconstructionServiceImpl: ReconstructionService {
@@ -53,6 +56,33 @@ final class ReconstructionServiceImpl: ReconstructionService {
                 let isSuccess = self.reconstructor?.reconstruct(
                     rightSidePaths,
                     leftSidePaths: leftSidePaths,
+                    solePaths: solePaths,
+                    outputPath: outputPath
+                )
+            else {
+                self.eventSubject.send(.failure)
+                return
+            }
+            
+            self.eventSubject.send(isSuccess ? .reconstructed(path: outputPath) : .failure)
+        }
+    }
+    
+    func reconstruct(
+        legPath: String,
+        solePaths: [[String]],
+        outputPath: String
+    ) {
+        operationQueue.addOperation { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.reconstructor = ReconstructionServiceWrapper()
+            
+            guard
+                let isSuccess = self.reconstructor?.reconstruct(
+                    legPath,
                     solePaths: solePaths,
                     outputPath: outputPath
                 )

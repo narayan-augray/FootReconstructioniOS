@@ -56,7 +56,7 @@ extension CaptureOutputManagerImpl {
         capturedFrames += 1
         
         operationQueue.addOperation { [weak self] in
-            let outputIdentifier = identified ? UUID().uuidString : "\(self?.capturedFrames ?? -1)"
+            let outputIdentifier = identified ? UUID().uuidString : "\(output.index)"
             
             guard
                 let self = self,
@@ -183,24 +183,6 @@ extension CaptureOutputManagerImpl {
         let fileUrl = FileManager.filePath(filename: "\(filename)_\(identifier).txt")
         do {
             try text.write(to: fileUrl, atomically: true, encoding: .utf8)
-            return fileUrl
-        } catch {
-            log.error(error: error)
-            return nil
-        }
-    }
-    
-    func saveBinaryData(values: [[Float32]], filename: String) -> URL? {
-        let height = values.count
-        let width = values.first?.count ?? 0
-        
-        let resultFilename = "\(filename)_\(capturedFrames)_\(width)x\(height)"
-        let fileUrl = FileManager.filePath(filename: resultFilename)
-        
-        let result: [Float32] = Array(values.joined())
-        let data = Data(bytes: result, count: result.count * MemoryLayout<Float32>.stride)
-        do {
-            try data.write(to: fileUrl)
             return fileUrl
         } catch {
             log.error(error: error)

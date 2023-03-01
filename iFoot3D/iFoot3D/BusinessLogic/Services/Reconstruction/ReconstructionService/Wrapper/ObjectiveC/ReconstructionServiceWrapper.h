@@ -20,6 +20,10 @@
            solePaths: (nonnull NSArray<NSArray<NSString *> *> *) sole
           outputPath: (nonnull NSString *) output;
 
+- (bool) reconstruct: (nonnull NSString *) legPath
+           solePaths: (nonnull NSArray<NSArray<NSString *> *> *) sole
+          outputPath: (nonnull NSString *) output;
+
 @end
 
 #endif /* ReconstructionServiceWrapper_h */

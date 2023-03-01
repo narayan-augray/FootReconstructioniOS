@@ -29,8 +29,32 @@
     std::vector<std::vector<std::string>> leftPaths = [self getPaths:leftSide];
     std::vector<std::vector<std::string>> solePaths = [self getPaths:sole];
     
+    [self printPaths:rightPaths];
+    [self printPaths:leftPaths];
+    [self printPaths:solePaths];
+    
     std::vector<std::vector<std::vector<cv::Mat>>> input = ifoot3d::readMultipleInputData(rightPaths,
                                                                                           leftPaths,
+                                                                                          solePaths);
+    
+    return ifoot3d::reconstructAndSaveLeg(input, outputPath);
+}
+
+- (bool) reconstruct: (NSString *) legPath
+           solePaths: (NSArray<NSArray<NSString *> *> *) sole
+          outputPath: (NSString *) output {
+    const char* outputPath = [output cStringUsingEncoding: NSUTF8StringEncoding];
+    
+    const char* legFilesPath = [legPath cStringUsingEncoding: NSUTF8StringEncoding];
+    
+    std::vector<int> rightSide {0, 1, 2, 3};
+    std::vector<int> leftSide {0, 9, 8, 7, 6};
+    
+    std::vector<std::vector<std::string>> solePaths = [self getPaths:sole];
+    
+    std::vector<std::vector<std::vector<cv::Mat>>> input = ifoot3d::readMultipleInputData(legFilesPath,
+                                                                                          rightSide,
+                                                                                          leftSide,
                                                                                           solePaths);
     
     return ifoot3d::reconstructAndSaveLeg(input, outputPath);
@@ -52,6 +76,15 @@
     }
     
     return output;
+}
+
+- (void) printPaths: (std::vector<std::vector<std::string>>) paths {
+    for (int i = 0; i < paths.size(); i++) {
+        for (int j = 0; j < paths[i].size(); j++) {
+            std::cout << paths[i][j] << std::endl;
+        }
+    }
+    std::cout << std::endl;
 }
 
 @end
