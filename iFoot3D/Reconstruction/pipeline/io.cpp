@@ -242,7 +242,7 @@ namespace ifoot3d {
         using namespace cv;
 
         ofstream logFile;
-        logFile.open(logFolderPath+"logs.txt");
+        logFile.open(logFolderPath+"/logs.txt");
         logFile << "Right side paths\n{\n";
         
 
