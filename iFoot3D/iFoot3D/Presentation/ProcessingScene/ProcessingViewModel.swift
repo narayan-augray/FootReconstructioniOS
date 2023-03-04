@@ -54,12 +54,12 @@ final class ProcessingViewModel: BaseViewModel {
 // MARK: - Reconstruction
 private extension ProcessingViewModel {
     func reconstruct(usingPathes: Bool) {
-        let outputPath = FileManager.filePath(filename: ProcessingConstants.legScanFileName).path
-        
         input = prepareInput(usingPathes: usingPathes)
         
         switch input {
         case .pathes(let right, let left, let sole):
+            let outputPath = FileManager.filePath(filename: ProcessingConstants.legScanFileName).path
+            
             reconstructionService.reconstruct(
                 rightSidePaths: right,
                 leftSidePaths: left,
@@ -68,10 +68,12 @@ private extension ProcessingViewModel {
             )
             
         case .combined(let path, let sole):
+            let outputFolder = FileManager.createFolder(name: ProcessingConstants.outputFolderName)
+            
             reconstructionService.reconstruct(
                 legPath: path,
                 solePaths: sole,
-                outputPath: outputPath
+                outputFolderPath: outputFolder.path
             )
             
         default:
@@ -131,12 +133,12 @@ private extension ProcessingViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] (event) in
                 switch event {
-                case .reconstructed(let path):
-                    transitionSubject.send(.success(modelPath: path,
+                case .reconstructed(let outputPath):
+                    transitionSubject.send(.success(outputPath: outputPath,
                                                     outputs: outputs,
                                                     input: input))
                     
-                case .failure:
+                case .failure(let outputPath):
                     errorSubject.send("Reconstuction failed")
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
@@ -144,7 +146,7 @@ private extension ProcessingViewModel {
                             return
                         }
                         let modelPath = Bundle.main.path(forResource: "foot", ofType: "obj")
-                        self.transitionSubject.send(.success(modelPath: modelPath ?? "",
+                        self.transitionSubject.send(.success(outputPath: outputPath ?? modelPath!,
                                                              outputs: self.outputs,
                                                              input: self.input))
                     }

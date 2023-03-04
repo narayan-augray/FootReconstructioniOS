@@ -19,7 +19,7 @@ protocol ReconstructionService: AnyObject {
                      outputPath: String)
     func reconstruct(legPath: String,
                      solePaths: [[String]],
-                     outputPath: String)
+                     outputFolderPath: String)
 }
 
 final class ReconstructionServiceImpl: ReconstructionService {
@@ -60,18 +60,22 @@ final class ReconstructionServiceImpl: ReconstructionService {
                     outputPath: outputPath
                 )
             else {
-                self.eventSubject.send(.failure)
+                self.eventSubject.send(.failure(outputPath: nil))
                 return
             }
             
-            self.eventSubject.send(isSuccess ? .reconstructed(path: outputPath) : .failure)
+            if isSuccess {
+                self.eventSubject.send(.reconstructed(outputPath: outputPath))
+            } else {
+                self.eventSubject.send(.failure(outputPath: nil))
+            }
         }
     }
     
     func reconstruct(
         legPath: String,
         solePaths: [[String]],
-        outputPath: String
+        outputFolderPath: String
     ) {
         operationQueue.addOperation { [weak self] in
             guard let self = self else {
@@ -84,14 +88,18 @@ final class ReconstructionServiceImpl: ReconstructionService {
                 let isSuccess = self.reconstructor?.reconstruct(
                     legPath,
                     solePaths: solePaths,
-                    outputPath: outputPath
+                    outputFolderPath: outputFolderPath
                 )
             else {
-                self.eventSubject.send(.failure)
+                self.eventSubject.send(.failure(outputPath: outputFolderPath))
                 return
             }
             
-            self.eventSubject.send(isSuccess ? .reconstructed(path: outputPath) : .failure)
+            if isSuccess {
+                self.eventSubject.send(.reconstructed(outputPath: outputFolderPath))
+            } else {
+                self.eventSubject.send(.failure(outputPath: outputFolderPath))
+            }
         }
     }
 }

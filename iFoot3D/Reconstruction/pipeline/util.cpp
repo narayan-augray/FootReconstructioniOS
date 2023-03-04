@@ -275,7 +275,7 @@ namespace ifoot3d {
         return Eigen::Vector3d({ lineNormal[0] * t + linePoint[0], lineNormal[1] * t + linePoint[1], lineNormal[2] * t + linePoint[2] });
     }
 
-    void leaveVisibleMesh(std::shared_ptr<open3d::geometry::TriangleMesh>& mesh) {
+    void leaveVisibleMesh(std::shared_ptr<open3d::geometry::TriangleMesh>& mesh, Eigen::Vector3d cameraPos) {
         using namespace std;
 
         mesh->ComputeVertexNormals();
@@ -310,8 +310,8 @@ namespace ifoot3d {
                 if (pointInTriangle(centersPlane[i], verticesPlane[triangles[j][0]], verticesPlane[triangles[j][1]], verticesPlane[triangles[j][2]])) {
                     Eigen::Vector3d secondTriangleNormal = (vertices[triangles[j][0]] - vertices[triangles[j][1]]).cross(vertices[triangles[j][0]] - vertices[triangles[j][2]]);
                     secondTriangleNormal /= secondTriangleNormal.norm();
-                    auto currentTriangleIntersection = planeLineIntersection(vertices[triangles[i][0]], currentTriangleNormal, { 0,0,0 }, currentCenter);
-                    auto secondTriangleIntersection = planeLineIntersection(vertices[triangles[j][0]], secondTriangleNormal, { 0,0,0 }, currentCenter);
+                    auto currentTriangleIntersection = planeLineIntersection(vertices[triangles[i][0]], currentTriangleNormal, cameraPos, currentCenter);
+                    auto secondTriangleIntersection = planeLineIntersection(vertices[triangles[j][0]], secondTriangleNormal, cameraPos, currentCenter);
                     // if the intersection with the second triangle is further - it is visible
                     if(secondTriangleIntersection.squaredNorm() > currentTriangleIntersection.squaredNorm()) {
                         visibleTriangles.push_back(triangles[i]);
@@ -457,9 +457,9 @@ namespace ifoot3d {
         return indexes;
     }
 
-    std::vector<Eigen::Vector3d> getLegContour(std::shared_ptr<open3d::geometry::PointCloud>& leg, Plane& floor) {
+    std::vector<Eigen::Vector3d> getLegContour(std::shared_ptr<open3d::geometry::PointCloud>& leg, Plane& floor, double threshold) {
         const auto& points = leg->points_;
-        auto closePoints = getCloseToFloorPoints(leg, floor, 0.015);
+        auto closePoints = getCloseToFloorPoints(leg, floor, threshold);
         std::vector<Eigen::Vector3d> legSilhouette;
         for (const auto& point : closePoints) {
             legSilhouette.push_back(point - floor.signedDistanceFromPoint(point) * floor.getNormal());

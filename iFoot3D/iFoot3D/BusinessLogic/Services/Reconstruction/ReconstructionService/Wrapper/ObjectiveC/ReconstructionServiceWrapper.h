@@ -22,7 +22,7 @@
 
 - (bool) reconstruct: (nonnull NSString *) legPath
            solePaths: (nonnull NSArray<NSArray<NSString *> *> *) sole
-          outputPath: (nonnull NSString *) output;
+    outputFolderPath: (nonnull NSString *) logsFolder;
 
 @end
 

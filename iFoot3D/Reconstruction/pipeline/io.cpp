@@ -42,7 +42,8 @@ namespace ifoot3d {
 		vector<float> extrinsicValues = parseFloatData(extrinsic_lines, ",");
 
         Mat intrinsic(3, 3, CV_64F), extrinsic(4, 4, CV_64F);
-        
+        double* intrData = (double*)intrinsic.data;
+        double* extrData = (double*)extrinsic.data;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 intrinsic.at<double>(i,j) = intrinsicValues[3 * i + j];
@@ -233,24 +234,39 @@ namespace ifoot3d {
     }
 
     std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(std::string legDataPath,
-                                                                         std::vector<int>& rightSideIndexes,
-                                                                         std::vector<int>& leftSideIndexes,
-                                                                         const std::vector<std::vector<std::string>>& solePaths) {
+        std::vector<int>& rightSideIndexes,
+        std::vector<int>& leftSideIndexes,
+        const std::vector<std::vector<std::string>>& solePaths,
+        const std::string& logFolderPath) {
         using namespace std;
         using namespace cv;
+
+        ofstream logFile;
+        logFile.open(logFolderPath+"logs.txt");
+        logFile << "Right side paths\n{\n";
         
+
         vector<vector<Mat>> rightLegData, leftLegData, soleData;
         for (int i : rightSideIndexes) {
             auto legInputData = readInputData(legDataPath + "original_" + to_string(i) + ".png", legDataPath + "depth_logs_" + to_string(i) + ".txt", legDataPath + "depth_calibration_" + to_string(i) + ".txt");
+            logFile << "{\"" + legDataPath + "original_" + to_string(i) + ".png\", \"" + legDataPath + "depth_logs_" + to_string(i) + ".txt\", \"" + legDataPath + "depth_calibration_" + to_string(i) + ".txt\"},\n";
             rightLegData.push_back(legInputData);
         }
+        logFile << "}\n";
+        logFile << "Left side paths\n{\n";
         for (int i : leftSideIndexes) {
             auto legInputData = readInputData(legDataPath + "original_" + to_string(i) + ".png", legDataPath + "depth_logs_" + to_string(i) + ".txt", legDataPath + "depth_calibration_" + to_string(i) + ".txt");
+            logFile << "{\"" + legDataPath + "original_" + to_string(i) + ".png\", \"" + legDataPath + "depth_logs_" + to_string(i) + ".txt\", \"" + legDataPath + "depth_calibration_" + to_string(i) + ".txt\"},\n";
             leftLegData.push_back(legInputData);
         }
+        logFile << "}\n";
+        logFile << "Left side paths\n{\n";
         for (const auto& inputPaths : solePaths) {
             soleData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
+            logFile << "{\"" + inputPaths[0]+ "\", \"" + inputPaths[1] + "\", \"" + inputPaths[2] + "\"},\n";
         }
+        logFile << "}\n";
+        logFile.close();
         return { rightLegData, leftLegData, soleData };
     }
 }

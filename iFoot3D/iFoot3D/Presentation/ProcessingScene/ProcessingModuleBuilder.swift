@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum ProcessingTransition: Transition {
-    case success(modelPath: String,
+    case success(outputPath: String,
                  outputs: [CaptureProcessedOutput],
                  input: ReconstructionInput)
     case capture

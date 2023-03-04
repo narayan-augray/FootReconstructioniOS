@@ -8,6 +8,7 @@
 #include "open3d/pipelines/registration/GlobalOptimizationMethod.h"
 #include "open3d/pipelines/registration/GlobalOptimizationConvergenceCriteria.h"
 
+
 namespace ifoot3d {
 
     auto pairwise_registration(const open3d::geometry::PointCloud& source,
@@ -106,15 +107,15 @@ namespace ifoot3d {
         }
         leftSide = leftSide->VoxelDownSample(0.002);
 
-        //visualization::DrawGeometries({ leftSide });
-        //visualization::DrawGeometries({ rightSide });
+//        visualization::DrawGeometries({ leftSide });
+//        visualization::DrawGeometries({ rightSide });
 
         *rightSide += *leftSide;
-        //visualization::DrawGeometries({ rightSide });
+//        visualization::DrawGeometries({ rightSide });
         return rightSide;
     }
 
-    std::shared_ptr<open3d::geometry::PointCloud> stitchLegsWithFloors(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs, std::vector<Plane>& rightFloors,
+    std::vector<std::shared_ptr<open3d::geometry::PointCloud>> stitchLegsWithFloors(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs, std::vector<Plane>& rightFloors,
         std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors) {
         using namespace std;
         using namespace open3d;
@@ -183,9 +184,7 @@ namespace ifoot3d {
         /*visualization::DrawGeometries({ leftSide });
         visualization::DrawGeometries({ rightSide });*/
 
-        *rightSide += *leftSide;
-        //visualization::DrawGeometries({ rightSide });
-        return rightSide;
+        return {rightSide, leftSide};
     }
 
     void stitchAllLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legs) {
@@ -258,13 +257,13 @@ namespace ifoot3d {
         }
         leftSide = leftSide->VoxelDownSample(0.002);
 
-        //visualization::DrawGeometries({ leftSide });
-        //visualization::DrawGeometries({ rightSide });
+//        visualization::DrawGeometries({ leftSide });
+//        visualization::DrawGeometries({ rightSide });
 
         auto transform = get<0>(pairwise_registration(*rightSide, *leftSide, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine));
         rightSide->Transform(transform);
         *rightSide += *leftSide;
-        //visualization::DrawGeometries({ rightSide });
+//        visualization::DrawGeometries({ rightSide });
         return rightSide;
     }
 

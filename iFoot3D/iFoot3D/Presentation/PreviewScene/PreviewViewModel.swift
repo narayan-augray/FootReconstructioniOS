@@ -12,7 +12,8 @@ import Zip
 
 final class PreviewViewModel: BaseViewModel {
     // MARK: - Properties
-    let objectUrl: URL?
+    var objectUrl: URL?
+    let outputPath: String
     let outputs: [CaptureProcessedOutput]
     let input: ReconstructionInput
     
@@ -25,15 +26,17 @@ final class PreviewViewModel: BaseViewModel {
     
     // MARK: - Init
     init(
-        modelPath: String,
+        outputPath: String,
         outputs: [CaptureProcessedOutput],
         input: ReconstructionInput
     ) {
-        self.objectUrl = URL(fileURLWithPath: modelPath)
+        self.outputPath = outputPath
         self.outputs = outputs
         self.input = input
         
         super.init()
+        
+        self.objectUrl = self.getObjectUrl()
     }
     
     // MARK: - Navigation
@@ -56,8 +59,12 @@ final class PreviewViewModel: BaseViewModel {
             
             let archiveName = UUID().uuidString
             
-            var files = [self.getInputFile(), self.objectUrl]
+            var files = [self.getInputFile()]
             files.append(contentsOf: self.outputs.getFilesUrls())
+            
+            if !self.outputPath.contains(ProcessingConstants.objectFileFormat) {
+                files.append(contentsOf: FileManager.getContents(path: self.outputPath))
+            }
             
             do {
                 let zipFilePath = try Zip.quickZipFiles(files.compactMap({ $0 }), fileName: archiveName)
@@ -86,5 +93,18 @@ private extension PreviewViewModel {
             log.error(error: error)
             return nil
         }
+    }
+    
+    func getObjectUrl() -> URL? {
+        if outputPath.contains(ProcessingConstants.objectFileFormat) {
+            return URL(fileURLWithPath: outputPath)
+        } else {
+            for fileUrl in FileManager.getContents(path: outputPath) {
+                if fileUrl.path.contains(ProcessingConstants.objectFileFormat) {
+                    return fileUrl
+                }
+            }
+        }
+        return nil
     }
 }

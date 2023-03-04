@@ -22,7 +22,7 @@ namespace ifoot3d {
             Eigen::Vector3d currentToeFloorProjection = currentToe - referenceFloor.signedDistanceFromPoint(currentToe) * referenceFloor.getNormal();
             alignGeometryByPointAndVector(legs[i], referenceAxis.getPoint(), referenceAxis.getPoint(), ReferenceToeFloorProjection - referenceHeel, currentToeFloorProjection - referenceHeel);
             currentToe = getLegToe(legs[i], referenceAxis);
-            legs[i]->Translate(referenceToe - currentToe);
+            //legs[i]->Translate(referenceToe - currentToe);
         }
     }
 
@@ -97,10 +97,9 @@ namespace ifoot3d {
         vector<shared_ptr<geometry::Geometry3D>> hullAndSole{ hull, sole };
 
         alignGeometriesByPointAndVector(hullAndSole, legHeel, soleHeel, floor.getNormal(), solePlane.getNormal());
-
-        Line legAxis = getLegAxis(leg, floor);
-        Eigen::Vector3d soleToe = getLegToe(sole, legAxis);
-        Eigen::Vector3d legToe = getLegToe(leg, legAxis);
+        auto axis = getLegAxis(leg, floor);
+        Eigen::Vector3d soleToe = getLegToe(sole, axis);
+        Eigen::Vector3d legToe = getLegToe(leg, axis);
         alignGeometriesByPointAndVector(hullAndSole, legHeel, legHeel, legToe - legHeel, soleToe - legHeel);
         tie(floorTriangle, floorNormal) = getBiggestTriangle(hull);
         solePlane = Plane(floorTriangle);
@@ -112,7 +111,7 @@ namespace ifoot3d {
             soleSilhouette.push_back(point - floor.signedDistanceFromPoint(point) * floor.getNormal());
         }
         auto soleSilhouettePCD = make_shared<geometry::PointCloud>(soleSilhouette);
-        auto legSilhouette = getLegContour(leg, floor);
+        auto legSilhouette = getLegContour(leg, floor, 0.015);
         auto legSilhouettePCD = make_shared<geometry::PointCloud>(legSilhouette);
 
         sole->Translate(legSilhouettePCD->GetCenter() - soleSilhouettePCD->GetCenter());
@@ -124,5 +123,46 @@ namespace ifoot3d {
         );
         sole->Transform(regP2P.transformation_);
         sole->Translate(floor.getNormal() * 0.02);
+    }
+
+    void alignSidesWithSole(std::shared_ptr<open3d::geometry::PointCloud>& sole, std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& sides, Plane& dividingPlane, Plane& floor, double shift) {
+        using namespace std;
+        using namespace open3d;
+
+        double threshold = 0.01;
+
+        auto rightSilhouette = getLegContour(sides[0], floor, 0.005);
+        auto rightSilhouettePCD = make_shared<geometry::PointCloud>(rightSilhouette);
+
+        auto leftSilhouette = getLegContour(sides[1], floor, 0.005);
+        auto leftSilhouettePCD = make_shared<geometry::PointCloud>(leftSilhouette);
+
+        auto hull = get<0>(sole->ComputeConvexHull());
+        auto initialDirection = -floor.getNormal();
+        auto initialViewPoint = sole->GetCenter() + floor.getNormal();
+        auto initialCenter = sole->GetCenter();
+        double initialDistance = 1;
+        alignGeometryByPointAndVector(hull, { 0,0,1 }, initialCenter, { 0,0,1 }, initialDirection);
+        
+        leaveVisibleMesh(hull);
+
+        alignGeometryByPointAndVector(hull, initialCenter, {0,0,1}, initialDirection, {0,0,1});
+
+        auto soleSilhouettePoints = getMeshBoundaries(hull, 0.002);
+        vector<Eigen::Vector3d> soleSilhouette;
+        for (const auto& point : soleSilhouettePoints) {
+            soleSilhouette.push_back(point - floor.signedDistanceFromPoint(point) * floor.getNormal());
+        }
+        auto soleSilhouettePCD = make_shared<geometry::PointCloud>(soleSilhouette);
+
+        sides[0]->Transform(pipelines::registration::RegistrationICP(
+            *rightSilhouettePCD, *soleSilhouettePCD, threshold, Eigen::MatrixXd::Identity(4, 4),
+            pipelines::registration::TransformationEstimationPointToPoint()
+        ).transformation_);
+
+        sides[1]->Transform(pipelines::registration::RegistrationICP(
+            *leftSilhouettePCD, *soleSilhouettePCD, threshold, Eigen::MatrixXd::Identity(4, 4),
+            pipelines::registration::TransformationEstimationPointToPoint()
+        ).transformation_);
     }
 }

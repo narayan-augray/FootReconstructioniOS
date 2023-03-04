@@ -42,10 +42,10 @@
 
 - (bool) reconstruct: (NSString *) legPath
            solePaths: (NSArray<NSArray<NSString *> *> *) sole
-          outputPath: (NSString *) output {
-    const char* outputPath = [output cStringUsingEncoding: NSUTF8StringEncoding];
-    
+      outputFolderPath: (NSString *) outputFolder {
     const char* legFilesPath = [legPath cStringUsingEncoding: NSUTF8StringEncoding];
+    
+    const char* outputPath = [outputFolder cStringUsingEncoding: NSUTF8StringEncoding];
     
     std::vector<int> rightSide {0, 1, 2, 3};
     std::vector<int> leftSide {0, 9, 8, 7, 6};
@@ -55,7 +55,8 @@
     std::vector<std::vector<std::vector<cv::Mat>>> input = ifoot3d::readMultipleInputData(legFilesPath,
                                                                                           rightSide,
                                                                                           leftSide,
-                                                                                          solePaths);
+                                                                                          solePaths,
+                                                                                          outputPath);
     
     return ifoot3d::reconstructAndSaveLeg(input, outputPath);
 }

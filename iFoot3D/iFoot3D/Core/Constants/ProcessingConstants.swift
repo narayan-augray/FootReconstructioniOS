@@ -8,7 +8,9 @@
 import Foundation
 
 struct ProcessingConstants {
+    static let objectFileFormat = "obj"
     static let legScanFileName = "foot.obj"
+    static let outputFolderName = "reconstruction_output"
     
     static let rightSideOutputIndices: [Int] = [0, 1, 2, 3]
     static let leftSideOutputIndices: [Int] = [0, 9, 8, 7, 6]

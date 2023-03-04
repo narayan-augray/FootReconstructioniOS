@@ -10,7 +10,7 @@
 
 
 namespace ifoot3d {
-    std::shared_ptr<open3d::geometry::TriangleMesh> reconstructLeg(std::vector<std::vector<std::vector<cv::Mat>>>& inputData) {
+    std::shared_ptr<open3d::geometry::TriangleMesh> reconstructLeg(std::vector<std::vector<std::vector<cv::Mat>>>& inputData, const std::string& logPath) {
         using namespace std;
         using namespace open3d;
 
@@ -37,7 +37,14 @@ namespace ifoot3d {
             leftLegs.push_back(leg);
             leftFloors.push_back(get<1>(legPCDFloor));
         }
-        auto finalLeg = stitchLegsWithFloors(rightLegs, rightFloors, leftLegs, leftFloors);
+        auto stitchedSides = stitchLegsWithFloors(rightLegs, rightFloors, leftLegs, leftFloors);
+        shared_ptr<geometry::PointCloud> leftSide=stitchedSides[1], rightSide = stitchedSides[0];
+        shared_ptr<geometry::PointCloud> finalLeg (new geometry::PointCloud());
+        *finalLeg += *leftSide;
+        *finalLeg += *rightSide;
+
+        io::WritePointCloud(logPath + "/logs_right_side.pcd", *rightSide);
+        io::WritePointCloud(logPath + "/logs_left_side.pcd", *leftSide);
 
         vector<shared_ptr<geometry::PointCloud>> soles;
         shared_ptr<geometry::PointCloud> referenceSole;
@@ -60,14 +67,17 @@ namespace ifoot3d {
             *sole += *segment;
         }
 
-        //visualization::DrawGeometries({ sole });
+        io::WritePointCloud(logPath + "/logs_sole.pcd", *sole);
 
         alignSoleWithLeg(sole, finalLeg, rightFloors[0]);
-        postprocess(sole, finalLeg, rightFloors[0], 0.01);
 
-        //visualization::DrawGeometries({ finalLeg });
+        postprocessSides(sole, stitchedSides, rightFloors[0], 0.01);
 
-        auto legMesh = reconstructSurfacePoisson(finalLeg, 6);
+        io::WritePointCloud(logPath + "/logs_final_point_cloud.pcd", *rightSide);
+
+        //visualization::DrawGeometries({ sole });
+
+        auto legMesh = reconstructSurfacePoisson(sole, 6);
 
         return legMesh;
     }
@@ -117,7 +127,7 @@ namespace ifoot3d {
             *beforeStitching += *segment;
         }
 
-        //visualization::DrawGeometries({ beforeStitching });
+//        visualization::DrawGeometries({ beforeStitching });
 
         repairFloorNormals(rightLegs, rightFloors);
 
@@ -156,8 +166,8 @@ namespace ifoot3d {
     bool reconstructAndSaveLeg(std::vector<std::vector<std::vector<cv::Mat>>>& inputData, const std::string& path) {
         using namespace std;
         try {
-            auto legMesh = reconstructLeg(inputData);
-            open3d::io::WriteTriangleMesh(path, *legMesh);
+            auto legMesh = reconstructLeg(inputData, path);
+            open3d::io::WriteTriangleMesh(path + "/foot.obj", *legMesh);
             return true;
         }
         catch (StitchingException& e) {

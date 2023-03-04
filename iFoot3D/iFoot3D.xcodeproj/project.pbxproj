@@ -70,6 +70,7 @@
 		EA7512D3295CB6EF006EE033 /* ARSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */; };
 		EA7512D6295CBACA006EE033 /* ARSessionManagerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */; };
 		EA7512DC295CCA65006EE033 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7512DB295CCA65006EE033 /* Colors.swift */; };
+		EA9DAC6129B23DFB0068010D /* FileManager+Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9DAC6029B23DFB0068010D /* FileManager+Folder.swift */; };
 		EAE43DAD296401F900405533 /* CaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAC296401F900405533 /* CaptureService.swift */; };
 		EAE43DB02964024100405533 /* CaptureServiceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */; };
 		EAE43DB32964082E00405533 /* simd_float4x4+Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */; };
@@ -174,6 +175,7 @@
 		EA7512D2295CB6EF006EE033 /* ARSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManager.swift; sourceTree = "<group>"; };
 		EA7512D5295CBACA006EE033 /* ARSessionManagerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSessionManagerEvent.swift; sourceTree = "<group>"; };
 		EA7512DB295CCA65006EE033 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		EA9DAC6029B23DFB0068010D /* FileManager+Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Folder.swift"; sourceTree = "<group>"; };
 		EAE43DAC296401F900405533 /* CaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureService.swift; sourceTree = "<group>"; };
 		EAE43DAF2964024100405533 /* CaptureServiceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureServiceEvent.swift; sourceTree = "<group>"; };
 		EAE43DB22964082E00405533 /* simd_float4x4+Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd_float4x4+Position.swift"; sourceTree = "<group>"; };
@@ -569,8 +571,8 @@
 			children = (
 				EAE43DB12964080600405533 /* ARKit */,
 				EAE43DE629644E0300405533 /* Custom */,
-				EAE43DB42964393F00405533 /* UIKit */,
 				EAE43DC5296441BD00405533 /* Foundation */,
+				EAE43DB42964393F00405533 /* UIKit */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -816,6 +818,7 @@
 			children = (
 				EAE43DC6296441CA00405533 /* FileManager+FilePath.swift */,
 				EAE43DC82964423000405533 /* String+InitFromArray.swift */,
+				EA9DAC6029B23DFB0068010D /* FileManager+Folder.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1075,6 +1078,7 @@
 				EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */,
 				EAE5CF9729A49F910053CB98 /* ReconstructionServiceWrapper.mm in Sources */,
 				EA3D9D3D29674DED00331FEA /* InstructionsView.swift in Sources */,
+				EA9DAC6129B23DFB0068010D /* FileManager+Folder.swift in Sources */,
 				EA7512C3295C5A99006EE033 /* FootCaptureModuleBuilder.swift in Sources */,
 				EAE43DBA29643ACB00405533 /* CaptureOutput.swift in Sources */,
 				EA7512DC295CCA65006EE033 /* Colors.swift in Sources */,
