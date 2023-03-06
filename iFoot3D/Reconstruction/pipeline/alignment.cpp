@@ -26,7 +26,7 @@ namespace ifoot3d {
         }
     }
 
-    void initSolesPositions(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole) {
+    void initSolesPositions(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole, const std::string& logPath) {
         using namespace std;
         using namespace open3d;
         
@@ -44,8 +44,9 @@ namespace ifoot3d {
         Line legAxis = Line(referenceNormal, referenceHeel);
         Eigen::Vector3d referenceToe = getLegToe(referenceSole, legAxis);
         
+        int i = 0, j = 0;
         for (auto& sole : soles) {
-
+            j = 0;
             hull = get<0>(sole->ComputeConvexHull());
             leaveVisibleMesh(hull);
             
@@ -70,7 +71,16 @@ namespace ifoot3d {
                     fittedSole = make_shared<geometry::PointCloud>(currentSole->Transform(registrationResult.transformation_));
                     correspondenceSetSize = registrationResult.correspondence_set_.size();
                 }
+
+                auto currentIterationCombinedSole = make_shared<geometry::PointCloud>(geometry::PointCloud(*referenceSole));
+                for (int k = 0; k < i; k++) {
+                    *currentIterationCombinedSole += *soles[k];
+                }
+                *currentIterationCombinedSole += *currentSole;
+                io::WritePointCloud(logPath + "/logs_soles_" + to_string(i) + "_" + to_string(j) + ".pcd", *currentIterationCombinedSole);
+                j++;
             }
+            i++;
             sole = fittedSole;
         }
     }
@@ -129,7 +139,7 @@ namespace ifoot3d {
         using namespace std;
         using namespace open3d;
 
-        double threshold = 0.01;
+        double threshold = 0.05;
 
         auto rightSilhouette = getLegContour(sides[0], floor, 0.005);
         auto rightSilhouettePCD = make_shared<geometry::PointCloud>(rightSilhouette);
@@ -142,6 +152,7 @@ namespace ifoot3d {
         auto initialViewPoint = sole->GetCenter() + floor.getNormal();
         auto initialCenter = sole->GetCenter();
         double initialDistance = 1;
+
         alignGeometryByPointAndVector(hull, { 0,0,1 }, initialCenter, { 0,0,1 }, initialDirection);
         
         leaveVisibleMesh(hull);
@@ -154,6 +165,17 @@ namespace ifoot3d {
             soleSilhouette.push_back(point - floor.signedDistanceFromPoint(point) * floor.getNormal());
         }
         auto soleSilhouettePCD = make_shared<geometry::PointCloud>(soleSilhouette);
+        soleSilhouettePCD->PaintUniformColor({ 0.7, 0.2, 0.6 });
+
+        vector<Eigen::Vector3d> soleProjection;
+        for (const auto& point : sole->points_) {
+            if (floor.signedDistanceFromPoint(point) > 0)
+                soleProjection.push_back(point - floor.signedDistanceFromPoint(point) * floor.getNormal());
+        }
+        auto soleProjectionPCD = make_shared<geometry::PointCloud>(soleProjection);
+        soleProjectionPCD->PaintUniformColor({ 0.2, 0.7, 0.6 });
+
+        //open3d::visualization::DrawGeometries({ soleProjectionPCD, soleSilhouettePCD });
 
         sides[0]->Transform(pipelines::registration::RegistrationICP(
             *rightSilhouettePCD, *soleSilhouettePCD, threshold, Eigen::MatrixXd::Identity(4, 4),

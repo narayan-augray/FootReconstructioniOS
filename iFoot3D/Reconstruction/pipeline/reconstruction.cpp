@@ -52,6 +52,7 @@ namespace ifoot3d {
             auto pcd = generatePointCLoud(inputData[2][i][0], inputData[2][i][1], inputData[2][i][2]);
             auto sole = segmentSole(pcd, 0.1);
 
+            io::WritePointCloud(logPath + "/logs_sole_" + to_string(i) + ".pcd", *sole);
             sole->EstimateNormals();
             sole->OrientNormalsTowardsCameraLocation({ 0,0,0 });
             if (i == 0)
@@ -60,24 +61,25 @@ namespace ifoot3d {
                 soles.push_back(sole);
         }
 
-        stitchSoles(soles, referenceSole);
+        stitchSoles(soles, referenceSole, logPath);
 
         shared_ptr<geometry::PointCloud> sole(new geometry::PointCloud());
         for (auto& segment : soles) {
             *sole += *segment;
         }
 
-        io::WritePointCloud(logPath + "/logs_sole.pcd", *sole);
+        io::WritePointCloud(logPath + "/logs_sole_stitched.pcd", *sole);
 
         alignSoleWithLeg(sole, finalLeg, rightFloors[0]);
 
         postprocessSides(sole, stitchedSides, rightFloors[0], 0.01);
 
-        io::WritePointCloud(logPath + "/logs_final_point_cloud.pcd", *rightSide);
+        io::WritePointCloud(logPath + "/logs_final_point_cloud.pcd", *sole);
 
         //visualization::DrawGeometries({ sole });
 
         auto legMesh = reconstructSurfacePoisson(sole, 6);
+        legMesh->PaintUniformColor({ 0.7, 0.7, 0.7 });
 
         return legMesh;
     }
@@ -147,7 +149,7 @@ namespace ifoot3d {
                 soles.push_back(sole);
         }
 
-        stitchSoles(soles, referenceSole);
+        //stitchSoles(soles, referenceSole);
 
         shared_ptr<geometry::PointCloud> sole(new geometry::PointCloud());
         for (auto& segment : soles) {

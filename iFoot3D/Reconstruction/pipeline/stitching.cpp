@@ -121,19 +121,23 @@ namespace ifoot3d {
         using namespace open3d;
 
         double voxelSize = 0.003;
-        double maxCorrespondenceDistanceCoarse = voxelSize * 5;
-        double maxCorrespondenceDistanceFine = voxelSize * 3;
+        double maxCorrespondenceDistanceCoarse = voxelSize * 10;
+        double maxCorrespondenceDistanceFine = voxelSize * 4;
 
         initLegsPositions(rightLegs, rightFloors);
+        shared_ptr<geometry::PointCloud> rightSideBefore(new geometry::PointCloud());
         Eigen::Vector3d heel = getLegHeel(rightLegs[0], rightFloors[0]);
         auto floor = rightFloors[0].getPointCloud(0.5, 100, heel);
         
         vector<shared_ptr<geometry::PointCloud>> rightLegsWithFloors;
         for (int i = 0; i < rightLegs.size(); i++) {
             auto leg = make_shared<geometry::PointCloud>(*rightLegs[i]);
+            *rightSideBefore += *leg;
             *leg += *floor;
             rightLegsWithFloors.push_back(leg);
         }
+
+        
 
         auto poseGraph = full_registration(rightLegsWithFloors, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
         auto option = open3d::pipelines::registration::GlobalOptimizationOption(maxCorrespondenceDistanceFine, 0.25, 0);
@@ -142,7 +146,7 @@ namespace ifoot3d {
         for (int i = 0; i < rightLegs.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*rightLegs[i], *rightLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.fitness_ < -0.3) {
+                if (regRes.fitness_ == 0.0) {
                     throw StitchingException();
                 }
             }
@@ -156,12 +160,17 @@ namespace ifoot3d {
         rightSide = rightSide->VoxelDownSample(0.002);
 
         initLegsPositions(leftLegs, leftFloors);
+        shared_ptr<geometry::PointCloud> leftSideBefore(new geometry::PointCloud());
         vector<shared_ptr<geometry::PointCloud>> leftLegsWithFloors;
         for (int i = 0; i < leftLegs.size(); i++) {
             auto leg = make_shared<geometry::PointCloud>(*leftLegs[i]);
+            *leftSideBefore += *leg;
             *leg += *floor;
             leftLegsWithFloors.push_back(leg);
+            
         }
+
+        
 
         poseGraph = full_registration(leftLegsWithFloors, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
         pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
@@ -169,7 +178,7 @@ namespace ifoot3d {
         for (int i = 0; i < leftLegs.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*leftLegs[i], *leftLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.fitness_ < -0.3) {
+                if (regRes.fitness_ == 0.0) {
                     throw StitchingException();
                 }
             }
@@ -181,7 +190,9 @@ namespace ifoot3d {
         }
         leftSide = leftSide->VoxelDownSample(0.002);
 
-        /*visualization::DrawGeometries({ leftSide });
+        /*visualization::DrawGeometries({ leftSideBefore });
+        visualization::DrawGeometries({ rightSideBefore });
+        visualization::DrawGeometries({ leftSide });
         visualization::DrawGeometries({ rightSide });*/
 
         return {rightSide, leftSide};
@@ -267,11 +278,11 @@ namespace ifoot3d {
         return rightSide;
     }
 
-    void stitchSoles(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole) {
+    void stitchSoles(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole, const std::string& logPath) {
         using namespace std;
         using namespace open3d;
         
-        initSolesPositions(soles, referenceSole);
+        initSolesPositions(soles, referenceSole, logPath);
 
         soles.insert(soles.begin(), referenceSole);
                 
@@ -285,13 +296,11 @@ namespace ifoot3d {
         for (int i = 0; i < soles.size(); i++) {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*soles[i], *soles[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_);
-                if (regRes.fitness_ < -0.3) {
+                if (regRes.fitness_ == 0.0) {
                     throw StitchingException();
                 }
             }
             soles[i]->Transform(poseGraph.nodes_[i].pose_);
         }
-        soles.insert(soles.begin(), referenceSole);
-        
     }
 }

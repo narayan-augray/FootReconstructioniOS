@@ -38,10 +38,8 @@ namespace ifoot3d {
         *leg += *sole;
 
         alignGeometryByPointAndVector(leg, { 0,0,0 }, leg->GetCenter(), { 0, 1, 0 }, -floor.getNormal());
-        
-        Line line = getLegAxis(leg, floor);
-        Eigen::Vector3d toe = getLegToe(sole, line);
-        
+        auto axis = getLegAxis(leg, floor);
+        Eigen::Vector3d toe = getLegToe(sole, axis);
         toe[1] = 0;
         alignGeometryByPointAndVector(leg, { 0,0,0 }, { 0,0,0 }, { 1, 0, 0 }, toe);
     }
@@ -77,8 +75,8 @@ namespace ifoot3d {
         *sole += *legSides[0] + *legSides[1];
 
         alignGeometryByPointAndVector(sole, { 0,0,0 }, sole->GetCenter(), { 0, 1, 0 }, -floor.getNormal());
-        Line line = getLegAxis(sole, floor);
-        Eigen::Vector3d toe = getLegToe(sole, line);
+        auto axis = getLegAxis(sole, floor);
+        Eigen::Vector3d toe = getLegToe(sole, axis);
         toe[1] = 0;
         alignGeometryByPointAndVector(sole, { 0,0,0 }, { 0,0,0 }, { 1, 0, 0 }, toe);
     }

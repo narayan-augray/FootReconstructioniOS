@@ -22,7 +22,7 @@ namespace ifoot3d {
 
     void stitchAllLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legs);
     
-    void stitchSoles(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole);
+    void stitchSoles(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& soles, std::shared_ptr<open3d::geometry::PointCloud>& referenceSole, const std::string& logPath);
 
     std::shared_ptr<open3d::geometry::PointCloud> stitchLegsSeparate(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs,
         std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs);
