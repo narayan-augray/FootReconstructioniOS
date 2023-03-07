@@ -42,7 +42,7 @@
 
 - (bool) reconstruct: (NSString *) legPath
            solePaths: (NSArray<NSArray<NSString *> *> *) sole
-      outputFolderPath: (NSString *) outputFolder {
+    outputFolderPath: (NSString *) outputFolder {
     const char* legFilesPath = [legPath cStringUsingEncoding: NSUTF8StringEncoding];
     
     const char* outputPath = [outputFolder cStringUsingEncoding: NSUTF8StringEncoding];
@@ -58,7 +58,7 @@
                                                                                           solePaths,
                                                                                           outputPath);
     
-    return ifoot3d::reconstructAndSaveLeg(input, outputPath);
+    return ifoot3d::reconstructAndSaveLeg(input, outputPath, true);
 }
 
 // MARK: - Helpers
