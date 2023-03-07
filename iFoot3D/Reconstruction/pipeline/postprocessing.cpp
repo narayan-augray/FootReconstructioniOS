@@ -44,9 +44,19 @@ namespace ifoot3d {
         alignGeometryByPointAndVector(leg, { 0,0,0 }, { 0,0,0 }, { 1, 0, 0 }, toe);
     }
 
-    void postprocessSides(std::shared_ptr<open3d::geometry::PointCloud>& sole, std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legSides, Plane& floor, double shift) {
+    void postprocessSides(
+        std::shared_ptr<open3d::geometry::PointCloud>& sole, 
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legSides,
+        Plane& floor, double shift) 
+    {
         using namespace std;
         using namespace open3d;
+
+        if (sole->IsEmpty() || legSides.empty())
+        {
+            std::cout << "postprocessSides : sole->IsEmpty() || legSides.empty()" << std::endl;
+            return;
+        }
 
         auto dividingPlane = Plane(floor.getPoints()[0] - shift * floor.getNormal(), floor.getNormal());
         double intersectingThresh = -0.005;
@@ -55,14 +65,16 @@ namespace ifoot3d {
         alignSidesWithSole(sole, legSides, soleIntersectingPlane, floor, intersectingThresh);
 
         vector<size_t> indices;
-        for (int i = 0; i < sole->points_.size(); ++i) {
+        for (int i = 0; i < sole->points_.size(); ++i)
+        {
             if (dividingPlane.signedDistanceFromPoint(sole->points_[i]) > 0)
                 indices.push_back(i);
         }
         sole = sole->SelectByIndex(indices);
         sole = sole->VoxelDownSample(0.002);
 
-        for (auto& leg : legSides) {
+        for (auto& leg : legSides) 
+        {
             indices.clear();
             for (int i = 0; i < leg->points_.size(); ++i) {
                 if (dividingPlane.signedDistanceFromPoint(leg->points_[i]) < 0)
@@ -70,9 +82,11 @@ namespace ifoot3d {
             }
             leg = leg->SelectByIndex(indices);
             leg = leg->VoxelDownSample(0.002);
+
+            *sole += *leg;
         }
 
-        *sole += *legSides[0] + *legSides[1];
+        //*sole += *legSides[0] + *legSides[1];
 
         alignGeometryByPointAndVector(sole, { 0,0,0 }, sole->GetCenter(), { 0, 1, 0 }, -floor.getNormal());
         auto axis = getLegAxis(sole, floor);

@@ -24,7 +24,7 @@ namespace ifoot3d {
 		
 		Eigen::Vector3d getNormal();
 
-        std::shared_ptr<open3d::geometry::PointCloud> getPointCloud(float size, int density, Eigen::Vector3d& point);
+		std::shared_ptr<open3d::geometry::PointCloud> getPointCloud(float size, int density, Eigen::Vector3d& point);
 
 		void setNormal(Eigen::Vector3d);
 
@@ -38,6 +38,9 @@ namespace ifoot3d {
 		Eigen::Vector3d vector;
 		Eigen::Vector3d point;
 	public:
+
+		Line() {};
+
 		Line(Eigen::Vector3d vector, Eigen::Vector3d point);
 
 		Eigen::Vector3d getPoint();
@@ -48,8 +51,8 @@ namespace ifoot3d {
 
 	};
 
-	std::vector<float> splitToFloat(std::string, const std::string);
-	std::vector<float> parseFloatData(std::vector<std::string>& lines, const std::string delimiter);
+	std::vector<float> splitToFloat(const std::string& line, const char& delimiter=',');
+	std::vector<float> parseFloatData(const std::vector<std::string>& lines, const char& delimiter);
 	std::vector<std::shared_ptr<open3d::geometry::PointCloud>> separateCloudForClusters(std::shared_ptr<open3d::geometry::PointCloud> pcd, const std::vector<int>& labels);
 	Line getLegAxis(const std::shared_ptr<open3d::geometry::PointCloud>& leg, Plane& floor);
 	Eigen::Vector3d getLegToe(const std::shared_ptr<open3d::geometry::PointCloud>& leg, Line& axis);
@@ -69,4 +72,5 @@ namespace ifoot3d {
 	Eigen::Matrix4d getReflectionMatrix(double a, double b, double c);
 	void alignGeometryByPointAndVector(std::shared_ptr<open3d::geometry::PointCloud>& geometry, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection);
 	void alignGeometryByPointAndVector(std::shared_ptr<open3d::geometry::TriangleMesh>& geometry, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection);
+	std::shared_ptr<open3d::geometry::PointCloud> getFlatPointCloudContour(std::shared_ptr<open3d::geometry::PointCloud> pcd);
 }
