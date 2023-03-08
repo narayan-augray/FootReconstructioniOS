@@ -13,6 +13,7 @@ protocol AppContainer: AnyObject {
     var captureOutputManager: CaptureOutputManager { get }
     var speechRecognizer: SpeechRecognizer { get }
     var reconstructionService: ReconstructionService { get }
+    var dataSetManager: DataSetManager { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -22,6 +23,7 @@ final class AppContainerImpl: AppContainer {
     lazy var captureOutputManager: CaptureOutputManager = setupCaptureOutputManager()
     lazy var speechRecognizer: SpeechRecognizer = setupSpeechRecognizer()
     lazy var reconstructionService: ReconstructionService = setupReconstructionService()
+    lazy var dataSetManager: DataSetManager = setupDataSetManager()
 }
 
 // MARK: - Setup
@@ -49,5 +51,9 @@ private extension AppContainerImpl {
     
     func setupReconstructionService() -> ReconstructionService {
         return ReconstructionServiceImpl()
+    }
+    
+    func setupDataSetManager() -> DataSetManager {
+        return DataSetManagerImpl()
     }
 }

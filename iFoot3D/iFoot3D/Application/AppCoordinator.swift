@@ -51,6 +51,9 @@ private extension AppCoordinator {
                 switch transition {
                 case .instructions(let outputs):
                     self?.instructions(outputs: outputs)
+                    
+                case .processing(let outputs):
+                    self?.processing(outputs: outputs)
                 }
             }
             .store(in: &cancellables)

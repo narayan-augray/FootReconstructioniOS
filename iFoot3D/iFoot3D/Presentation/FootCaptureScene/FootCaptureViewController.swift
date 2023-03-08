@@ -48,6 +48,9 @@ private extension FootCaptureViewController {
                    
                 case .error(let message):
                     viewModel.handleError(messsage: message)
+                    
+                case .skip:
+                    viewModel.skip()
                 }
             }
             .store(in: &cancellables)
