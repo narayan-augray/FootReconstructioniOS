@@ -88,6 +88,7 @@ final class ReconstructionServiceImpl: ReconstructionService {
                 let isSuccess = self.reconstructor?.reconstruct(
                     legPath,
                     solePaths: solePaths,
+                    logsFilePath: "\(outputFolderPath)/log.txt",
                     outputFolderPath: outputFolderPath
                 )
             else {

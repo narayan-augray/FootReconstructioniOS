@@ -10,6 +10,9 @@ util.cpp util.h
 alignment.cpp alignment.h
 postprocessing.cpp postprocessing.h
 reconstruction.cpp reconstruction.h
+
+# file/console logger
+logger.cpp logger.h
 )
 
 set(Open3D_ROOT C:/Open3D)

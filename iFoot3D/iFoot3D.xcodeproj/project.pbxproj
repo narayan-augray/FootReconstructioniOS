@@ -77,6 +77,7 @@
 		EA42C28629B7AB9C00B550E9 /* depth_calibration_9.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA42C25F29B7AB9B00B550E9 /* depth_calibration_9.txt */; };
 		EA42C28729B7AB9C00B550E9 /* depth_calibration_CC891415-9172-4CFC-97A9-27926CAEC6B3.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA42C26029B7AB9B00B550E9 /* depth_calibration_CC891415-9172-4CFC-97A9-27926CAEC6B3.txt */; };
 		EA42C28E29B7ACEA00B550E9 /* DataSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA42C28D29B7ACEA00B550E9 /* DataSetManager.swift */; };
+		EA5BA79D29B9EBD900ED5AB8 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA5BA79B29B9EBD900ED5AB8 /* logger.cpp */; };
 		EA6C9BE2295EBDD4009B6755 /* CapturePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */; };
 		EA743F3A295C147A00C488C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F39295C147A00C488C4 /* AppDelegate.swift */; };
 		EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA743F3B295C147A00C488C4 /* SceneDelegate.swift */; };
@@ -222,6 +223,8 @@
 		EA42C25F29B7AB9B00B550E9 /* depth_calibration_9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = depth_calibration_9.txt; sourceTree = "<group>"; };
 		EA42C26029B7AB9B00B550E9 /* depth_calibration_CC891415-9172-4CFC-97A9-27926CAEC6B3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "depth_calibration_CC891415-9172-4CFC-97A9-27926CAEC6B3.txt"; sourceTree = "<group>"; };
 		EA42C28D29B7ACEA00B550E9 /* DataSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSetManager.swift; sourceTree = "<group>"; };
+		EA5BA79B29B9EBD900ED5AB8 /* logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = logger.cpp; path = Reconstruction/pipeline/logger.cpp; sourceTree = SOURCE_ROOT; };
+		EA5BA79C29B9EBD900ED5AB8 /* logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = logger.h; path = Reconstruction/pipeline/logger.h; sourceTree = SOURCE_ROOT; };
 		EA6C9BE1295EBDD4009B6755 /* CapturePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePosition.swift; sourceTree = "<group>"; };
 		EA743F36295C147A00C488C4 /* iFoot3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFoot3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA743F39295C147A00C488C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1066,6 +1069,8 @@
 		EAEE0C88299E4BBF007D5BB2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				EA5BA79B29B9EBD900ED5AB8 /* logger.cpp */,
+				EA5BA79C29B9EBD900ED5AB8 /* logger.h */,
 				EAEE0CA3299E6F27007D5BB2 /* io.cpp */,
 				EAEE0CA2299E6F27007D5BB2 /* io.h */,
 				EAEE0C8B299E6DFC007D5BB2 /* alignment.cpp */,
@@ -1276,6 +1281,7 @@
 				EAE43DC7296441CA00405533 /* FileManager+FilePath.swift in Sources */,
 				EAEE0C9A299E6E01007D5BB2 /* alignment.cpp in Sources */,
 				EAE5CF9729A49F910053CB98 /* ReconstructionServiceWrapper.mm in Sources */,
+				EA5BA79D29B9EBD900ED5AB8 /* logger.cpp in Sources */,
 				EA3D9D3D29674DED00331FEA /* InstructionsView.swift in Sources */,
 				EA9DAC6129B23DFB0068010D /* FileManager+Folder.swift in Sources */,
 				EA7512C3295C5A99006EE033 /* FootCaptureModuleBuilder.swift in Sources */,

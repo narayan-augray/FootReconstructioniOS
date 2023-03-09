@@ -1,6 +1,6 @@
 #include "util.h"
 
-
+#include <map>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -9,55 +9,64 @@
 #include <cmath>
 #include <open3d/Open3D.h>
 
+#include "logger.h"
+
 
 namespace ifoot3d {
-    std::vector<float> splitToFloat(const std::string& line, const char& delimiter)
+
+    bool splitToFloat(const std::string& line, std::vector<float>& data, const char& delimiter)
     {
+        data.clear();
         if (line.empty())
         {
-            std::cout << "ifoot3d::splitToFloat: empty line" << std::endl;
-            return std::vector<float>();
+            LOG_WARN("splitToFloat: line.empty()");
+            return false;
         }
 
-        std::vector<float> result;
         std::stringstream sstr(line);
         while (sstr.good())
         {
             std::string substr;
             std::getline(sstr, substr, char(delimiter));
-            result.push_back(stof(substr));
+            data.push_back(stof(substr));
         }
-        return result;
+        return true;
     }
 
-    std::vector<float> parseFloatData(const std::vector<std::string>& lines, const char& delimiter)
+    bool parseFloatData(const std::vector<std::string>& lines, std::vector<float>& data, const char& delimiter)
     {
+        data.clear();
         if (lines.empty())
         {
-            std::cout << "ifoot3d::parseFloatData: empty lines" << std::endl;
-            return std::vector<float>();
+            LOG_ERROR("parseFloatData: lines.empty()");
+            return false;
         }
-
-        std::vector<float> values;
         
         for (const auto& line : lines)
         {
-            auto numbers = splitToFloat(line, delimiter);
-            values.insert(values.end(), numbers.begin(), numbers.end());
+            std::vector<float> numbers;
+            splitToFloat(line, numbers, delimiter);
+            data.insert(data.end(), numbers.begin(), numbers.end());
         }
-        return values;
+        return true;
     }
 
     std::vector<std::shared_ptr<open3d::geometry::PointCloud>> separateCloudForClusters(
         std::shared_ptr<open3d::geometry::PointCloud> pcd, 
         const std::vector<int> & labels) 
     {
-        if (pcd->IsEmpty() || labels.empty())
+        if (pcd->IsEmpty() )
         {
-            std::cout << "ifoot3d::separateCloudForClusters pcd empty || labels.empty()" << std::endl;
+            LOG_ERROR("separateCloudForClusters : pcd->IsEmpty()");
             return { std::vector<std::shared_ptr<open3d::geometry::PointCloud>>() };
         }
         
+        if (labels.empty())
+        {
+            LOG_ERROR("separateCloudForClusters : labels.empty()");
+            return { std::vector<std::shared_ptr<open3d::geometry::PointCloud>>() };
+        }
+
         auto points = pcd->points_;
         auto colors = pcd->colors_;
         auto num_clusters = *std::max_element(std::begin(labels), std::end(labels)) + 1;
@@ -188,6 +197,13 @@ namespace ifoot3d {
         double x = this->points[0][0];
         double y = this->points[0][1];
         double z = this->points[0][2];
+
+        if (nx == 0.0 && ny == 0.0 && nz == 0.0)
+        {
+            LOG_ERROR("signedDistanceFromPoint : ZERO normal");
+            return 0;
+        }
+
         return (nx * point[0] + ny * point[1] + nz * point[2] - nx * x - ny * y - nz * z) / std::sqrt(
             nx * nx + ny * ny + nz * nz);
     }
@@ -207,7 +223,7 @@ namespace ifoot3d {
     {
         if (leg->IsEmpty())
         {
-            std::cout << "ifoot3d::separateCloudForClusters : leg->IsEmpty()" << std::endl;
+            LOG_ERROR("getLegAxis : leg->IsEmpty()");
             return Line();
         }
 
@@ -224,7 +240,7 @@ namespace ifoot3d {
 
         if (numberOfTopPoints == 0)
         {
-            std::cout << "ifoot3d::separateCloudForClusters : numberOfTopPoints == 0" << std::endl;
+            LOG_ERROR("getLegAxis : numberOfTopPoints == 0");
             return Line();
         }
 
@@ -234,6 +250,10 @@ namespace ifoot3d {
             topAveragePoint += points[indices[i].first];
         }
         topAveragePoint /= numberOfTopPoints;
+
+        Eigen::Vector3d normal = floor.getNormal();
+        LOG_DEBUG("getLegAxis : normal = %.3f  %.3f  %.3f ", normal[0], normal[1], normal[2]);
+        LOG_DEBUG("getLegAxis : topAveragePoint = %.3f  %.3f  %.3f ", topAveragePoint[0], topAveragePoint[1], topAveragePoint[2]);
         return Line(floor.getNormal(), topAveragePoint);
     }
 
@@ -241,18 +261,22 @@ namespace ifoot3d {
     {
         if (leg->IsEmpty())
         {
-            std::cout << "ifoot3d::getLegToe: leg->IsEmpty()" << std::endl;
+            LOG_ERROR("getLegToe : leg->IsEmpty()");
             return Eigen::Vector3d(NAN, NAN, NAN);
         }
         int idx = std::max_element(leg->points_.begin(), leg->points_.end(), [&axis](Eigen::Vector3d point1, Eigen::Vector3d point2) {return axis.distanceFromPoint(point1) < axis.distanceFromPoint(point2); }) - leg->points_.begin();
-        return leg->points_[idx];
+        
+        Eigen::Vector3d pt = leg->points_[idx];
+        LOG_DEBUG("getLegToe : point = %.3f  %.3f  %.3f ", pt[0], pt[1], pt[2]);
+
+        return pt;
     }
 
     Eigen::Vector3d getLegHeel(const std::shared_ptr<open3d::geometry::PointCloud>& leg, Plane& floor)
     {
         if (leg->IsEmpty())
         {
-            std::cout << "ifoot3d::getLegHeel: leg->IsEmpty()" << std::endl;
+            LOG_ERROR("getLegHeel : leg->IsEmpty()");
             return Eigen::Vector3d(NAN, NAN, NAN);
         }
 
@@ -266,7 +290,7 @@ namespace ifoot3d {
 
         if (soleTriangle.empty())
         {
-            std::cout << "getSoleHeel : soleTriangle.empty()" << std::endl;
+            LOG_ERROR("getSoleHeel : soleTriangle.empty()");
             return Eigen::Vector3d(NAN, NAN, NAN);
         }
 
@@ -282,6 +306,15 @@ namespace ifoot3d {
 
     float getAngleBetweenVectors(const Eigen::Vector3d& v1, const Eigen::Vector3d& v2) 
     {
+        double len1 = v1.norm();
+        double len2 = v2.norm();
+
+        if (len1 == 0.0 || len2 == 0.0)
+        {
+            LOG_ERROR("getAngleBetweenVectors : len1 == 0.0 || len2 == 0.0");
+            return 0;
+        }
+
         return std::acos(v1.dot(v2) / v1.norm() / v2.norm());
     }
 
@@ -291,7 +324,7 @@ namespace ifoot3d {
     {
         if (legs.empty() || floors.empty() || legs.size() != floors.size())
         {
-            std::cout << "ifoot3d::repairFloorNormals: legs.empty() || floors.empty() || legs.size() != floors.size()" << std::endl;
+            LOG_ERROR("repairFloorNormals : legs.empty() || floors.empty() || legs.size() != floors.size()");
             return;
         }
 
@@ -313,13 +346,13 @@ namespace ifoot3d {
     {
         if (geometry->IsEmpty())
         {
-            std::cout << "ifoot3d::alignGeometryByPointAndVector: geometry->IsEmpty()" << std::endl;
+            LOG_ERROR("alignGeometryByPointAndVector : geometry->IsEmpty()");
             return;
         }
 
         if (targetDirection.norm() < 1e-8 || sourceDirection.norm() < 1e-8)
         {
-            std::cout << "ifoot3d::alignGeometryByPointAndVector: targetDirection.isZero() || sourceDirection.isZero()" << std::endl;
+            LOG_ERROR("alignGeometryByPointAndVector : targetDirection.norm() < 1e-8 || sourceDirection.norm() < 1e-8");
             return;
         }
 
@@ -332,9 +365,30 @@ namespace ifoot3d {
         auto R = open3d::geometry::Geometry3D::GetRotationMatrixFromAxisAngle(angle * axis);
         geometry->Translate(targetPoint - sourcePoint);
         geometry->Rotate(R, targetPoint);
+        LOG_DEBUG("alignGeometryByPointAndVector : angle = %.3f ", angle);
+        LOG_DEBUG("alignGeometryByPointAndVector : axis = %.3f  %.3f  %.3f ", axis[0], axis[1], axis[2]);
+        LOG_DEBUG("alignGeometryByPointAndVector : R = %.3f  %.3f  %.3f %.3f  %.3f  %.3f %.3f  %.3f  %.3f ", 
+            R(0, 0), R(0, 1), R(0, 2), R(1, 0), R(1, 1), R(1, 2), R(2, 0), R(2, 1), R(2, 2));
     }
 
-    void alignGeometryByPointAndVector(std::shared_ptr<open3d::geometry::TriangleMesh>& geometry, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection) {
+    void alignGeometryByPointAndVector(
+        std::shared_ptr<open3d::geometry::TriangleMesh>& geometry, 
+        const Eigen::Vector3d& targetPoint, 
+        const Eigen::Vector3d& sourcePoint, 
+        const Eigen::Vector3d& targetDirection,
+        const Eigen::Vector3d& sourceDirection) {
+
+        if (geometry->IsEmpty())
+        {
+            LOG_ERROR("alignGeometryByPointAndVector : geometry->IsEmpty()");
+            return;
+        }
+
+        if (targetDirection.norm() < 1e-8 || sourceDirection.norm() < 1e-8)
+        {
+            LOG_ERROR("alignGeometryByPointAndVector : targetDirection.norm() < 1e-8 || sourceDirection.norm() < 1e-8");
+            return;
+        }
         double angle = -getAngleBetweenVectors(targetDirection, sourceDirection);
 
         Eigen::Vector3d axis = targetDirection.cross(sourceDirection);
@@ -343,22 +397,55 @@ namespace ifoot3d {
         auto R = open3d::geometry::Geometry3D::GetRotationMatrixFromAxisAngle(angle * axis);
         geometry->Translate(targetPoint - sourcePoint);
         geometry->Rotate(R, targetPoint);
+
+        LOG_DEBUG("alignGeometryByPointAndVector : angle = %.3f ", angle);
+        LOG_DEBUG("alignGeometryByPointAndVector : axis = %.3f  %.3f  %.3f ", axis[0], axis[1], axis[2]);
+        LOG_DEBUG("alignGeometryByPointAndVector : R = %.3f  %.3f  %.3f %.3f  %.3f  %.3f %.3f  %.3f  %.3f ",
+            R(0, 0), R(0, 1), R(0, 2), R(1, 0), R(1, 1), R(1, 2), R(2, 0), R(2, 1), R(2, 2));
     }
 
-    void alignGeometriesByPointAndVector(std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries, const Eigen::Vector3d& targetPoint, const Eigen::Vector3d& sourcePoint, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection) {
+    void alignGeometriesByPointAndVector(
+        std::vector<std::shared_ptr<open3d::geometry::Geometry3D>>& geometries, 
+        const Eigen::Vector3d& targetPoint, 
+        const Eigen::Vector3d& sourcePoint, 
+        const Eigen::Vector3d& targetDirection, 
+        const Eigen::Vector3d& sourceDirection) 
+    {
+        if (geometries.empty())
+        {
+            LOG_ERROR("alignGeometriesByPointAndVector : geometries.empty()");
+            return;
+        }
+
+        if (targetDirection.norm() < 1e-8 || sourceDirection.norm() < 1e-8)
+        {
+            LOG_ERROR("alignGeometryByPointAndVector : targetDirection.norm() < 1e-8 || sourceDirection.norm() < 1e-8");
+            return;
+        }
+
         double angle = -getAngleBetweenVectors(targetDirection, sourceDirection);
         
         Eigen::Vector3d axis = targetDirection.cross(sourceDirection);
         axis /= axis.norm();
 
         auto R = open3d::geometry::Geometry3D::GetRotationMatrixFromAxisAngle(angle * axis);
-        for (auto geometry : geometries) {
+        for (auto geometry : geometries)
+        {
             geometry->Translate(targetPoint - sourcePoint);
             geometry->Rotate(R, targetPoint);
         }
+
+        LOG_DEBUG("alignGeometriesByPointAndVector : angle = %.3f ", angle);
+        LOG_DEBUG("alignGeometriesByPointAndVector : axis = %.3f  %.3f  %.3f ", axis[0], axis[1], axis[2]);
+        LOG_DEBUG("alignGeometriesByPointAndVector : R = %.3f  %.3f  %.3f %.3f  %.3f  %.3f %.3f  %.3f  %.3f ",
+            R(0, 0), R(0, 1), R(0, 2), R(1, 0), R(1, 1), R(1, 2), R(2, 0), R(2, 1), R(2, 2));
     }
 
-    Eigen::Vector3d rotateVector(const Eigen::Vector3d& vector, const Eigen::Vector3d& targetDirection, const Eigen::Vector3d& sourceDirection) {
+    Eigen::Vector3d rotateVector(
+        const Eigen::Vector3d& vector, 
+        const Eigen::Vector3d& targetDirection, 
+        const Eigen::Vector3d& sourceDirection)
+    {
         auto angle = -getAngleBetweenVectors(sourceDirection, targetDirection);
         auto axis = targetDirection.cross(sourceDirection) / targetDirection.norm() / sourceDirection.norm();
         auto R = open3d::geometry::PointCloud::GetRotationMatrixFromAxisAngle(angle * axis);
@@ -385,7 +472,12 @@ namespace ifoot3d {
         return !(has_neg && has_pos);
     }
 
-    Eigen::Vector3d planeLineIntersection(Eigen::Vector3d planePoint, Eigen::Vector3d planeNormal, Eigen::Vector3d linePoint, Eigen::Vector3d lineNormal) {
+    Eigen::Vector3d planeLineIntersection(
+        Eigen::Vector3d planePoint,
+        Eigen::Vector3d planeNormal, 
+        Eigen::Vector3d linePoint, 
+        Eigen::Vector3d lineNormal) 
+    {
         double t = planeNormal.dot(planePoint - linePoint) / planeNormal.dot(lineNormal);
         return Eigen::Vector3d({ lineNormal[0] * t + linePoint[0], lineNormal[1] * t + linePoint[1], lineNormal[2] * t + linePoint[2] });
     }
@@ -396,7 +488,7 @@ namespace ifoot3d {
 
         if (mesh->IsEmpty())
         {
-            std::cout << "ifoot3d::leaveVisibleMesh: mesh->IsEmpty()" << std::endl;
+            LOG_ERROR("leaveVisibleMesh : mesh->IsEmpty()");
             return;
         }
 
@@ -408,7 +500,7 @@ namespace ifoot3d {
 
         if (triangles.empty() || vertices.empty())
         {
-            std::cout << "leaveVisibleMesh : triangles.empty() || vertices.empty()" << std::endl;
+            LOG_ERROR("leaveVisibleMesh : triangles.empty() || vertices.empty()");
             return;
         }
 
@@ -469,10 +561,17 @@ namespace ifoot3d {
     std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d> getBiggestTriangle(
         std::shared_ptr<open3d::geometry::TriangleMesh>& mesh) 
     {
+        if (mesh->IsEmpty())
+        {
+            LOG_ERROR("getBiggestTriangle : mesh->IsEmpty()");
+            return {std::vector<Eigen::Vector3d>(), Eigen::Vector3d()};
+        }
+
         using MyPair = std::pair<int, double>;
         std::vector <MyPair> indices;
         const auto& triangles = mesh->triangles_;
         const auto& vertices = mesh->vertices_;
+
         for (int i = 0; i < triangles.size(); ++i) 
         {
             indices.emplace_back(i, triangleArea({vertices[triangles[i][0]], vertices[triangles[i][1]], vertices[triangles[i][2]] }));
@@ -482,37 +581,60 @@ namespace ifoot3d {
         return { {vertices[triangles[id][0]], vertices[triangles[id][1]], vertices[triangles[id][2]]}, mesh->triangle_normals_[id] };
     }
 
-    std::vector<std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d>> getBiggestTriangles(std::shared_ptr<open3d::geometry::TriangleMesh>& mesh, int num) {
+    std::vector<std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d>> getBiggestTriangles(
+        std::shared_ptr<open3d::geometry::TriangleMesh>& mesh,
+        int num) 
+    {
+        if (mesh->IsEmpty())
+        {
+            LOG_ERROR("getBiggestTriangles : mesh->IsEmpty()");
+            return std::vector<std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d>>();
+        }
+
         using MyPair = std::pair<int, double>;
         std::vector <MyPair> indices;
         const auto& triangles = mesh->triangles_;
         const auto& vertices = mesh->vertices_;
-        for (int i = 0; i < triangles.size(); ++i) {
+        for (int i = 0; i < triangles.size(); ++i)
+        {
             indices.emplace_back(i, triangleArea({ vertices[triangles[i][0]], vertices[triangles[i][1]], vertices[triangles[i][2]] }));
         }
         std::sort(indices.begin(), indices.end(), [](const MyPair& p1, const MyPair& p2)->bool {return p1.second > p2.second; });
         std::vector<std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d>> res;
-        for (int i = 0; i < num; i++) {
+
+        num = (std::min)(num, int(indices.size()));
+        for (int i = 0; i < num; i++)
+        {
             int id = indices[i].first;
             res.push_back({{ vertices[triangles[id][0]], vertices[triangles[id][1]], vertices[triangles[id][2]] }, mesh->triangle_normals_[id]});
         }
         return res;
     }
 
-    int numberOfEdgeInstancesInMesh(const std::vector<int>& edge, const std::vector<Eigen::Vector3i>& triangles) {
+    int numberOfEdgeInstancesInMesh(const std::vector<int>& edge, const std::vector<Eigen::Vector3i>& triangles)
+    {
+        if (edge.empty() || triangles.empty())
+        {
+            LOG_ERROR("numberOfEdgeInstancesInMesh : edge.empty() || triangles.empty()");
+            return 0;
+        }
+
         using namespace std;
         using namespace open3d;
         
         int res = 0;
-        for (const auto& triangle : triangles) {
+        for (const auto& triangle : triangles) 
+        {
             vector<vector<int>> triangleEdges = {
                 {triangle[0], triangle[1]},
                 {triangle[0], triangle[2]},
                 {triangle[1], triangle[2]}
                 };
-            for (const auto& triangleEdge : triangleEdges) {
+            for (const auto& triangleEdge : triangleEdges)
+            {
                 if (edge[0] == triangleEdge[0] && edge[1] == triangleEdge[1] ||
-                    edge[0] == triangleEdge[1] && edge[1] == triangleEdge[0]) {
+                    edge[0] == triangleEdge[1] && edge[1] == triangleEdge[0]) 
+                {
                     res++;
                 }
             }
@@ -520,9 +642,18 @@ namespace ifoot3d {
         return res;
     }
 
-    std::vector<Eigen::Vector3d> getMeshBoundaries(std::shared_ptr<open3d::geometry::TriangleMesh> mesh, double stepLength=0.002) {
+    std::vector<Eigen::Vector3d> getMeshBoundaries(
+        std::shared_ptr<open3d::geometry::TriangleMesh> mesh, 
+        double stepLength=0.002) 
+    {
         using namespace std;
         using namespace open3d;
+
+        if (mesh->IsEmpty())
+        {
+            LOG_ERROR("getMeshBoundaries : mesh->IsEmpty()");
+            return std::vector<Eigen::Vector3d>();
+        }
 
         const auto& points = mesh->vertices_;
         const auto& triangles = mesh->triangles_;
@@ -530,22 +661,27 @@ namespace ifoot3d {
         vector<vector<int>> boundaryEdges;
         vector<Eigen::Vector3d> boundaryPoints;
         
-        for (const auto& triangle : triangles) {
+        for (const auto& triangle : triangles)
+        {
             vector<vector<int>> edges = {
                 {triangle[0], triangle[1]},
                 {triangle[0], triangle[2]},
                 {triangle[1], triangle[2]}
             };
-            for (const auto& edge : edges) {
-                if (numberOfEdgeInstancesInMesh(edge, triangles) == 1) {
+            for (const auto& edge : edges)
+            {
+                if (numberOfEdgeInstancesInMesh(edge, triangles) == 1)
+                {
                     boundaryEdges.push_back(edge);
                     const auto p1 = points[edge[0]];
                     const auto p2 = points[edge[1]];
                     boundaryPoints.push_back(p1);
                     boundaryPoints.push_back(p2);
-                    if ((p1-p2).norm() > 0.01) {
+                    if ((p1-p2).norm() > 0.01)
+                    {
                         auto step = (p2 - p1) / (p2 - p1).norm() * stepLength;
-                        for (int i = 1; i < floor((p2 - p1).norm() / stepLength); i++) {
+                        for (int i = 1; i < floor((p2 - p1).norm() / stepLength); i++) 
+                        {
                             boundaryPoints.push_back(p1 + i * step);
                         }
                     }
@@ -554,6 +690,74 @@ namespace ifoot3d {
         }
         return boundaryPoints;
     }
+
+    //--------------------------------------------------------
+
+    std::vector<Eigen::Vector3d> getMeshBoundariesAlt(
+        std::shared_ptr<open3d::geometry::TriangleMesh> mesh,
+        double stepLength = 0.002)
+    {
+        using namespace std;
+        using namespace open3d;
+
+        if (mesh->IsEmpty())
+        {
+            LOG_ERROR("getMeshBoundariesAlt : mesh->IsEmpty()");
+            return std::vector<Eigen::Vector3d>();
+        }
+
+        struct comp_vec2i
+        {
+            bool operator () (Eigen::Vector2i const& a, Eigen::Vector2i const& b) const
+            {
+                return (a[0] < b[0]) || (a[0] == b[0] && a[1] < b[1]);
+            }
+        };
+
+        const auto& points = mesh->vertices_;
+        const auto& triangles = mesh->triangles_;
+
+        int vi1, vi2, vi3;
+        std::map<Eigen::Vector2i, std::vector<int>, comp_vec2i> face_edges_connectivity;
+
+        for (int i = 0; i < triangles.size(); ++i)
+        {
+            vi1 = triangles[i][0];
+            vi2 = triangles[i][1];
+            vi3 = triangles[i][2];
+
+            face_edges_connectivity[Eigen::Vector2i((std::min)(vi1, vi2), (std::max)(vi1, vi2))].push_back(i);
+            face_edges_connectivity[Eigen::Vector2i((std::min)(vi2, vi3), (std::max)(vi2, vi3))].push_back(i);
+            face_edges_connectivity[Eigen::Vector2i((std::min)(vi1, vi3), (std::max)(vi1, vi3))].push_back(i);
+        }
+
+        // get bound points
+        vector<Eigen::Vector3d> boundaryPoints;
+
+        for (const auto& it : face_edges_connectivity)
+        {
+            if (it.second.size() == 1)
+            {
+                const auto p1 = points[it.first[0]];
+                const auto p2 = points[it.first[1]];
+                boundaryPoints.push_back(p1);
+                boundaryPoints.push_back(p2);
+
+                if ((p1 - p2).norm() > 0.01)
+                {
+                    auto step = (p2 - p1) / (p2 - p1).norm() * stepLength;
+                    for (int i = 1; i < floor((p2 - p1).norm() / stepLength); i++)
+                    {
+                        boundaryPoints.push_back(p1 + i * step);
+                    }
+                }
+            }
+        }
+
+        return boundaryPoints;
+    }
+
+    //--------------------------------------------------------
 
     std::vector<Eigen::Vector3d> getCloseToFloorPoints(
         std::shared_ptr<open3d::geometry::PointCloud>& cloud, 
@@ -566,6 +770,7 @@ namespace ifoot3d {
 
         if (points.empty())
         {
+            LOG_ERROR("getCloseToFloorPoints : points.empty()");
             return std::vector<Eigen::Vector3d>();
         }
 
@@ -582,6 +787,9 @@ namespace ifoot3d {
                 closePoints.push_back(point);
             }
         }
+
+        LOG_DEBUG("getCloseToFloorPoints : num points =  %d", int(closePoints.size()));
+
         return closePoints;
     }
 
@@ -608,11 +816,18 @@ namespace ifoot3d {
         std::shared_ptr<open3d::geometry::PointCloud>& leg, 
         Plane& floor, double threshold) 
     {
+        if (leg->IsEmpty())
+        {
+            LOG_ERROR("getLegContour : leg->IsEmpty()");
+            return std::vector<Eigen::Vector3d>();
+        }
+
         //const auto& points = leg->points_;
 
         auto closePoints = getCloseToFloorPoints(leg, floor, threshold);
         std::vector<Eigen::Vector3d> legSilhouette;
-        for (const auto& point : closePoints) {
+        for (const auto& point : closePoints) 
+        {
             legSilhouette.push_back(point - floor.signedDistanceFromPoint(point) * floor.getNormal());
         }
         return legSilhouette;
@@ -634,7 +849,7 @@ namespace ifoot3d {
 
         if (pcd->IsEmpty())
         {
-            std::cout << "getFlatPointCloudContour : pcd->IsEmpty() " << std::endl;
+            LOG_ERROR("getFlatPointCloudContour : pcd->IsEmpty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 

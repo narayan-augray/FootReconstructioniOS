@@ -5,7 +5,10 @@
 #include "floor.h"
 #include "util.h"
 
+#include "logger.h"
+
 namespace ifoot3d {
+
 	std::tuple<std::shared_ptr<open3d::geometry::PointCloud>, Plane> segmentLeg(
         std::shared_ptr<open3d::geometry::PointCloud> pcd, 
         const Eigen::Vector3d& cameraPos)
@@ -14,7 +17,7 @@ namespace ifoot3d {
 
         if (pcd->IsEmpty())
         {
-            std::cout << "ifoot3d::segmentLeg: pcd empty" << std::endl;
+            LOG_ERROR("segmentLeg : pcd empty");
             return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
         }
 
@@ -25,7 +28,7 @@ namespace ifoot3d {
 
         if (indexes.empty())
         {
-            std::cout << "ifoot3d::segmentLeg: pcd empty" << std::endl;
+            LOG_ERROR("segmentLeg : floor indexes empty");
             return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
         }
 
@@ -34,16 +37,20 @@ namespace ifoot3d {
 
         if (pcd->IsEmpty())
         {
-            std::cout << "ifoot3d::segmentLeg: pcd empty after Radius filter" << std::endl;
+            LOG_ERROR("segmentLeg : pcd empty after Radius filter");
             return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
         }
+
+        LOG_DEBUG("segmentLeg: num points after Radius filter = %d", int(pcd->points_.size()));
 
 		auto labels = pcd->ClusterDBSCAN(0.01, 3);
 		auto clusters = separateCloudForClusters(pcd, labels);
 
+        LOG_DEBUG("segmentLeg: num clusters = %d", int(clusters.size()));
+
         if (clusters.empty())
         {
-            std::cout << "ifoot3d::segmentLeg: clusters.empty()" << std::endl;
+            LOG_WARN("segmentLeg : clusters.empty()");
             return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
         }
 
@@ -58,7 +65,7 @@ namespace ifoot3d {
 
         if (filteredClusters.empty())
         {
-            std::cout << "ifoot3d::segmentLeg: filteredClusters.empty()" << std::endl;
+            LOG_WARN("segmentLeg : filteredClusters.empty()");
             return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
         }
 
@@ -71,9 +78,11 @@ namespace ifoot3d {
 
         if (leg->IsEmpty())
         {
-            std::cout << "ifoot3d::segmentLeg: leg->IsEmpty()" << std::endl;
+            LOG_WARN("segmentLeg : leg->IsEmpty()");
             return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
         }
+
+        LOG_DEBUG("segmentLeg: leg num points = %d", int(leg->points_.size()));
 
         // crop the leg
         vector<size_t> indices;
@@ -85,12 +94,14 @@ namespace ifoot3d {
 
         if (indices.empty())
         {
-            std::cout << "ifoot3d::segmentLeg:indices.empty()" << std::endl;
+            LOG_WARN("segmentLeg : indices.empty()");
             return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
         }
 
         leg = leg->SelectByIndex(indices);
         
+        LOG_DEBUG("segmentLeg: leg num points after crop = %d", int(leg->points_.size()));
+
         return { leg, floor };
 	}
 
@@ -102,7 +113,7 @@ namespace ifoot3d {
 
         if (pcdIn->IsEmpty())
         {
-            std::cout << "ifoot3d::segmentSole: pcdIn->IsEmpty()" << std::endl;
+            LOG_ERROR("segmentSole :pcdIn->IsEmpty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
@@ -110,7 +121,7 @@ namespace ifoot3d {
 
         if (pcdDS->IsEmpty())
         {
-            std::cout << "ifoot3d::segmentSole: pcdDS->IsEmpty()" << std::endl;
+            LOG_ERROR("segmentSole :pcdDS->IsEmpty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
@@ -124,15 +135,22 @@ namespace ifoot3d {
 
         if (dists.empty())
         {
-            std::cout << "ifoot3d::segmentSole: dists.empty()" << std::endl;
+            LOG_ERROR("segmentSole :dists.empty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
         int closestIdx = min_element(dists.cbegin(), dists.cend()) - dists.cbegin();
+
+        LOG_TRACE("segmentSole: closestIdx = %d", closestIdx);
+
+
         Eigen::Vector3d closestPoint = pcdDS->points_[closestIdx];
         Eigen::Vector3d normal = closestPoint - cameraPos;
         normal /= normal.norm();
         Eigen::Vector3d planePoint = closestPoint + normal * shift;
+
+        LOG_TRACE("segmentSole : axis = %.3f  %.3f  %.3f ", normal[0], normal[1], normal[2]);
+        LOG_TRACE("segmentSole : planePoint = %.3f %.3f  %.3f ", planePoint[0], planePoint[1], planePoint[2]);
 
         // Plane, select sole1 by plane
         Plane dividingPlane(planePoint, normal);
@@ -146,17 +164,21 @@ namespace ifoot3d {
 
         if (sole1->IsEmpty())
         {
-            std::cout << "ifoot3d::segmentSole: sole1->IsEmpty()" << std::endl;
+            LOG_ERROR("segmentSole : sole1->IsEmpty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
+
+        LOG_TRACE("segmentSole: sole1 num points = %d", int(sole1->points_.size()));
 
         // Outlier filtering, clustering
         tuple<shared_ptr<open3d::geometry::PointCloud>, vector<size_t>> sole2ind = sole1->RemoveRadiusOutliers(20, 0.01);
         vector<int> labels = get<0>(sole2ind)->ClusterDBSCAN(0.01, 3);
 
+        LOG_TRACE("segmentSole: sole2 num points = %d", int(get<0>(sole2ind)->points_.size()));
+
         if (labels.empty())
         {
-            std::cout << "ifoot3d::segmentSole: labels.empty()" << std::endl;
+            LOG_ERROR("segmentSole : labels.empty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
@@ -164,9 +186,11 @@ namespace ifoot3d {
 
         if (clusters.empty())
         {
-            std::cout << "ifoot3d::segmentSole: clusters.empty()" << std::endl;
+            LOG_ERROR("segmentSole : clusters.empty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
+
+        LOG_TRACE("segmentSole: num clusters = %d", int(clusters.size()));
 
         // Find the closest cluster to camera
         open3d::geometry::PointCloud pcdOrigin({ cameraPos });
@@ -178,7 +202,7 @@ namespace ifoot3d {
 
         if (distsToClusters.empty())
         {
-            std::cout << "ifoot3d::segmentSole: distsToClusters.empty()" << std::endl;
+            LOG_ERROR("segmentSole : distsToClusters.empty()");
             return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 

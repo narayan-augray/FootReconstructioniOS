@@ -3,22 +3,38 @@
 #include "open3d/Open3D.h"
 #include <opencv2/core.hpp>
 
+#include "logger.h"
 
 namespace ifoot3d {
-	std::vector<std::string> readLines(const std::string& filePath);
+
+	/** @brief  initialize logger. status will be returned
+	@param verbosity level  - Message levels lower than this value will be discarded.
+	The default log level is INFO (2).
+	List of verbosity levels
+		LogLevel_TRACE = 0,
+		LogLevel_DEBUG = 1,
+		LogLevel_INFO  = 2,
+		LogLevel_WARN  = 3,
+		LogLevel_ERROR = 4,
+		LogLevel_FATAL = 5,
+	@param file  - path for output logfile, in case of empty argument - console logger will be used
+	*/
+	bool init_logger(int verbose_level = 2, const std::string& file = "");
+
+	bool readLines(const std::string& filePath, std::vector<std::string>& lines);
 
 	bool readIntrinsicsExtrinsics(const std::string& inputPath, cv::Mat& intrinsic, cv::Mat& extrinsic);
 
-	cv::Mat lidTxtToArray(const std::string& fileName);
+	bool lidTxtToArray(const std::string& fileName, cv::Mat& matrix);
 
-	cv::Mat createIntrinsicsLidar(const cv::Mat& mInt, const cv::Size2i& shI, const cv::Size2i& shL);
+	bool createIntrinsicsLidar(const cv::Mat& mInt, cv::Mat& mOut, const cv::Size2i& shI, const cv::Size2i& shL);
 
 	std::vector<cv::Mat> readInputData(
 		const std::string& imagePath, 
 		const std::string& depthPath, 
 		const std::string& calibrationPath);
 	
-	Eigen::Matrix4d fixExtrinsics(const cv::Mat& extrinsic);
+	bool fixExtrinsics(const cv::Mat& extrinsic, Eigen::Matrix4d& fixed);
 
 	std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(
 		const cv::Mat& image,
@@ -45,8 +61,7 @@ namespace ifoot3d {
 	std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(
 		const std::vector<std::vector<std::string>>& rightSidePaths,
 		const std::vector<std::vector<std::string>>& leftSidePaths,
-		const std::vector<std::vector<std::string>>& solePaths,
-		const std::string& logFolderPath = "");
+		const std::vector<std::vector<std::string>>& solePaths);
 
 	/** @brief  helper function to read source files.
 	* */
@@ -63,6 +78,5 @@ namespace ifoot3d {
 		const std::string& legDataPath,
 		const std::vector<int>& rightSideIndexes,
 		const std::vector<int>& leftSideIndexes,
-		const std::vector<std::vector<std::string>>& solePaths, 
-		const std::string& logFolderPath = "");
+		const std::vector<std::vector<std::string>>& solePaths);
 }

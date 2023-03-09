@@ -8,17 +8,20 @@
 #include "open3d/pipelines/registration/GlobalOptimizationMethod.h"
 #include "open3d/pipelines/registration/GlobalOptimizationConvergenceCriteria.h"
 
+#include "logger.h"
 
 namespace ifoot3d {
 
-    auto pairwise_registration(const open3d::geometry::PointCloud& source,
+    auto pairwise_registration(
+        const open3d::geometry::PointCloud& source,
         const open3d::geometry::PointCloud& target,
         const double max_correspondence_distance_coarse,
-        const double max_correspondence_distance_fine) {
+        const double max_correspondence_distance_fine)
+    {
 
         if (source.IsEmpty() || target.IsEmpty())
         {
-            std::cout << "ifoot3d::separateCloudForClusters pcd empty || labels.empty()" << std::endl;
+            LOG_ERROR("pairwise_registration : source.IsEmpty() || target.IsEmpty() ! ITS NOT HANDLED");
             // handle?
         }
 
@@ -41,9 +44,12 @@ namespace ifoot3d {
     {
         if (PCDs.empty())
         {
+            LOG_WARN("full_registration : PCDs.empty()");
             return open3d::pipelines::registration::PoseGraph();
         }
-        
+
+        LOG_DEBUG("full_registration: num pcd's =  %d", int(PCDs.size()));
+
         auto pose_graph = open3d::pipelines::registration::PoseGraph();
         auto odometry = Eigen::MatrixXd::Identity(4, 4);
         pose_graph.nodes_.push_back(open3d::pipelines::registration::PoseGraphNode(odometry));
@@ -70,8 +76,12 @@ namespace ifoot3d {
         return pose_graph;
     }
 
-    std::shared_ptr<open3d::geometry::PointCloud> stitchLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs, std::vector<Plane>& rightFloors,
-        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors) {
+    std::shared_ptr<open3d::geometry::PointCloud> stitchLegs(
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs, std::vector<Plane>& rightFloors,
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs, std::vector<Plane>& leftFloors)
+    {
+        LOG_WARN("stitchLegs : function is not tested");
+
         using namespace std;
         using namespace open3d;
  
@@ -135,18 +145,22 @@ namespace ifoot3d {
         std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs,
         std::vector<Plane>& leftFloors) 
     {
+        LOG_TRACE("stitchLegsWithFloors:  start");
+
         if (rightLegs.empty() || leftLegs.empty())
         {
-            std::cout << "ifoot3d::stitchLegsWithFloors: rightLegs.empty() || leftLegs.empty()" << std::endl;
+            LOG_ERROR("stitchLegsWithFloors : rightLegs.empty() || leftLegs.empty()");
             return std::vector<std::shared_ptr<open3d::geometry::PointCloud>>();
         }
 
         if (rightFloors.empty() || leftFloors.empty())
         {
-            std::cout << "ifoot3d::stitchLegsWithFloors: rightFloors.empty() || leftFloors.empty()" << std::endl;
+            LOG_ERROR("stitchLegsWithFloors : rightFloors.empty() || leftFloors.empty()");
             return std::vector<std::shared_ptr<open3d::geometry::PointCloud>>();
         }
 
+        LOG_TRACE("stitchLegsWithFloors:  num left pcd's = %d", int(leftLegs.size()));
+        LOG_TRACE("stitchLegsWithFloors:  num right pcd's = %d", int(rightLegs.size()));
 
         using namespace std;
         using namespace open3d;
@@ -155,14 +169,19 @@ namespace ifoot3d {
         double maxCorrespondenceDistanceCoarse = voxelSize * 10;
         double maxCorrespondenceDistanceFine = voxelSize * 4;
 
+        LOG_TRACE("stitchLegsWithFloors:  initLegsPositions right");
+
         initLegsPositions(rightLegs, rightFloors);
         shared_ptr<geometry::PointCloud> rightSideBefore(new geometry::PointCloud());
         Eigen::Vector3d heel = getLegHeel(rightLegs[0], rightFloors[0]);
+
+        LOG_DEBUG("stitchLegsWithFloors : heel point = %.3f  %.3f  %.3f ", heel[0], heel[1], heel[2]);
+
         auto floor = rightFloors[0].getPointCloud(0.5, 100, heel);
         
         if (floor->IsEmpty())
         {
-            std::cout << "ifoot3d::stitchLegsWithFloors: floor->IsEmpty()" << std::endl;
+            LOG_WARN("stitchLegsWithFloors:  floor->IsEmpty()");
         }
 
         vector<shared_ptr<geometry::PointCloud>> rightLegsWithFloors;
@@ -174,11 +193,12 @@ namespace ifoot3d {
             rightLegsWithFloors.push_back(leg);
         }
 
+        LOG_TRACE("stitchLegsWithFloors:  full_registration right");
         auto poseGraph = full_registration(rightLegsWithFloors, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
         
         if (poseGraph.nodes_.empty() || poseGraph.edges_.empty())
         {
-            std::cout << "ifoot3d::stitchLegsWithFloors:right: poseGraph.nodes_.empty() || poseGraph.edges_.empty()" << std::endl;
+            LOG_WARN("stitchLegsWithFloors:  poseGraph.nodes_.empty() || poseGraph.edges_.empty()");
         }
 
         auto option = open3d::pipelines::registration::GlobalOptimizationOption(maxCorrespondenceDistanceFine, 0.25, 0);
@@ -190,7 +210,9 @@ namespace ifoot3d {
             if (i > 0)
             {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*rightLegs[i], *rightLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.fitness_ == 0.0) {
+                if (regRes.fitness_ == 0.0)
+                {
+                    LOG_WARN("stitchLegsWithFloors:  regRes.fitness_ == 0.0");
                     throw StitchingException();
                 }
             }
@@ -206,8 +228,10 @@ namespace ifoot3d {
 
         if (rightSide->IsEmpty())
         {
-            std::cout << "ifoot3d::stitchLegsWithFloors: rightSide->IsEmpty()" << std::endl;
+            LOG_WARN("stitchLegsWithFloors:  rightSide->IsEmpty()");
         }
+
+        LOG_TRACE("stitchLegsWithFloors:  initLegsPositions left");
 
         initLegsPositions(leftLegs, leftFloors);
         shared_ptr<geometry::PointCloud> leftSideBefore(new geometry::PointCloud());
@@ -220,25 +244,32 @@ namespace ifoot3d {
             leftLegsWithFloors.push_back(leg);      
         }
 
+        LOG_TRACE("stitchLegsWithFloors:  full_registration left");
         poseGraph = full_registration(leftLegsWithFloors, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
         
         if (poseGraph.nodes_.empty() || poseGraph.edges_.empty())
         {
-            std::cout << "ifoot3d::stitchLegsWithFloors:left: poseGraph.nodes_.empty() || poseGraph.edges_.empty()" << std::endl;
+            LOG_WARN("stitchLegsWithFloors:  poseGraph.nodes_.empty() || poseGraph.edges_.empty()");
         }
 
         
-        pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
+        pipelines::registration::GlobalOptimization(
+            poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
             pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
-        for (int i = 0; i < leftLegs.size(); i++) {
+       
+        for (int i = 0; i < leftLegs.size(); i++) 
+        {
             if (i > 0) {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*leftLegs[i], *leftLegs[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
-                if (regRes.fitness_ == 0.0) {
+                if (regRes.fitness_ == 0.0) 
+                {
+                    LOG_WARN("stitchLegsWithFloors:  regRes.fitness_ == 0.0");
                     throw StitchingException();
                 }
             }
             leftLegs[i]->Transform(poseGraph.nodes_[i].pose_ * poseGraph.nodes_[0].pose_.inverse());
         }
+
         shared_ptr<geometry::PointCloud> leftSide(new geometry::PointCloud());
         for (auto& segment : leftLegs) {
             *leftSide += *segment;
@@ -247,7 +278,7 @@ namespace ifoot3d {
 
         if (leftSide->IsEmpty())
         {
-            std::cout << "ifoot3d::stitchLegsWithFloors: leftSide->IsEmpty()" << std::endl;
+            LOG_WARN("stitchLegsWithFloors:  leftSide->IsEmpty()");
         }
 
         /*visualization::DrawGeometries({ leftSideBefore });
@@ -255,10 +286,15 @@ namespace ifoot3d {
         visualization::DrawGeometries({ leftSide });
         visualization::DrawGeometries({ rightSide });*/
 
+        LOG_TRACE("stitchLegsWithFloors:  end");
+
         return {rightSide, leftSide};
     }
 
-    void stitchAllLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legs) {
+    void stitchAllLegs(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legs)
+    {
+        LOG_WARN("stitchAllLegs : function is not tested");
+
         using namespace std;
         using namespace open3d;
 
@@ -281,8 +317,12 @@ namespace ifoot3d {
         }
     }
 
-    std::shared_ptr<open3d::geometry::PointCloud> stitchLegsSeparate(std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs,
-        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs) {
+    std::shared_ptr<open3d::geometry::PointCloud> stitchLegsSeparate(
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& rightLegs,
+        std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& leftLegs) 
+    {
+        LOG_WARN("stitchLegsSeparate : function is not tested");
+
         using namespace std;
         using namespace open3d;
 
@@ -343,14 +383,18 @@ namespace ifoot3d {
         std::shared_ptr<open3d::geometry::PointCloud>& referenceSole,
         const std::string& logPath) 
     {
+        LOG_TRACE("stitchSoles:  start");
+
         using namespace std;
         using namespace open3d;
 
         if (referenceSole->IsEmpty())
         {
-            std::cout << "ifoot3d::stitchSoles: referenceSole->IsEmpty()" << std::endl;
+            LOG_ERROR("stitchSoles : referenceSole->IsEmpty()");
             return;
         }
+
+        LOG_DEBUG("stitchSoles : num soles = %d  ", int(soles.size()));
 
         initSolesPositions(soles, referenceSole, logPath);
 
@@ -359,6 +403,8 @@ namespace ifoot3d {
         double voxelSize = 0.003;
         double maxCorrespondenceDistanceCoarse = voxelSize * 5;
         double maxCorrespondenceDistanceFine = voxelSize * 1.5;
+
+        LOG_TRACE("stitchSoles:  full_registration");
         auto poseGraph = full_registration(soles, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine);
         auto option = open3d::pipelines::registration::GlobalOptimizationOption(maxCorrespondenceDistanceFine, 0.25, 0);
         pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
@@ -368,12 +414,20 @@ namespace ifoot3d {
             if (i > 0) 
             {
                 auto regRes = open3d::pipelines::registration::EvaluateRegistration(*soles[i], *soles[i - 1], maxCorrespondenceDistanceFine, poseGraph.nodes_[i].pose_);
+                
+                LOG_DEBUG("stitchSoles : registration : index = %d  ", i);
+                LOG_DEBUG("stitchSoles : registration fittness  = %.5f  ", regRes.fitness_);
+                LOG_DEBUG("stitchSoles : registration set size  = %d  ", int(regRes.correspondence_set_.size()));
+
                 if (regRes.fitness_ == 0.0) 
                 {
+                    LOG_WARN("stitchSoles:  regRes.fitness_ == 0.0");
                     throw StitchingException();
                 }
             }
             soles[i]->Transform(poseGraph.nodes_[i].pose_);
         }
+
+        LOG_TRACE("stitchSoles:  end");
     }
 }

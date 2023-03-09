@@ -4,6 +4,8 @@
 #include "util.h"
 #include "alignment.h"
 
+#include "logger.h"
+
 namespace ifoot3d {
     std::shared_ptr<open3d::geometry::TriangleMesh> reconstructSurfacePoisson(std::shared_ptr<open3d::geometry::PointCloud>& pcd, int depth) {
         using namespace std;
@@ -47,20 +49,25 @@ namespace ifoot3d {
     void postprocessSides(
         std::shared_ptr<open3d::geometry::PointCloud>& sole, 
         std::vector<std::shared_ptr<open3d::geometry::PointCloud>>& legSides,
-        Plane& floor, double shift) 
+        Plane& floor,
+        double shift) 
     {
+        LOG_TRACE("postprocessSides: start");
+
         using namespace std;
         using namespace open3d;
 
         if (sole->IsEmpty() || legSides.empty())
         {
-            std::cout << "postprocessSides : sole->IsEmpty() || legSides.empty()" << std::endl;
+            LOG_ERROR("postprocessSides : sole->IsEmpty() || legSides.empty()");
             return;
         }
 
         auto dividingPlane = Plane(floor.getPoints()[0] - shift * floor.getNormal(), floor.getNormal());
         double intersectingThresh = -0.005;
         auto soleIntersectingPlane = Plane(floor.getPoints()[0] - intersectingThresh * floor.getNormal(), floor.getNormal());
+
+        LOG_TRACE("postprocessSides: run alignSidesWithSole");
 
         alignSidesWithSole(sole, legSides, soleIntersectingPlane, floor, intersectingThresh);
 
@@ -70,8 +77,11 @@ namespace ifoot3d {
             if (dividingPlane.signedDistanceFromPoint(sole->points_[i]) > 0)
                 indices.push_back(i);
         }
+
         sole = sole->SelectByIndex(indices);
         sole = sole->VoxelDownSample(0.002);
+
+        LOG_DEBUG("postprocessSides : sole num points downsampled =  %d", int(sole->points_.size()));
 
         for (auto& leg : legSides) 
         {
@@ -83,6 +93,8 @@ namespace ifoot3d {
             leg = leg->SelectByIndex(indices);
             leg = leg->VoxelDownSample(0.002);
 
+            LOG_DEBUG("postprocessSides : leg side num points downsampled =  %d", int(leg->points_.size()));
+
             *sole += *leg;
         }
 
@@ -93,5 +105,7 @@ namespace ifoot3d {
         Eigen::Vector3d toe = getLegToe(sole, axis);
         toe[1] = 0;
         alignGeometryByPointAndVector(sole, { 0,0,0 }, { 0,0,0 }, { 1, 0, 0 }, toe);
+
+        LOG_TRACE("postprocessSides: end");
     }
 }

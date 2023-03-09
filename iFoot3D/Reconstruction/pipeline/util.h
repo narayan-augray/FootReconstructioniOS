@@ -51,8 +51,8 @@ namespace ifoot3d {
 
 	};
 
-	std::vector<float> splitToFloat(const std::string& line, const char& delimiter=',');
-	std::vector<float> parseFloatData(const std::vector<std::string>& lines, const char& delimiter);
+	bool splitToFloat(const std::string& line, std::vector<float>& data, const char& delimiter=',');
+	bool parseFloatData(const std::vector<std::string>& lines, std::vector<float>& data, const char& delimiter);
 	std::vector<std::shared_ptr<open3d::geometry::PointCloud>> separateCloudForClusters(std::shared_ptr<open3d::geometry::PointCloud> pcd, const std::vector<int>& labels);
 	Line getLegAxis(const std::shared_ptr<open3d::geometry::PointCloud>& leg, Plane& floor);
 	Eigen::Vector3d getLegToe(const std::shared_ptr<open3d::geometry::PointCloud>& leg, Line& axis);
@@ -66,6 +66,16 @@ namespace ifoot3d {
 	std::vector<std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d>> getBiggestTriangles(std::shared_ptr<open3d::geometry::TriangleMesh>& mesh, int num);
 	std::tuple<std::vector<Eigen::Vector3d>, Eigen::Vector3d> getBiggestTriangle(std::shared_ptr<open3d::geometry::TriangleMesh>& mesh);
 	std::vector<Eigen::Vector3d> getMeshBoundaries(std::shared_ptr<open3d::geometry::TriangleMesh> mesh, double stepLength);
+	
+	/** @brief  Alternative function to detect mesh boundaries. Array of bounary points will be returned
+	Key difference from the getMeshBoundaries() - sorted vertex indices in edges 
+	@param mesh  - source mesh to detect boundary point.
+	data stepLength - approximation step to split eges on smaller segments
+	*/
+	std::vector<Eigen::Vector3d> getMeshBoundariesAlt(
+		std::shared_ptr<open3d::geometry::TriangleMesh> mesh, 
+		double stepLength);
+
 	std::vector<Eigen::Vector3d> getCloseToFloorPoints(std::shared_ptr<open3d::geometry::PointCloud>& cloud, Plane& floor, double distance);
 	std::vector<size_t> getCloseToFloorPointsIndexes(std::shared_ptr<open3d::geometry::PointCloud>& cloud, Plane& floor, double distance);
 	std::vector<Eigen::Vector3d> getLegContour(std::shared_ptr<open3d::geometry::PointCloud>& leg, Plane& floor, double threshold);

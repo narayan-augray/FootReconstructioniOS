@@ -13,62 +13,113 @@
 #include <open3d/Open3D.h>
 #include "util.h"
 
+#include "logger.h"
 
 namespace ifoot3d {
-	std::vector<std::string> readLines(const std::string& filePath)
+
+    /** @brief  initialize logger. status will be returned
+    @param verbosity level  - Message levels lower than this value will be discarded.
+    The default log level is INFO (2).
+    List of verbosity levels
+        LogLevel_TRACE = 0,
+        LogLevel_DEBUG = 1,
+        LogLevel_INFO  = 2,
+        LogLevel_WARN  = 3,
+        LogLevel_ERROR = 4,
+        LogLevel_FATAL = 5,
+    @param file  - path for output logfile, in case of empty argument - console logger will be used
+    */
+    bool init_logger(int verbose_level, const std::string& file)
+    {
+        if (!file.empty() && !std::filesystem::exists(std::filesystem::path(file).parent_path()))
+        {
+            std::filesystem::create_directories(std::filesystem::path(file).parent_path());
+        }
+
+        int ret = file.empty() ? logger_initConsoleLogger(stderr) : logger_initFileLogger(file.c_str(), 1e7, 3);
+
+        logger_setLevel(LogLevel(verbose_level));
+        LOG_DEBUG("Logger initialized : %d", ret);
+
+        return ret; 
+    }
+
+    //-------------------------------------------------------------------------------
+
+	bool readLines(const std::string& filePath, std::vector<std::string>& lines)
     {
         if (filePath.empty())
         {
-            std::cout << "ifoot3d::readLines: filePath.empty()" << std::endl;
-            return std::vector<std::string>();
+            LOG_ERROR("readLines: filePath.empty()");
+            return false;
         }
+
+        lines.clear();
 
 		std::ifstream inputStream(filePath);
 
-		std::vector<std::string> lines;
+        if (!inputStream.is_open())
+        {
+            LOG_ERROR("readLines: Failed to open file %s", filePath.c_str());
+            return false;
+        }
+
 		std::string line;
-		if (inputStream.is_open()) 
+
+        while (inputStream.good())
         {
-			while (inputStream.good()) 
-            {
-				std::getline(inputStream, line);
-				lines.push_back(line);
-			}
-		}
-		else 
-        {
-			throw std::runtime_error("Failed to open file " + filePath);
-		}
+            std::getline(inputStream, line);
+            lines.push_back(line);
+        }
+
 		inputStream.close();
-		return lines;
+		return true;
 	}
 
 	bool readIntrinsicsExtrinsics(const std::string& inputPath, cv::Mat& intrinsic, cv::Mat&extrinsic) 
     {
         using namespace std;
         using namespace cv;
-		vector<string> lines = readLines(inputPath);
+		vector<string> lines;
 
-        if (lines.empty())
+        if(!readLines(inputPath, lines))
         {
-            std::cout << "ifoot3d::readIntrinsicsExtrinsics: readLines error" << std::endl;
+            LOG_ERROR("readIntrinsicsExtrinsics: readLines error");
+            return false;
+        }
+
+        if (lines.size() < 10)
+        {
+            LOG_ERROR("readIntrinsicsExtrinsics: lines.size() < 10");
             return false;
         }
 
 		vector<string> intrinsic_lines (lines.begin() + 1, lines.begin() + 4);
 		vector<string> extrinsic_lines (lines.begin() + 6, lines.begin() + 10);
 		
-		vector<float> intrinsicValues = parseFloatData(intrinsic_lines, ',');
-        if (intrinsicValues.size() != 9)
+        vector<float> intrinsicValues;
+        if (!parseFloatData(intrinsic_lines, intrinsicValues, ','))
         {
-            std::cout << "ifoot3d::readIntrinsicsExtrinsics: (intrinsicValues.size() != 9" << std::endl;
+            LOG_ERROR("readIntrinsicsExtrinsics: intrinsicValues empty");
             return false;
         }
 
-		vector<float> extrinsicValues = parseFloatData(extrinsic_lines, ',');
+        if (intrinsicValues.size() != 9)
+        {
+            LOG_ERROR("readIntrinsicsExtrinsics: intrinsicValues  != 9");
+            return false;
+        }
+
+        vector<float> extrinsicValues;
+        if (!parseFloatData(extrinsic_lines, extrinsicValues, ','))
+        {
+            LOG_ERROR("readIntrinsicsExtrinsics: extrinsicValues empty");
+            return false;
+        }
+
         if (extrinsicValues.size() != 16)
         {
-            std::cout << "ifoot3d::readIntrinsicsExtrinsics: (intrinsicValues.size() != 9" << std::endl;
+            LOG_ERROR("readIntrinsicsExtrinsics: extrinsicValues  != 16");
             return false;
         }
      
@@ -90,7 +141,7 @@ namespace ifoot3d {
 		return true;
 	}
 
-    cv::Mat lidTxtToArray(const std::string& fileName) 
+    bool lidTxtToArray(const std::string& fileName, cv::Mat& matrix)
     {
         using namespace std;
         using namespace cv;
@@ -100,8 +151,8 @@ namespace ifoot3d {
 
         if (!in.is_open())
         {
-            std::cout << "ifoot3d::lidTxtToArray: file open error" << std::endl;
-            return cv::Mat();
+            LOG_ERROR("lidTxtToArray: file open error");
+            return false;
         }
 
         vector<double> data;
@@ -123,27 +174,36 @@ namespace ifoot3d {
                 CV_Assert(nx == ix);
         }
         int ny = iy;
-        Mat m(ny, nx, CV_64F);
-        memcpy(m.data, data.data(), ny * nx * sizeof(double));
+        matrix.create(ny, nx, CV_64F);
+        memcpy(matrix.data, data.data(), ny * nx * sizeof(double));
 
-        return m;
+        return true;
     }
 
-    cv::Mat createIntrinsicsLidar(const cv::Mat& mInt, const cv::Size2i& shI, const cv::Size2i& shL) {
+    bool createIntrinsicsLidar(const cv::Mat& mInt, cv::Mat& mOut, const cv::Size2i& shI, const cv::Size2i& shL) 
+    {
         using namespace std;
         using namespace cv;
 
         if (mInt.empty())
         {
-            std::cout << "ifoot3d::createIntrinsicsLidar: mInt.empty()" << std::endl;
-            return cv::Mat();
+            LOG_ERROR("createIntrinsicsLidar: mInt.empty");
+            return false;
         }
-        Mat m = mInt.clone();
-        if (shI != shL) {
-            m.row(0) *= shL.width * 1.0 / shI.width;
-            m.row(1) *= shL.height * 1.0 / shI.height;
+
+        if (mInt.rows !=3 || mInt.cols != 3)
+        {
+            LOG_ERROR("createIntrinsicsLidar: mInt.rows !=3 || mInt.cols != 3");
+            return false;
         }
-        return m;
+
+        mOut = mInt.clone();
+        if (shI != shL) 
+        {
+            mOut.row(0) *= shL.width * 1.0 / shI.width;
+            mOut.row(1) *= shL.height * 1.0 / shI.height;
+        }
+        return true;
     }
 
     std::vector<cv::Mat> readInputData(
@@ -154,38 +214,43 @@ namespace ifoot3d {
         using namespace std;
         using namespace cv;
 
+        if (imagePath.empty() || depthPath.empty() || calibrationPath.empty())
+        {
+            LOG_ERROR("readInputData: imagePath.empty() || depthPath.empty() || calibrationPath.empty()");
+            return std::vector<cv::Mat>();
+        }
+
         Mat img = imread(imagePath);
 
         if (img.empty())
         {
-            std::cout << "readInputData : img.empty()" << std::endl;
+            LOG_ERROR("readInputData: img.empty()");
             return std::vector<cv::Mat>();
         }
 
-        Mat depth = lidTxtToArray(depthPath);
-
-        if (depth.empty())
+        Mat depth;
+        if(!lidTxtToArray(depthPath, depth) || depth.empty())
         {
-            std::cout << "readInputData : depth.empty()" << std::endl;
+            LOG_ERROR("readInputData: depth error");
             return std::vector<cv::Mat>();
         }
 
         Mat mInt, mExtr;
         if (!readIntrinsicsExtrinsics(calibrationPath, mInt, mExtr))
         {
-            std::cout << "readIntrinsicsExtrinsics : read error" << std::endl;
+            LOG_ERROR("readInputData: read intrinsic/extrinsic erorr");
             return std::vector<cv::Mat>();
         }      
 
         return { img, depth, mInt, mExtr};
     }
 
-    Eigen::Matrix4d fixExtrinsics(const cv::Mat& extrinsic) 
+    bool fixExtrinsics(const cv::Mat& extrinsic, Eigen::Matrix4d& fixed)
     {
         if (extrinsic.empty() || extrinsic.cols != 4 || extrinsic.rows != 4)
         {
-            std::cout << "fixExtrinsics : read error" << std::endl;
-            return Eigen::Matrix4d::Identity();
+            LOG_ERROR("fixExtrinsics: extrinsic.empty() || extrinsic.cols != 4 || extrinsic.rows != 4");
+            return false;
         }
 
         double fixData[16] = { 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1 };
@@ -193,14 +258,14 @@ namespace ifoot3d {
 
         cv::Mat fixedExtrinsic = extrinsic * fixMatrix;
         
-        Eigen::Matrix4d res;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                res(i,j) = fixedExtrinsic.at<double>(i, j);
+                fixed(i,j) = fixedExtrinsic.at<double>(i, j);
             }
         }
-        res = res.inverse().eval();
-        return res;
+        fixed = fixed.inverse().eval();
+
+        return true;
     }
 
     std::shared_ptr<open3d::geometry::PointCloud> generatePointCLoud(
@@ -214,20 +279,19 @@ namespace ifoot3d {
 
         if (image.empty() || depth.empty() || intrinsic.empty())
         {
-            std::cout << "generatePointCLoud : image.empty() || depth.empty() || intrinsic.empty()" << std::endl;
-            return nullptr;
+            LOG_ERROR("generatePointCLoud: image.empty() || depth.empty() || intrinsic.empty()");
+            return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
         //rotate(image, image, ROTATE_90_COUNTERCLOCKWISE);
         Mat imgSmall, imgSmallRgb;
         resize(image, imgSmall, depth.size());
         cvtColor(imgSmall, imgSmallRgb, COLOR_BGR2RGB);
-        Mat mIntLid = createIntrinsicsLidar(intrinsic, image.size(), depth.size());
-
-        if (mIntLid.empty())
+        Mat mIntLid;
+        if (!createIntrinsicsLidar(intrinsic, mIntLid, image.size(), depth.size()))
         {
-            std::cout << "generatePointCLoud : wrong output from createIntrinsicsLidar()" << std::endl;
-            return nullptr;
+            LOG_ERROR("generatePointCLoud: wrong output from createIntrinsicsLidar()");
+            return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
         int imW = depth.cols, imH = depth.rows;
@@ -246,10 +310,10 @@ namespace ifoot3d {
         std::shared_ptr<open3d::geometry::RGBDImage> rgbdImage;
         rgbdImage = (open3d::geometry::RGBDImage::CreateFromColorAndDepth(colorRaw, depthRaw, 1., 1000., false));
 
-        if (rgbdImage == nullptr)
+        if (rgbdImage->IsEmpty())
         {
-            std::cout << "generatePointCLoud : wrong output from open3d::CreateFromColorAndDepth()" << std::endl;
-            return nullptr;
+            LOG_ERROR("generatePointCLoud: empty rgbdImage");
+            return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
         open3d::camera::PinholeCameraIntrinsic intrinsicO3D;
@@ -260,11 +324,23 @@ namespace ifoot3d {
         shared_ptr<open3d::geometry::PointCloud> pcd;
         if (extrinsic.empty())
         {
+            LOG_TRACE("generatePointCLoud: CreateFromRGBDImage without extrinsics");
             pcd = open3d::geometry::PointCloud::CreateFromRGBDImage(*rgbdImage, intrinsicO3D);
         }
         else
         {
-            pcd = open3d::geometry::PointCloud::CreateFromRGBDImage(*rgbdImage, intrinsicO3D, fixExtrinsics(extrinsic));
+            LOG_TRACE("generatePointCLoud: CreateFromRGBDImage with extrinsics");
+            Eigen::Matrix4d extrinsic_eigen;
+            if (fixExtrinsics(extrinsic, extrinsic_eigen))
+            {
+                pcd = open3d::geometry::PointCloud::CreateFromRGBDImage(*rgbdImage, intrinsicO3D, extrinsic_eigen);
+            }
+        }
+
+        if (pcd->IsEmpty())
+        {
+            LOG_ERROR("generatePointCLoud: empty pcd from RGBD");
+            return std::shared_ptr<open3d::geometry::PointCloud>();
         }
 
         return pcd;
@@ -274,88 +350,64 @@ namespace ifoot3d {
     std::vector<std::vector<std::vector<cv::Mat>>> readMultipleInputData(
         const std::vector<std::vector<std::string>>& rightSidePaths, 
         const std::vector<std::vector<std::string>>& leftSidePaths, 
-        const std::vector<std::vector<std::string>>& solePaths,
-        const std::string& logFolderPath)
+        const std::vector<std::vector<std::string>>& solePaths)
     {
         using namespace std;
         using namespace cv;
 
+        LOG_TRACE("readMultipleInputData : start");
+
         if (rightSidePaths.empty() || leftSidePaths.empty() || solePaths.empty())
         {
-            std::cout << "readMultipleInputData : wrong inputs" << std::endl;
+            LOG_ERROR("readMultipleInputData : empty inputs");
             return std::vector<std::vector<std::vector<cv::Mat>>>();
         }
-
-        //-----------------------------------------------
-        // initialize  logger
-        bool save_logs = !logFolderPath.empty();
-        ofstream logFile;
-        if (save_logs)
-        {
-            if (!std::filesystem::exists(std::filesystem::path(logFolderPath)))
-            {
-                std::filesystem::create_directories(std::filesystem::path(logFolderPath));
-            }
-
-            logFile.open(logFolderPath + "/logs.txt");
-
-            if (!logFile.is_open())
-            {
-                std::cout << "readMultipleInputData : !logFile.is_open()" << std::endl;
-            }
-
-            logFile << "Right side paths\n{\n";
-        }
-        //-----------------------------------------------
+      
+        LOG_DEBUG("readMultipleInputData : Right side paths");
 
         vector<vector<Mat>> rightLegData, leftLegData, soleData;
         for (const auto& inputPaths : rightSidePaths) 
         {
+            if (inputPaths.size() != 3)
+            {
+                LOG_ERROR("readMultipleInputData : data size != 3");
+            }
+
             rightLegData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
 
-            if (save_logs)
-            {
-                logFile << "{\"" + inputPaths[0] + "\", \"" + inputPaths[1] + "\", \"" + inputPaths[2] + "\"},\n";
-            }
+            LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
         }
 
-        if (save_logs)
-        {
-            logFile << "}\n";
-            logFile << "Left side paths\n{\n";
-        }
+
+        LOG_DEBUG("readMultipleInputData : Left side paths");
+
 
         for (const auto& inputPaths : leftSidePaths)
         {
+            if (inputPaths.size() != 3)
+            {
+                LOG_ERROR("readMultipleInputData : data size != 3");
+            }
+
             leftLegData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
 
-            if (save_logs)
-            {
-                logFile << "{\"" + inputPaths[0] + "\", \"" + inputPaths[1] + "\", \"" + inputPaths[2] + "\"},\n";
-            }
+            LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
         }
 
-        if (save_logs)
-        {
-            logFile << "}\n";
-            logFile << "Sole paths\n{\n";
-        }
+        LOG_DEBUG("readMultipleInputData : Sole paths");
 
         for (const auto& inputPaths : solePaths) 
         {
+            if (inputPaths.size() != 3)
+            {
+                LOG_ERROR("readMultipleInputData : data size != 3");
+            }
             soleData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
 
-            if (save_logs)
-            {
-                logFile << "{\"" + inputPaths[0] + "\", \"" + inputPaths[1] + "\", \"" + inputPaths[2] + "\"},\n";
-            }
+            LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
         }
 
-        if (save_logs)
-        {
-            logFile << "}\n";
-            logFile.close();
-        }
+        LOG_TRACE("readMultipleInputData : end");
 
         return { rightLegData, leftLegData, soleData };
     }
@@ -408,8 +460,7 @@ namespace ifoot3d {
         const std::string& legDataPath,
         const std::vector<int>& rightSideIndexes,
         const std::vector<int>& leftSideIndexes,
-        const std::vector<std::vector<std::string>>& solePaths,
-        const std::string& logFolderPath)
+        const std::vector<std::vector<std::string>>& solePaths)
     {
         using namespace std;
         using namespace cv;
@@ -417,19 +468,19 @@ namespace ifoot3d {
         // check inputs
         if (legDataPath.empty())
         {
-            std::cout << "readMultipleInputData : legDataPath.empty()" << std::endl;
+            LOG_ERROR("readMultipleInputData : legDataPath.empty()");
             return std::vector<std::vector<std::vector<cv::Mat>>>();
         }
 
         if (rightSideIndexes.empty() || leftSideIndexes.empty())
         {
-            std::cout << "readMultipleInputData : rightSideIndexes.empty() || leftSideIndexes.empty()" << std::endl;
+            LOG_ERROR("readMultipleInputData : rightSideIndexes.empty() || leftSideIndexes.empty()");
             return std::vector<std::vector<std::vector<cv::Mat>>>();
         }
 
         if (solePaths.empty())
         {
-            std::cout << "readMultipleInputData : solePaths.empty()" << std::endl;
+            LOG_ERROR("readMultipleInputData : solePaths.empty()");
             return std::vector<std::vector<std::vector<cv::Mat>>>();
         }
 
@@ -455,6 +506,6 @@ namespace ifoot3d {
         }
 
         // read source data for reconstruction
-        return readMultipleInputData(rightSidePaths, leftSidePaths, solePaths, logFolderPath);
+        return readMultipleInputData(rightSidePaths, leftSidePaths, solePaths);
     }
 }
