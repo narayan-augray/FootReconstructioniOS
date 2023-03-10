@@ -44,7 +44,7 @@ namespace ifoot3d {
             }
         }
 
-        bool save_logs = !logPath.empty();
+        bool save_logs = !logPath.empty() && logger_getLevel() <= LogLevel::LogLevel_DEBUG;
         LOG_TRACE("reconstructLeg : save logs: %d", int(save_logs));
 
         if (save_logs && !std::filesystem::exists(std::filesystem::path(logPath)))

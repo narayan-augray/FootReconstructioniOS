@@ -980,8 +980,8 @@
 			isa = PBXGroup;
 			children = (
 				EAE43DC6296441CA00405533 /* FileManager+FilePath.swift */,
-				EAE43DC82964423000405533 /* String+InitFromArray.swift */,
 				EA9DAC6029B23DFB0068010D /* FileManager+Folder.swift */,
+				EAE43DC82964423000405533 /* String+InitFromArray.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";

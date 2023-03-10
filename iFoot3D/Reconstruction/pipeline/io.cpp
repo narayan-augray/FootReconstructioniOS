@@ -363,7 +363,9 @@ namespace ifoot3d {
             return std::vector<std::vector<std::vector<cv::Mat>>>();
         }
       
-        LOG_DEBUG("readMultipleInputData : Right side paths");
+        std::stringstream ss;
+        ss << "List of files: \nRight side paths\n{\n";
+        //LOG_TRACE("readMultipleInputData : Right side paths");
 
         vector<vector<Mat>> rightLegData, leftLegData, soleData;
         for (const auto& inputPaths : rightSidePaths) 
@@ -375,12 +377,12 @@ namespace ifoot3d {
 
             rightLegData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
 
-            LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
+            ss << "{\"" + inputPaths[0] + "\", \"" + inputPaths[1] + "\", \"" + inputPaths[2] + "\"},\n";
+            //LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
         }
 
-
-        LOG_DEBUG("readMultipleInputData : Left side paths");
-
+        ss << "}\nLeft side paths\n{\n";
+        //LOG_TRACE("readMultipleInputData : Left side paths");
 
         for (const auto& inputPaths : leftSidePaths)
         {
@@ -391,10 +393,12 @@ namespace ifoot3d {
 
             leftLegData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
 
-            LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
+            ss << "{\"" + inputPaths[0] + "\", \"" + inputPaths[1] + "\", \"" + inputPaths[2] + "\"},\n";
+            //LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
         }
 
-        LOG_DEBUG("readMultipleInputData : Sole paths");
+        ss << "}\nSole paths\n{\n";
+        //LOG_TRACE("readMultipleInputData : Sole paths");
 
         for (const auto& inputPaths : solePaths) 
         {
@@ -404,8 +408,12 @@ namespace ifoot3d {
             }
             soleData.push_back(readInputData(inputPaths[0], inputPaths[1], inputPaths[2]));
 
-            LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
+            //LOG_DEBUG(std::string(inputPaths[0] + "  " + inputPaths[1] + "  " + inputPaths[2]).c_str());
+            ss << "{\"" + inputPaths[0] + "\", \"" + inputPaths[1] + "\", \"" + inputPaths[2] + "\"},\n";
         }
+
+        ss << "}\n";
+        LOG_DEBUG(ss.str().c_str());
 
         LOG_TRACE("readMultipleInputData : end");
 

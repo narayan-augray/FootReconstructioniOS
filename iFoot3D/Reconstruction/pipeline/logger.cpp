@@ -373,5 +373,6 @@ void logger_log(LogLevel level, const char* file, int line, const char* fmt, ...
         }
     }
     unlock();
+    logger_flush();
 }
 

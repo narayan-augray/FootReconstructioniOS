@@ -84,7 +84,7 @@ namespace ifoot3d {
             return;
         }
 
-        bool save_logs = !logPath.empty();
+        bool save_logs = !logPath.empty() && logger_getLevel() <= LogLevel::LogLevel_DEBUG;
 
         Eigen::Vector3d cameraPos{ 0, 0, 0 };
 
@@ -163,7 +163,7 @@ namespace ifoot3d {
                 continue;
             }
 
-            LOG_TRACE("initLegsPositions: sole hull num points visible = %d", int(hull->vertices_.size()));
+            LOG_TRACE("initSolesPositions: sole hull num points visible = %d", int(hull->vertices_.size()));
          
             int correspondenceSetSize = 0;
             shared_ptr<geometry::PointCloud> fittedSole;
@@ -172,6 +172,15 @@ namespace ifoot3d {
             {
                 auto floorTriangle = get<0>(triangleData);
                 auto normal = get<1>(triangleData);
+
+                // fix normal direction
+                if (normal.dot(referenceNormal) < 0.0)
+                {
+                    LOG_DEBUG("initSolesPositions: normal vector invertion from %.3f  %.3f  %.3f ", normal[0], normal[1], normal[2]);
+                    normal *= -1.0;
+                    LOG_DEBUG("initSolesPositions: normal vector invertion to %.3f  %.3f  %.3f ", normal[0], normal[1], normal[2]);
+                }
+
                 auto currentSole = make_shared<geometry::PointCloud>(geometry::PointCloud(*sole));
                 Eigen::Vector3d soleHeel = getSoleHeel(floorTriangle);
 
