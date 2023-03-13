@@ -145,8 +145,7 @@ private extension ProcessingViewModel {
                         guard let self = self else {
                             return
                         }
-                        let modelPath = Bundle.main.path(forResource: "foot", ofType: "obj")
-                        self.transitionSubject.send(.success(outputPath: outputPath ?? modelPath!,
+                        self.transitionSubject.send(.success(outputPath: outputPath ?? "",
                                                              outputs: self.outputs,
                                                              input: self.input))
                     }

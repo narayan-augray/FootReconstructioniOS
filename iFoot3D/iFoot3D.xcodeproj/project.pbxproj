@@ -11,7 +11,6 @@
 		EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */; };
 		EA2C90AC29A6245800C2C209 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = EA2C90AB29A6245800C2C209 /* Zip */; };
 		EA2C90AF29A624F300C2C209 /* ReconstructionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2C90AE29A624F300C2C209 /* ReconstructionInput.swift */; };
-		EA2C90B229A6479500C2C209 /* foot.obj in Resources */ = {isa = PBXBuildFile; fileRef = EA2C90B129A6479500C2C209 /* foot.obj */; };
 		EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */; };
 		EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */; };
 		EA3D9D342967419C00331FEA /* SoleCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D302967419C00331FEA /* SoleCaptureView.swift */; };
@@ -119,7 +118,6 @@
 /* Begin PBXFileReference section */
 		EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingConstants.swift; sourceTree = "<group>"; };
 		EA2C90AE29A624F300C2C209 /* ReconstructionInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconstructionInput.swift; sourceTree = "<group>"; };
-		EA2C90B129A6479500C2C209 /* foot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foot.obj; sourceTree = "<group>"; };
 		EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureModuleBuilder.swift; sourceTree = "<group>"; };
 		EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureViewController.swift; sourceTree = "<group>"; };
 		EA3D9D302967419C00331FEA /* SoleCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureView.swift; sourceTree = "<group>"; };
@@ -256,14 +254,6 @@
 				EA2C90AE29A624F300C2C209 /* ReconstructionInput.swift */,
 			);
 			path = Reconstruction;
-			sourceTree = "<group>";
-		};
-		EA2C90B029A6478400C2C209 /* Object */ = {
-			isa = PBXGroup;
-			children = (
-				EA2C90B129A6479500C2C209 /* foot.obj */,
-			);
-			path = Object;
 			sourceTree = "<group>";
 		};
 		EA3D9D2D2967417600331FEA /* SoleCaptureScene */ = {
@@ -473,7 +463,6 @@
 				EA7512DA295CCA4F006EE033 /* Colors */,
 				EA743F56295C2B8700C488C4 /* Fonts */,
 				EAF2434B295D9166000855C3 /* Images */,
-				EA2C90B029A6478400C2C209 /* Object */,
 				EA743F4F295C157900C488C4 /* Storyboards */,
 			);
 			path = Resources;
@@ -1070,7 +1059,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA743F46295C147C00C488C4 /* LaunchScreen.storyboard in Resources */,
-				EA2C90B229A6479500C2C209 /* foot.obj in Resources */,
 				EA743F43295C147C00C488C4 /* Assets.xcassets in Resources */,
 				EA743F59295C2BAC00C488C4 /* FuturaBold.ttf in Resources */,
 				EA3EF190298C0C0400DADE92 /* loader.json in Resources */,
