@@ -38,6 +38,8 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
+        disableIdleTimer()
+        
         footCapture()
     }
 }
@@ -138,5 +140,12 @@ private extension AppCoordinator {
             }
             .store(in: &cancellables)
         setRoot(module.viewController, animated: true)
+    }
+}
+
+// MARK: - Helpers
+private extension AppCoordinator {
+    func disableIdleTimer() {
+        UIApplication.shared.isIdleTimerDisabled = true
     }
 }
