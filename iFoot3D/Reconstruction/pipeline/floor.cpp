@@ -32,6 +32,13 @@ namespace ifoot3d {
 		double d = std::get<0>(plane_indexes)[3];
 		auto point = Eigen::Vector3d({ 0,0,-d / c }); // check: is centroid better
 		auto normal = Eigen::Vector3d({ a, b, c });
+
+		if (normal.dot(Eigen::Vector3d(0, 0, 1)) < 0.0)
+		{
+			LOG_TRACE("findFloor: normal inverted");
+			normal *= -1.f;
+		}
+
 		Plane floor = Plane(point, normal);
 
 		LOG_DEBUG("findFloor: num points = %d", num_plane_points);

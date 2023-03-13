@@ -130,12 +130,12 @@ namespace ifoot3d {
             *leftSide += *segment;
         }
         leftSide = leftSide->VoxelDownSample(0.002);
-
-//        visualization::DrawGeometries({ leftSide });
-//        visualization::DrawGeometries({ rightSide });
+        
+        //visualization::DrawGeometries({ leftSide });
+        //visualization::DrawGeometries({ rightSide });
 
         *rightSide += *leftSide;
-//        visualization::DrawGeometries({ rightSide });
+        //visualization::DrawGeometries({ rightSide });
         return rightSide;
     }
 
@@ -368,13 +368,13 @@ namespace ifoot3d {
         }
         leftSide = leftSide->VoxelDownSample(0.002);
 
-//        visualization::DrawGeometries({ leftSide });
-//        visualization::DrawGeometries({ rightSide });
+        //visualization::DrawGeometries({ leftSide });
+        //visualization::DrawGeometries({ rightSide });
 
         auto transform = get<0>(pairwise_registration(*rightSide, *leftSide, maxCorrespondenceDistanceCoarse, maxCorrespondenceDistanceFine));
         rightSide->Transform(transform);
         *rightSide += *leftSide;
-//        visualization::DrawGeometries({ rightSide });
+        //visualization::DrawGeometries({ rightSide });
         return rightSide;
     }
 

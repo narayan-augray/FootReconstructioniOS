@@ -17,7 +17,7 @@ namespace ifoot3d {
             return;
         }
 
-        repairFloorNormals(legs, floors);
+        //repairFloorNormals(legs, floors);
         auto referenceLeg = legs[0];
 
         if (referenceLeg->IsEmpty())
@@ -113,6 +113,13 @@ namespace ifoot3d {
         auto referenceTriangle = get<0>(biggestTriangleAndNormal);
         auto referenceNormal = get<1>(biggestTriangleAndNormal);
         
+        // for soles oZ axis is inverted, so we change basis 
+//        if (referenceNormal.dot(Eigen::Vector3d(0, 0, 1)) > 0.0)
+//        {
+//            LOG_TRACE("initSolesPositions: referenceNormal inverted");
+//            referenceNormal *= -1.f;
+//        }
+
         if (referenceTriangle.empty())
         {
             LOG_ERROR("initSolesPositions : referenceTriangle.empty()");
@@ -176,9 +183,8 @@ namespace ifoot3d {
                 // fix normal direction
                 if (normal.dot(referenceNormal) < 0.0)
                 {
-                    LOG_DEBUG("initSolesPositions: normal vector invertion from %.3f  %.3f  %.3f ", normal[0], normal[1], normal[2]);
+                    LOG_TRACE("initSolesPositions: sole normal inverted to the refference vector");
                     normal *= -1.0;
-                    LOG_DEBUG("initSolesPositions: normal vector invertion to %.3f  %.3f  %.3f ", normal[0], normal[1], normal[2]);
                 }
 
                 auto currentSole = make_shared<geometry::PointCloud>(geometry::PointCloud(*sole));
@@ -238,6 +244,8 @@ namespace ifoot3d {
         }
     }
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
     void alignSoleWithLeg(
         std::shared_ptr<open3d::geometry::PointCloud>& sole,
@@ -252,14 +260,11 @@ namespace ifoot3d {
             LOG_ERROR("alignSoleWithLeg : sole->IsEmpty() || leg->IsEmpty()");
             return;
         }
-
-
-        Eigen::Vector3d cameraPos{ 0, 0, 0 };
         
         auto hull = get<0>(sole->ComputeConvexHull());
+        hull->OrientTriangles();
 
         LOG_TRACE("alignSoleWithLeg: hull num points = %d", int(hull->vertices_.size()));
-
         leaveVisibleMesh(hull);
 
         LOG_TRACE("alignSoleWithLeg: hull num points visible = %d", int(hull->vertices_.size()));
@@ -270,18 +275,30 @@ namespace ifoot3d {
             return;
         }
 
+        Eigen::Vector3d floor_plane_normal = floor.getNormal();
+        LOG_DEBUG("alignSoleWithLeg : floor_plane_normal  = %.3f  %.3f  %.3f ", floor_plane_normal[0], floor_plane_normal[1], floor_plane_normal[2]);
+
         vector<Eigen::Vector3d> floorTriangle;
         Eigen::Vector3d floorNormal;
         tie(floorTriangle, floorNormal) = getBiggestTriangle(hull);
+
+        if (floor_plane_normal.dot(floorNormal) > 0.0) // Sole normal shoul be opposite
+        {
+            LOG_DEBUG("alignSoleWithLeg: sole normal vector invertion ");
+            floorNormal *= -1.0;
+
+            // invert hull normals
+            for (auto& it : hull->triangle_normals_)
+            {
+                it *= -1;
+            }
+        }
+
         auto solePlane = Plane(floorTriangle);
         solePlane.setNormal(floorNormal);
 
         Eigen::Vector3d soleHeel = getSoleHeel(floorTriangle);
         Eigen::Vector3d legHeel = getLegHeel(leg, floor);
-
-
-        Eigen::Vector3d floor_plane_normal = floor.getNormal();
-        LOG_DEBUG("alignSoleWithLeg : floor_plane_normal  = %.3f  %.3f  %.3f ", floor_plane_normal[0], floor_plane_normal[1], floor_plane_normal[2]);
 
         LOG_DEBUG("alignSoleWithLeg : floorTriangle v1 = %.3f  %.3f  %.3f ", floorTriangle[0][0], floorTriangle[0][1], floorTriangle[0][2]);
         LOG_DEBUG("alignSoleWithLeg : floorTriangle v2 = %.3f  %.3f  %.3f ", floorTriangle[1][0], floorTriangle[1][1], floorTriangle[1][2]);
@@ -314,8 +331,9 @@ namespace ifoot3d {
         }
 
         alignGeometriesByPointAndVector(hullAndSole, legHeel, legHeel, legToe - legHeel, soleToe - legHeel);
-        
+
         tie(floorTriangle, floorNormal) = getBiggestTriangle(hull);
+
         solePlane = Plane(floorTriangle);
         solePlane.setNormal(floorNormal);
 
@@ -325,7 +343,7 @@ namespace ifoot3d {
         LOG_DEBUG("alignSoleWithLeg : referenceNormal  = %.3f  %.3f  %.3f ", floorNormal[0], floorNormal[1], floorNormal[2]);
 
         alignGeometriesByPointAndVector(hullAndSole, legHeel, legHeel, floor.getNormal(), solePlane.getNormal());
-        
+
         LOG_TRACE("alignSoleWithLeg : run getMeshBoundaries");
         //auto soleSilhouettePoints = getMeshBoundaries(hull, 0.002); //looks like there bug with edges direction
         auto soleSilhouettePoints = getMeshBoundariesAlt(hull, 0.002);
@@ -347,6 +365,7 @@ namespace ifoot3d {
 
         sole->Translate(legSilhouettePCD->GetCenter() - soleSilhouettePCD->GetCenter());
         soleSilhouettePCD->Translate(legSilhouettePCD->GetCenter() - soleSilhouettePCD->GetCenter());
+
         double threshold = 0.03;
         auto regP2P = pipelines::registration::RegistrationICP(
             *soleSilhouettePCD, *legSilhouettePCD, threshold, Eigen::MatrixXd::Identity(4, 4),

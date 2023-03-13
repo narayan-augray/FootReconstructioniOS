@@ -332,6 +332,7 @@ namespace ifoot3d {
         {
             if (floors[i].signedDistanceFromPoint(getLegAxis(legs[i], floors[i]).getPoint()) > 0)
             {
+                LOG_TRACE("repairFloorNormals : normal inverted");
                 floors[i].setNormal(-floors[i].getNormal());
             }
         }

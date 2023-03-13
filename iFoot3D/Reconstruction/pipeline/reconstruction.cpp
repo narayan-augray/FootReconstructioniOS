@@ -288,7 +288,7 @@ namespace ifoot3d {
             *beforeStitching += *segment;
         }
 
-//        visualization::DrawGeometries({ beforeStitching });
+        //visualization::DrawGeometries({ beforeStitching });
 
         repairFloorNormals(rightLegs, rightFloors);
 
