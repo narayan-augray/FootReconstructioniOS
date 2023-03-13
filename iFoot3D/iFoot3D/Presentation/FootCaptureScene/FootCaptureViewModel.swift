@@ -14,21 +14,20 @@ final class FootCaptureViewModel: BaseViewModel {
     let arSessionManager: ARSessionManager
     let captureService: CaptureService
     let captureOutputManager: CaptureOutputManager
-    let dataSetManager: DataSetManager
     
     // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<FootCaptureTransition, Never>()
     
     // MARK: - Init
-    init(arSessionManager: ARSessionManager,
-         captureService: CaptureService,
-         captureOutputManager: CaptureOutputManager,
-         dataSetManager: DataSetManager) {
+    init(
+        arSessionManager: ARSessionManager,
+        captureService: CaptureService,
+        captureOutputManager: CaptureOutputManager
+    ) {
         self.arSessionManager = arSessionManager
         self.captureService = captureService
         self.captureOutputManager = captureOutputManager
-        self.dataSetManager = dataSetManager
         
         super.init()
         
@@ -52,11 +51,6 @@ final class FootCaptureViewModel: BaseViewModel {
             isLoadingSubject.send(true)
             captureOutputManager.finishProcessing()
         }
-    }
-    
-    func skip() {
-        let outputs = dataSetManager.generateOutputs()
-        transitionSubject.send(.processing(outputs: outputs))
     }
 }
 

@@ -10,15 +10,13 @@ import Combine
 
 enum FootCaptureTransition: Transition {
     case instructions(outputs: [CaptureProcessedOutput])
-    case processing(outputs: [CaptureProcessedOutput])
 }
 
 final class FootCaptureModuleBuilder {
     class func build(container: AppContainer) -> Module<FootCaptureTransition, UIViewController> {
         let viewModel = FootCaptureViewModel(arSessionManager: container.arSessionManager,
                                              captureService: container.captureService,
-                                             captureOutputManager: container.captureOutputManager,
-                                             dataSetManager: container.dataSetManager)
+                                             captureOutputManager: container.captureOutputManager)
         let viewController = FootCaptureViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }
