@@ -15,6 +15,7 @@ enum ProcessingViewModelAction {
 final class ProcessingViewModel: BaseViewModel {
     // MARK: - Properties
     let outputs: [CaptureProcessedOutput]
+    var input: ReconstructionInput!
     
     // MARK: - Services
     let reconstructionService: ReconstructionService
@@ -40,7 +41,8 @@ final class ProcessingViewModel: BaseViewModel {
     // MARK: - Lifecycle
     override func onViewDidAppear() {
         super.onViewDidAppear()
-        reconstruct()
+        
+        reconstruct(usingPathes: false)
     }
     
     // MARK: - Navigation
@@ -51,46 +53,76 @@ final class ProcessingViewModel: BaseViewModel {
 
 // MARK: - Reconstruction
 private extension ProcessingViewModel {
-    func reconstruct() {
-        let input = prepareInput()
+    func reconstruct(usingPathes: Bool) {
+        input = prepareInput(usingPathes: usingPathes)
         
-        let outputPath = FileManager.filePath(filename: ProcessingConstants.legScanFileName).path
-        
-        reconstructionService.reconstruct(
-            rightSidePaths: input.right,
-            leftSidePaths: input.left,
-            solePaths: input.sole,
-            outputPath: outputPath
-        )
+        switch input {
+        case .pathes(let right, let left, let sole):
+            let outputPath = FileManager.filePath(filename: ProcessingConstants.legScanFileName).path
+            
+            reconstructionService.reconstruct(
+                rightSidePaths: right,
+                leftSidePaths: left,
+                solePaths: sole,
+                outputPath: outputPath
+            )
+            
+        case .combined(let path, let sole):
+            let outputFolder = FileManager.createFolder(name: ProcessingConstants.outputFolderName)
+            
+            reconstructionService.reconstruct(
+                legPath: path,
+                solePaths: sole,
+                outputFolderPath: outputFolder.path
+            )
+            
+        default:
+            break
+        }
     }
-    
-    func prepareInput() -> (right: [[String]], left: [[String]], sole: [[String]]) {
-        var right: [[String]] = []
-        var left: [[String]] = []
-        var sole: [[String]] = []
-        
-        let rightIndices = [0, 1, 2, 3, 4]
-        let leftIndices = [0, 7, 6, 5, 4]
-        
-        for index in rightIndices {
-            if let output = outputs.first(where: { $0.index == index }) {
-                right.append(output.getFiles())
+}
+
+// MARK: - Input
+private extension ProcessingViewModel {
+    func prepareInput(usingPathes: Bool) -> ReconstructionInput {
+        if usingPathes {
+            var right: [[String]] = []
+            var left: [[String]] = []
+            var sole: [[String]] = []
+            
+            for index in ProcessingConstants.rightSideOutputIndices {
+                if let output = outputs.first(where: { $0.index == index }) {
+                    right.append(output.getFiles())
+                }
             }
-        }
-        
-        for index in leftIndices {
-            if let output = outputs.first(where: { $0.index == index }) {
-                left.append(output.getFiles())
+            
+            for index in ProcessingConstants.leftSideOutputIndices {
+                if let output = outputs.first(where: { $0.index == index }) {
+                    left.append(output.getFiles())
+                }
             }
-        }
-        
-        for output in outputs.sorted(by: { $0.index < $1.index }) {
-            if output.index == OutputConstants.soleCaptureOutputIndex {
-                sole.append(output.getFiles())
+            
+            for output in outputs.sorted(by: { $0.index < $1.index }) {
+                if output.index == OutputConstants.soleCaptureOutputIndex {
+                    sole.append(output.getFiles())
+                }
             }
+            
+            return .pathes(right: right, left: left, sole: sole)
+        } else {
+            let legPath = outputs.first!.originalImageUrl
+                .deletingLastPathComponent()
+                .path + "/"
+            
+            var sole: [[String]] = []
+            for output in outputs.sorted(by: { $0.index < $1.index }) {
+                if output.index == OutputConstants.soleCaptureOutputIndex {
+                    sole.append(output.getFiles())
+                }
+            }
+            
+            return .combined(path: legPath, sole: sole)
         }
-        
-        return (right, left, sole)
     }
 }
 
@@ -101,15 +133,23 @@ private extension ProcessingViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] (event) in
                 switch event {
-                case .reconstructed(let path):
-                    deleteFiles(fileUrls: outputs.getFilesUrls())
+                case .reconstructed(let outputPath):
+                    transitionSubject.send(.success(outputPath: outputPath,
+                                                    outputs: outputs,
+                                                    input: input))
                     
-                    transitionSubject.send(.success(modelPath: path))
+                case .failure(let outputPath):
+                    errorSubject.send("Reconstuction failed")
                     
-                case .failure:
-                    deleteFiles(fileUrls: outputs.getFilesUrls())
-                    
-                    actionSubject.send(.reconstructionFailed)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                        guard let self = self else {
+                            return
+                        }
+                        let modelPath = Bundle.main.path(forResource: "foot", ofType: "obj")
+                        self.transitionSubject.send(.success(outputPath: outputPath ?? modelPath!,
+                                                             outputs: self.outputs,
+                                                             input: self.input))
+                    }
                 }
             }
             .store(in: &cancellables)

@@ -11,8 +11,9 @@ import Combine
 import CombineCocoa
 
 enum FootCaptureViewAction {
-    case selectPossition(position: SCNVector3)
+    case selectPossition(position: SCNVector3, angle: Float)
     case error(message: String)
+    case skip
 }
 
 final class FootCaptureView: BaseView {
@@ -34,6 +35,7 @@ final class FootCaptureView: BaseView {
     private let sceneView = ARSCNView()
     private let coachingOverlay = ARCoachingOverlayView()
     private let confirmButton = UIButton()
+    private let skipButton = UIButton()
     
     // MARK: - Nodes
     private let footNode = FootNode()
@@ -115,7 +117,8 @@ extension FootCaptureView {
 extension FootCaptureView {
     func createPhoneNodes(positions: [CapturePosition]) {
         for position in positions {
-            let phoneNode = PhoneNode(position: position)
+            let color: UIColor = position.index == 0 ? .red : .appBlue
+            let phoneNode = PhoneNode(position: position, color: color)
             sceneView.scene.rootNode.addChildNode(phoneNode)
         }
     }
@@ -143,7 +146,14 @@ private extension FootCaptureView {
         confirmButton.tapPublisher
             .sink { [unowned self] in
                 currentState = .capture
-                actionSubject.send(.selectPossition(position: footNode.position))
+                actionSubject.send(.selectPossition(position: footNode.position,
+                                                    angle: footNode.eulerAngles.y))
+            }
+            .store(in: &cancellables)
+        
+        skipButton.tapPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.skip)
             }
             .store(in: &cancellables)
     }
@@ -160,6 +170,13 @@ private extension FootCaptureView {
         confirmButton.setTitleColor(.appWhite, for: .normal)
         confirmButton.titleLabel?.font = Font.sfProTextBold(30)
         confirmButton.setTitle("CONFIRM", for: .normal)
+        
+        skipButton.clipsToBounds = true
+        skipButton.layer.cornerRadius = Constant.confirmButtonCornerRadius
+        skipButton.backgroundColor = .appDarkGray
+        skipButton.setTitleColor(.appWhite, for: .normal)
+        skipButton.titleLabel?.font = Font.sfProTextBold(30)
+        skipButton.setTitle("SKIP", for: .normal)
     }
 
     func setupLayout() {
@@ -174,6 +191,14 @@ private extension FootCaptureView {
             confirmButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
                                                   constant: -Constant.confirmButtonBottomOffset)
         ])
+        
+        addSubview(skipButton, constraints: [
+            skipButton.centerXAnchor.constraint(equalTo: confirmButton.centerXAnchor),
+            skipButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor),
+            skipButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor),
+            skipButton.bottomAnchor.constraint(equalTo: confirmButton.topAnchor,
+                                               constant: -Constant.skipButtonBottomOffset)
+        ])
     }
     
     func updateUI() {
@@ -181,12 +206,14 @@ private extension FootCaptureView {
         case .initializing:
             coachingOverlay.isHidden = false
             confirmButton.isHidden = true
+            skipButton.isHidden = true
             
             footNode.removeFromParentNode()
             
         case .selectPosition:
             coachingOverlay.isHidden = true
             confirmButton.isHidden = false
+            skipButton.isHidden = false
             
             footNode.eulerAngles.x = -.pi / 2
             sceneView.scene.rootNode.addChildNode(footNode)
@@ -207,4 +234,5 @@ private enum Constant {
     static let confirmButtonCornerRadius: CGFloat = 12.0
     static let confirmButtonSize: CGSize = .init(width: 213.0, height: 59.0)
     static let confirmButtonBottomOffset: CGFloat = 10.0
+    static let skipButtonBottomOffset: CGFloat = 10.0
 }

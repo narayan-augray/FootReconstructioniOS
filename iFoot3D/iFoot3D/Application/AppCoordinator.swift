@@ -51,6 +51,9 @@ private extension AppCoordinator {
                 switch transition {
                 case .instructions(let outputs):
                     self?.instructions(outputs: outputs)
+                    
+                case .processing(let outputs):
+                    self?.processing(outputs: outputs)
                 }
             }
             .store(in: &cancellables)
@@ -88,8 +91,10 @@ private extension AppCoordinator {
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {
-                case .success(let modelPath):
-                    self?.preview(modelPath: modelPath)
+                case .success(let outputPath, let outputs, let input):
+                    self?.preview(outputPath: outputPath,
+                                  outputs: outputs,
+                                  input: input)
                     
                 case .capture:
                     self?.footCapture()
@@ -99,8 +104,15 @@ private extension AppCoordinator {
         setRoot(module.viewController)
     }
     
-    func preview(modelPath: String) {
-        let module = PreviewModuleBuilder.build(container: container, modelPath: modelPath)
+    func preview(
+        outputPath: String,
+        outputs: [CaptureProcessedOutput],
+        input: ReconstructionInput
+    ) {
+        let module = PreviewModuleBuilder.build(container: container,
+                                                outputPath: outputPath,
+                                                outputs: outputs,
+                                                input: input)
         module.transitionPublisher
             .sink { [weak self] (transition) in
                 switch transition {

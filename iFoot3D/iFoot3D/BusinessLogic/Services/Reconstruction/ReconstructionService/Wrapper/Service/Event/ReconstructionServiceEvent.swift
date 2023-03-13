@@ -8,6 +8,6 @@
 import Foundation
 
 enum ReconstructionServiceEvent {
-    case reconstructed(path: String)
-    case failure
+    case reconstructed(outputPath: String)
+    case failure(outputPath: String?)
 }

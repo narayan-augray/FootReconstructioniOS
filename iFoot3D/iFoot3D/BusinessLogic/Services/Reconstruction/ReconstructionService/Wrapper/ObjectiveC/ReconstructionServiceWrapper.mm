@@ -9,9 +9,11 @@
 #import <opencv2/core.hpp>
 #import "ReconstructionServiceWrapper.h"
 #import "io.h"
+#import "logger.h"
 #import "reconstruction.h"
 
 @implementation ReconstructionServiceWrapper
+
 // MARK: - Init
 - (instancetype) init {
     self = [super init];
@@ -29,11 +31,40 @@
     std::vector<std::vector<std::string>> leftPaths = [self getPaths:leftSide];
     std::vector<std::vector<std::string>> solePaths = [self getPaths:sole];
     
+    [self printPaths:rightPaths];
+    [self printPaths:leftPaths];
+    [self printPaths:solePaths];
+    
     std::vector<std::vector<std::vector<cv::Mat>>> input = ifoot3d::readMultipleInputData(rightPaths,
                                                                                           leftPaths,
                                                                                           solePaths);
     
     return ifoot3d::reconstructAndSaveLeg(input, outputPath);
+}
+
+- (bool) reconstruct: (NSString *) legPath
+           solePaths: (NSArray<NSArray<NSString *> *> *) sole
+        logsFilePath: (NSString *) logsPath
+    outputFolderPath: (NSString *) outputFolder {
+    const char* legFilesPath = [legPath cStringUsingEncoding: NSUTF8StringEncoding];
+    
+    const char* outputPath = [outputFolder cStringUsingEncoding: NSUTF8StringEncoding];
+    
+    const char* logsFilePath = [logsPath cStringUsingEncoding: NSUTF8StringEncoding];
+    
+    std::vector<int> rightSide {0, 1, 2, 3};
+    std::vector<int> leftSide {0, 9, 8, 7, 6};
+    
+    std::vector<std::vector<std::string>> solePaths = [self getPaths:sole];
+    
+    ifoot3d::init_logger(0, logsFilePath);
+    
+    std::vector<std::vector<std::vector<cv::Mat>>> input = ifoot3d::readMultipleInputData(legFilesPath,
+                                                                                          rightSide,
+                                                                                          leftSide,
+                                                                                          solePaths);
+    
+    return ifoot3d::reconstructAndSaveLeg(input, outputPath, true);
 }
 
 // MARK: - Helpers
@@ -52,6 +83,15 @@
     }
     
     return output;
+}
+
+- (void) printPaths: (std::vector<std::vector<std::string>>) paths {
+    for (int i = 0; i < paths.size(); i++) {
+        for (int j = 0; j < paths[i].size(); j++) {
+            std::cout << paths[i][j] << std::endl;
+        }
+    }
+    std::cout << std::endl;
 }
 
 @end

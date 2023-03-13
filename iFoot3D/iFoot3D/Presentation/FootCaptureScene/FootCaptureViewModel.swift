@@ -14,6 +14,7 @@ final class FootCaptureViewModel: BaseViewModel {
     let arSessionManager: ARSessionManager
     let captureService: CaptureService
     let captureOutputManager: CaptureOutputManager
+    let dataSetManager: DataSetManager
     
     // MARK: - Transition
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -22,10 +23,12 @@ final class FootCaptureViewModel: BaseViewModel {
     // MARK: - Init
     init(arSessionManager: ARSessionManager,
          captureService: CaptureService,
-         captureOutputManager: CaptureOutputManager) {
+         captureOutputManager: CaptureOutputManager,
+         dataSetManager: DataSetManager) {
         self.arSessionManager = arSessionManager
         self.captureService = captureService
         self.captureOutputManager = captureOutputManager
+        self.dataSetManager = dataSetManager
         
         super.init()
         
@@ -38,17 +41,22 @@ final class FootCaptureViewModel: BaseViewModel {
         errorSubject.send(messsage)
     }
     
-    func selectFootPosition(position: SCNVector3) {
-        captureService.generateCapturePositions(with: position)
+    func selectFootPosition(position: SCNVector3, angle: Float) {
+        captureService.generateCapturePositions(with: position, rotationAngle: angle)
     }
     
     func processOutput(output: CaptureOutput) {
-        captureOutputManager.processOutput(output: output)
+        captureOutputManager.processOutput(output: output, identified: false)
         
         if captureOutputManager.getCaputredFrames() == CaptureConstants.requiredImagesCount {
             isLoadingSubject.send(true)
             captureOutputManager.finishProcessing()
         }
+    }
+    
+    func skip() {
+        let outputs = dataSetManager.generateOutputs()
+        transitionSubject.send(.processing(outputs: outputs))
     }
 }
 

@@ -32,11 +32,21 @@ private extension PreviewViewController {
                 case .export:
                     viewModel.isLoadingSubject.send(true)
                     
-                    shareFile()
+                    viewModel.archive()
                     
                 case .close:
                     viewModel.close()
                 }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.zipFileUrlPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] (zipUrl) in
+                guard let zipUrl = zipUrl else {
+                    return
+                }
+                shareFile(fileUrl: zipUrl)
             }
             .store(in: &cancellables)
     }
@@ -48,11 +58,8 @@ private extension PreviewViewController {
         contentView.setupPreview(objectUrl: objectUrl)
     }
     
-    func shareFile() {
-        guard let objectUrl = viewModel.objectUrl else {
-            return
-        }
-        let activityViewController = ActivityViewController(activityItems: [objectUrl], applicationActivities: nil)
+    func shareFile(fileUrl: URL) {
+        let activityViewController = ActivityViewController(activityItems: [fileUrl], applicationActivities: nil)
         activityViewController.onDismiss = { [weak self] in
             self?.viewModel.deleteFiles()
             self?.viewModel.success()

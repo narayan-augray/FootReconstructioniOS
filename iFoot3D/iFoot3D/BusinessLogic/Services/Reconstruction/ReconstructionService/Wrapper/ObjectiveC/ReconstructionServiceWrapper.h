@@ -20,6 +20,11 @@
            solePaths: (nonnull NSArray<NSArray<NSString *> *> *) sole
           outputPath: (nonnull NSString *) output;
 
+- (bool) reconstruct: (nonnull NSString *) legPath
+           solePaths: (nonnull NSArray<NSArray<NSString *> *> *) sole
+        logsFilePath: (nonnull NSString *) logsPath
+    outputFolderPath: (nonnull NSString *) logsFolder;
+
 @end
 
 #endif /* ReconstructionServiceWrapper_h */

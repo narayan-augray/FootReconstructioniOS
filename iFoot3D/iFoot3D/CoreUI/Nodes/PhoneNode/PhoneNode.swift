@@ -13,12 +13,12 @@ final class PhoneNode: SCNNode {
     let id: String
     
     // MARK: - Init
-    init(position: CapturePosition) {
+    init(position: CapturePosition, color: UIColor) {
         self.id = position.id
         
         super.init()
         
-        commonInit(position: position)
+        commonInit(position: position, color: color)
     }
     
     required init?(coder: NSCoder) {
@@ -35,12 +35,12 @@ final class PhoneNode: SCNNode {
 
 // MARK: - Private
 private extension PhoneNode {
-    func commonInit(position: CapturePosition) {
+    func commonInit(position: CapturePosition, color: UIColor) {
         let geometry = SCNBox(width: Constant.width,
                               height: Constant.height,
                               length: Constant.length,
                               chamferRadius: Constant.chamferRadius)
-        geometry.firstMaterial?.diffuse.contents = UIColor.appBlue
+        geometry.firstMaterial?.diffuse.contents = color
         geometry.firstMaterial?.isDoubleSided = true
         
         let node = SCNNode(geometry: geometry)

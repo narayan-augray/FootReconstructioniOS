@@ -60,7 +60,7 @@ final class SoleCaptureViewModel: BaseViewModel {
     }
     
     func processOutput(output: CaptureOutput) {
-        captureOutputManager.processOutput(output: output)
+        captureOutputManager.processOutput(output: output, identified: true)
     }
     
     func complete() {

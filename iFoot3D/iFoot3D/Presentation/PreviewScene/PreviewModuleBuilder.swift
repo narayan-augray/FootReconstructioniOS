@@ -16,9 +16,13 @@ enum PreviewTransition: Transition {
 final class PreviewModuleBuilder {
     class func build(
         container: AppContainer,
-        modelPath: String
+        outputPath: String,
+        outputs: [CaptureProcessedOutput],
+        input: ReconstructionInput
     ) -> Module<PreviewTransition, UIViewController> {
-        let viewModel = PreviewViewModel(modelPath: modelPath)
+        let viewModel = PreviewViewModel(outputPath: outputPath,
+                                         outputs: outputs,
+                                         input: input)
         let viewController = PreviewViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

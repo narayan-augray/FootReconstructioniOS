@@ -15,7 +15,7 @@ protocol CaptureOutputManager {
     
     // MARK: - Funcs
     func getCaputredFrames() -> Int
-    func processOutput(output: CaptureOutput)
+    func processOutput(output: CaptureOutput, identified: Bool)
     func finishProcessing()
     func reset()
 }
@@ -52,24 +52,34 @@ final class CaptureOutputManagerImpl: CaptureOutputManager {
 
 // MARK: - Process
 extension CaptureOutputManagerImpl {
-    func processOutput(output: CaptureOutput) {
+    func processOutput(output: CaptureOutput, identified: Bool) {
         capturedFrames += 1
         
         operationQueue.addOperation { [weak self] in
+            let outputIdentifier = identified ? UUID().uuidString : "\(output.index)"
+            
             guard
                 let self = self,
                 let originalImage = UIImage(pixelBuffer: output.originalPixelBuffer),
                 let dataValues = self.dataValues(dataMap: output.depthPixelBuffer),
-                let textDataUrl = self.saveDataValues(values: dataValues, filename: self.outputSettings.dataTextFileName),
-                let originalImageUrl = self.saveImage(image: originalImage, filename: self.outputSettings.originalFileName)
+                let textDataUrl = self.saveTextData(
+                    text: String.initFromArray(array: dataValues),
+                    filename: self.outputSettings.dataTextFileName,
+                    identifier: outputIdentifier
+                ),
+                let originalImageUrl = self.saveImage(
+                    image: originalImage,
+                    filename: self.outputSettings.originalFileName,
+                    identifier: outputIdentifier
+                ),
+                let calibrationDataUrl = self.saveTextData(
+                    text: self.calibrationText(extrinsics: output.transform, intrinsics: output.intrinsics),
+                    filename: self.outputSettings.calibrationTextFileName,
+                    identifier: outputIdentifier
+                )
             else {
                 return
             }
-            
-            let calibrationDataUrl = self.saveTextData(
-                text: self.calibrationText(extrinsics: output.transform, intrinsics: output.intrinsics),
-                filename: self.outputSettings.calibrationTextFileName
-            )
             
             self.processedOutputs.append(.init(
                 index: output.index,
@@ -124,16 +134,6 @@ private extension CaptureOutputManagerImpl {
         
         return depthArray
     }
-    
-    func saveDataValues(values: [[Float32]], filename: String) -> URL? {
-        switch outputSettings.outputValuesFormat {
-        case .text:
-            return saveTextData(text: String.initFromArray(array: values), filename: filename)
-        
-        case .binary:
-            return saveBinaryData(values: values, filename: filename)
-        }
-    }
 }
 
 // MARK: - Calibration text
@@ -154,11 +154,15 @@ private extension CaptureOutputManagerImpl {
 
 // MARK: - Save
 extension CaptureOutputManagerImpl {
-    func saveImage(image: UIImage, filename: String) -> URL? {
+    func saveImage(
+        image: UIImage,
+        filename: String,
+        identifier: String
+    ) -> URL? {
         guard let data = image.pngData() ?? image.jpegData(compressionQuality: 1) else {
             return nil
         }
-        let fileUrl = FileManager.filePath(filename: "\(filename)_\(capturedFrames).png")
+        let fileUrl = FileManager.filePath(filename: "\(filename)_\(identifier).png")
         do {
             try data.write(to: fileUrl)
             return fileUrl
@@ -168,29 +172,17 @@ extension CaptureOutputManagerImpl {
         }
     }
     
-    func saveTextData(text: String?, filename: String) -> URL? {
-        guard let text = text else { return nil }
-        let fileUrl = FileManager.filePath(filename: "\(filename)_\(capturedFrames).txt")
+    func saveTextData(
+        text: String?,
+        filename: String,
+        identifier: String
+    ) -> URL? {
+        guard let text = text else {
+            return nil
+        }
+        let fileUrl = FileManager.filePath(filename: "\(filename)_\(identifier).txt")
         do {
             try text.write(to: fileUrl, atomically: true, encoding: .utf8)
-            return fileUrl
-        } catch {
-            log.error(error: error)
-            return nil
-        }
-    }
-    
-    func saveBinaryData(values: [[Float32]], filename: String) -> URL? {
-        let height = values.count
-        let width = values.first?.count ?? 0
-        
-        let resultFilename = "\(filename)_\(capturedFrames)_\(width)x\(height)"
-        let fileUrl = FileManager.filePath(filename: resultFilename)
-        
-        let result: [Float32] = Array(values.joined())
-        let data = Data(bytes: result, count: result.count * MemoryLayout<Float32>.stride)
-        do {
-            try data.write(to: fileUrl)
             return fileUrl
         } catch {
             log.error(error: error)
