@@ -11,6 +11,7 @@
 		EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */; };
 		EA2C90AC29A6245800C2C209 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = EA2C90AB29A6245800C2C209 /* Zip */; };
 		EA2C90AF29A624F300C2C209 /* ReconstructionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2C90AE29A624F300C2C209 /* ReconstructionInput.swift */; };
+		EA326B3D29CC634400DD3B07 /* OpenCV in Frameworks */ = {isa = PBXBuildFile; productRef = EA326B3C29CC634400DD3B07 /* OpenCV */; };
 		EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */; };
 		EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */; };
 		EA3D9D342967419C00331FEA /* SoleCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D302967419C00331FEA /* SoleCaptureView.swift */; };
@@ -104,7 +105,6 @@
 		EAEE0CA0299E6E01007D5BB2 /* segmentation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C98299E6E01007D5BB2 /* segmentation.cpp */; };
 		EAEE0CA1299E6E01007D5BB2 /* floor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0C99299E6E01007D5BB2 /* floor.cpp */; };
 		EAEE0CA4299E6F27007D5BB2 /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAEE0CA3299E6F27007D5BB2 /* io.cpp */; };
-		EAEE0CA7299E6F93007D5BB2 /* OpenCV in Frameworks */ = {isa = PBXBuildFile; productRef = EAEE0CA6299E6F93007D5BB2 /* OpenCV */; };
 		EAF2434D295D9178000855C3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434C295D9178000855C3 /* Images.swift */; };
 		EAF2434F295D92DA000855C3 /* FootNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2434E295D92DA000855C3 /* FootNode.swift */; };
 		EAF24352295DA183000855C3 /* ARSCNView+WorldPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF24351295DA183000855C3 /* ARSCNView+WorldPosition.swift */; };
@@ -241,7 +241,7 @@
 				EA743F55295C17C800C488C4 /* CombineCocoa in Frameworks */,
 				EA3EF189298C0B7C00DADE92 /* Lottie in Frameworks */,
 				EA1A53A9299E3C2300E5B193 /* Open3D-iOS in Frameworks */,
-				EAEE0CA7299E6F93007D5BB2 /* OpenCV in Frameworks */,
+				EA326B3D29CC634400DD3B07 /* OpenCV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1004,8 +1004,8 @@
 				EA7512CF295C6397006EE033 /* Toast */,
 				EA3EF188298C0B7C00DADE92 /* Lottie */,
 				EA1A53A8299E3C2300E5B193 /* Open3D-iOS */,
-				EAEE0CA6299E6F93007D5BB2 /* OpenCV */,
 				EA2C90AB29A6245800C2C209 /* Zip */,
+				EA326B3C29CC634400DD3B07 /* OpenCV */,
 			);
 			productName = iFoot3D;
 			productReference = EA743F36295C147A00C488C4 /* iFoot3D.app */;
@@ -1041,8 +1041,8 @@
 				EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				EA1A53A7299E3C2300E5B193 /* XCRemoteSwiftPackageReference "Open3D-iOS" */,
-				EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */,
 				EA2C90AA29A6245800C2C209 /* XCRemoteSwiftPackageReference "Zip" */,
+				EA326B3B29CC634400DD3B07 /* XCRemoteSwiftPackageReference "opencv" */,
 			);
 			productRefGroup = EA743F37295C147A00C488C4 /* Products */;
 			projectDirPath = "";
@@ -1416,6 +1416,14 @@
 				kind = branch;
 			};
 		};
+		EA326B3B29CC634400DD3B07 /* XCRemoteSwiftPackageReference "opencv" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://illia_khrpnv@bitbucket.org/illia_khrpnv/opencv.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		EA3EF187298C0B7C00DADE92 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -1440,14 +1448,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://bitbucket.org/Zhats/lfa_opencv";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1460,6 +1460,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA2C90AA29A6245800C2C209 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
+		};
+		EA326B3C29CC634400DD3B07 /* OpenCV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA326B3B29CC634400DD3B07 /* XCRemoteSwiftPackageReference "opencv" */;
+			productName = OpenCV;
 		};
 		EA3EF188298C0B7C00DADE92 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1475,11 +1480,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA7512CE295C6397006EE033 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
-		};
-		EAEE0CA6299E6F93007D5BB2 /* OpenCV */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EAEE0CA5299E6F93007D5BB2 /* XCRemoteSwiftPackageReference "lfa_opencv" */;
-			productName = OpenCV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
