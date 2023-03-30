@@ -105,8 +105,8 @@ extension FootCaptureView {
         guard let position = position else { return }
         let moveAction = SCNAction.move(to: position, duration: 0.1)
         footNode.runAction(moveAction)
-        if let pointOfView = sceneView.pointOfView {
-            footNode.eulerAngles.y = pointOfView.eulerAngles.y
+        if let rotation = getRotation() {
+            footNode.eulerAngles.y = rotation
         }
     }
 }
@@ -199,6 +199,19 @@ private extension FootCaptureView {
             
             footNode.removeFromParentNode()
         }
+    }
+}
+
+// MARK: - Helpers
+private extension FootCaptureView {
+    func getRotation() -> Float? {
+        guard let pointOfView = sceneView.pointOfView else {
+            return nil
+        }
+        let orientation = pointOfView.orientation
+        let first = (2 * orientation.y * orientation.w) - (2 * orientation.x * orientation.z)
+        let second = 1 - (2 * pow(orientation.y, 2)) - (2 * pow(orientation.z, 2))
+        return atan2f(first, second)
     }
 }
 
