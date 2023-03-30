@@ -15,7 +15,7 @@ final class DataSetManagerImpl: DataSetManager {
     func generateOutputs() -> [CaptureProcessedOutput] {
         var outputs: [CaptureProcessedOutput] = []
         
-        for index in 0..<CaptureConstants.requiredSoleImagesCount {
+        for index in 0..<CaptureConstants.requiredFootImagesCount {
             if let output = createOutput(index: index, identifier: "\(index)") {
                 outputs.append(output)
             }
