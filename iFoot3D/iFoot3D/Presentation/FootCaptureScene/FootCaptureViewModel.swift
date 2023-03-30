@@ -47,7 +47,7 @@ final class FootCaptureViewModel: BaseViewModel {
     func processOutput(output: CaptureOutput) {
         captureOutputManager.processOutput(output: output, identified: false)
         
-        if captureOutputManager.getCaputredFrames() == CaptureConstants.requiredImagesCount {
+        if captureOutputManager.getCaputredFrames() == CaptureConstants.requiredSoleImagesCount {
             isLoadingSubject.send(true)
             captureOutputManager.finishProcessing()
         }

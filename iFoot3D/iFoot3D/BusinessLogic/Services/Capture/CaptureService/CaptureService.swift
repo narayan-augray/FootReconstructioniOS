@@ -37,7 +37,7 @@ extension CaptureServiceImpl {
         
         var currentIndex: Int = 1
         
-        let numberOfPositions = Float(CaptureConstants.requiredImagesCount)
+        let numberOfPositions = Float(CaptureConstants.requiredFootImagesCount)
         
         var yRotation: Float = Constant.defaultYRotation
         
@@ -55,8 +55,8 @@ extension CaptureServiceImpl {
             
             currentIndex += 1
            
-            if currentIndex >= CaptureConstants.requiredImagesCount {
-                currentIndex -= CaptureConstants.requiredImagesCount
+            if currentIndex >= CaptureConstants.requiredFootImagesCount {
+                currentIndex -= CaptureConstants.requiredFootImagesCount
             }
             
             result.append(.init(index: currentIndex,

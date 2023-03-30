@@ -72,8 +72,7 @@ private extension SoleCaptureViewController {
                     viewModel.processOutput(output: output)
                     
                     contentView.animate()
-                    
-                    contentView.showCompleteButton()
+
                 default:
                     break
                 }
@@ -83,6 +82,10 @@ private extension SoleCaptureViewController {
         viewModel.capturedFramesPublisher
             .sink { [unowned self] (count) in
                 contentView.updateCountValue(count: count)
+                
+                if count == CaptureConstants.requiredSoleImagesCount {
+                    contentView.showCompleteButton()
+                }
             }
             .store(in: &cancellables)
     }

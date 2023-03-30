@@ -8,6 +8,7 @@
 import Foundation
 
 struct CaptureConstants {
-    static let requiredImagesCount: Int = 10
+    static let requiredFootImagesCount: Int = 10
+    static let requiredSoleImagesCount: Int = 3
     static let snapCommand = "snap"
 }
