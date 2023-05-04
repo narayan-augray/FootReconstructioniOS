@@ -63,3 +63,14 @@ After this the project is ready to be launched straightly on device. For that, c
 | Platform | Minimum Swift Version |
 | --- | --- |
 | iOS 14.0+| 5.7 |
+
+## Dependencies
+
+If you need to get some more detailed information about 3rd party libraries, then check out links to their sources. Here is full list of dependencies, which are used within the project:
+
+- CombineCocoa (included as SPM package) https://github.com/CombineCommunity/CombineCocoa.git
+- Toast (included as SPM package) https://github.com/scalessec/Toast-Swift.git
+- Lottie (included as SPM package) https://github.com/airbnb/lottie-ios.git
+- Open3D-iOS (included as SPM package) https://github.com/charliegarrison/Open3D-iOS
+- Zip (included as SPM package) https://github.com/marmelroy/Zip.git
+- OpenCV (included as SPM package) https://illia_khrpnv@bitbucket.org/illia_khrpnv/opencv.git
