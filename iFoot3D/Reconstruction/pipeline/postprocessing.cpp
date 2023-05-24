@@ -12,7 +12,11 @@ namespace ifoot3d {
         using namespace open3d;
         
         auto mesh = get<0>(geometry::TriangleMesh::CreateFromPointCloudPoisson(*pcd, depth));
-        //mesh->FilterSmoothSimple(2);
+        mesh = mesh->SubdivideLoop(1);
+        mesh = mesh->FilterSmoothTaubin(7);
+        mesh->triangle_normals_.clear();
+        mesh->vertex_normals_.clear();
+        mesh->ComputeVertexNormals();
         return mesh;
     }
 

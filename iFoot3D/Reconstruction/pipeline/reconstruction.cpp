@@ -225,7 +225,7 @@ namespace ifoot3d {
         LOG_TRACE("reconstructLeg: run Poisson reconstruction");
 
         auto legMesh = reconstructSurfacePoisson(sole, 6);
-        legMesh->PaintUniformColor({ 0.7, 0.7, 0.7 });
+        legMesh->PaintUniformColor({ 0.8, 0.8, 0.8 });
 
         if (legMesh->IsEmpty())
         {
@@ -319,7 +319,7 @@ namespace ifoot3d {
 
         postprocess(sole, finalLeg, rightFloors[0], 0.01);
 
-        auto legMesh = reconstructSurfacePoisson(finalLeg, 7);
+        auto legMesh = reconstructSurfacePoisson(finalLeg, 6);
 
         return legMesh;
     }
