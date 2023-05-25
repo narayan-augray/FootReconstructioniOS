@@ -223,7 +223,7 @@ namespace ifoot3d {
         //visualization::DrawGeometries({ sole });
 
         LOG_TRACE("reconstructLeg: run Poisson reconstruction");
-
+                
         auto legMesh = reconstructSurfacePoisson(sole, 6);
         legMesh->PaintUniformColor({ 0.8, 0.8, 0.8 });
 
