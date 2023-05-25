@@ -16,21 +16,21 @@ namespace ifoot3d {
 
         shared_ptr<geometry::TriangleMesh> mesh(new geometry::TriangleMesh());
         mesh = get<0>(geometry::TriangleMesh::CreateFromPointCloudPoisson(*pcd, depth, 0, 1.1f, false, /*num_threads*/ 1));
-               
+
         LOG_TRACE("reconstructSurfacePoisson: Poisson end");
-        
-        if(mesh->IsEmpty())
+
+        if (mesh->IsEmpty())
         {
             LOG_WARN("reconstructSurfacePoisson : mesh->IsEmpty()");
         }
-        LOG_TRACE("reconstructSurfacePoisson: postpocessing start");
+        LOG_TRACE("reconstructSurfacePoisson: postprocessing start");
 
         mesh = mesh->SubdivideLoop(1);
         mesh = mesh->FilterSmoothTaubin(7);
         mesh->triangle_normals_.clear();
         mesh->vertex_normals_.clear();
         mesh->ComputeVertexNormals();
-        LOG_TRACE("reconstructSurfacePoisson: postpocessing end");
+        LOG_TRACE("reconstructSurfacePoisson: postprocessing end");
 
         return mesh;
     }

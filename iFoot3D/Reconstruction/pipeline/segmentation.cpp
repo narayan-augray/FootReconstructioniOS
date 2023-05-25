@@ -18,7 +18,7 @@ namespace ifoot3d {
         if (pcd->IsEmpty())
         {
             LOG_ERROR("segmentLeg : pcd empty");
-            return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
+            return { std::make_shared < open3d::geometry::PointCloud>(), Plane() };
         }
 
         Plane floor;
@@ -29,7 +29,7 @@ namespace ifoot3d {
         if (indexes.empty())
         {
             LOG_ERROR("segmentLeg : floor indexes empty");
-            return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
+            return { std::make_shared < open3d::geometry::PointCloud>(), Plane() };
         }
 
 		pcd = pcd->SelectByIndex(indexes, true);
@@ -38,7 +38,7 @@ namespace ifoot3d {
         if (pcd->IsEmpty())
         {
             LOG_ERROR("segmentLeg : pcd empty after Radius filter");
-            return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
+            return { std::make_shared < open3d::geometry::PointCloud>(), Plane() };
         }
 
         LOG_DEBUG("segmentLeg: num points after Radius filter = %d", int(pcd->points_.size()));
@@ -51,7 +51,7 @@ namespace ifoot3d {
         if (clusters.empty())
         {
             LOG_WARN("segmentLeg : clusters.empty()");
-            return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
+            return { std::make_shared < open3d::geometry::PointCloud>(), Plane() };
         }
 
 		vector<shared_ptr<open3d::geometry::PointCloud>> filteredClusters;
@@ -66,7 +66,7 @@ namespace ifoot3d {
         if (filteredClusters.empty())
         {
             LOG_WARN("segmentLeg : filteredClusters.empty()");
-            return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
+            return { std::make_shared <open3d::geometry::PointCloud>(), Plane() };
         }
 
 		// get the closest cluster
@@ -79,7 +79,7 @@ namespace ifoot3d {
         if (leg->IsEmpty())
         {
             LOG_WARN("segmentLeg : leg->IsEmpty()");
-            return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
+            return { std::make_shared < open3d::geometry::PointCloud>(), Plane() };
         }
 
         LOG_DEBUG("segmentLeg: leg num points = %d", int(leg->points_.size()));
@@ -95,7 +95,7 @@ namespace ifoot3d {
         if (indices.empty())
         {
             LOG_WARN("segmentLeg : indices.empty()");
-            return { std::shared_ptr < open3d::geometry::PointCloud>(), Plane() };
+            return { std::make_shared < open3d::geometry::PointCloud>(), Plane() };
         }
 
         leg = leg->SelectByIndex(indices);

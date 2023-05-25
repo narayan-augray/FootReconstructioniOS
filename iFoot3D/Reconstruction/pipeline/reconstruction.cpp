@@ -73,7 +73,7 @@ namespace ifoot3d {
             LOG_TRACE("reconstructLeg: num points = %d", num_points);
 
             auto legPCDFloor = segmentLeg(pcd, { 0,0,0 });
-            auto leg = get<0>(legPCDFloor);
+            auto& leg = get<0>(legPCDFloor);
 
             if (leg->IsEmpty())
             {
@@ -222,8 +222,6 @@ namespace ifoot3d {
 
         //visualization::DrawGeometries({ sole });
 
-        LOG_TRACE("reconstructLeg: run Poisson reconstruction");
-                
         auto legMesh = reconstructSurfacePoisson(sole, 6);
         legMesh->PaintUniformColor({ 0.8, 0.8, 0.8 });
 

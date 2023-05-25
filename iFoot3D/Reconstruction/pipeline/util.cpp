@@ -424,6 +424,12 @@ namespace ifoot3d {
             return;
         }
 
+        if (targetPoint.hasNaN() || sourcePoint.hasNaN())
+        {
+            LOG_ERROR("alignGeometryByPointAndVector : targetPoint.hasNaN() || sourcePoint.hasNaN()");
+            return;
+        }
+
         double angle = -getAngleBetweenVectors(targetDirection, sourceDirection);
         
         Eigen::Vector3d axis = targetDirection.cross(sourceDirection);
