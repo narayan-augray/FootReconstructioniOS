@@ -95,6 +95,9 @@ private extension AppCoordinator {
                                   outputs: outputs,
                                   input: input)
                     
+                case .failure:
+                    self?.failure()
+                    
                 case .capture:
                     self?.footCapture()
                 }
@@ -137,6 +140,19 @@ private extension AppCoordinator {
             }
             .store(in: &cancellables)
         setRoot(module.viewController, animated: true)
+    }
+    
+    func failure() {
+        let module = FailureModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [weak self] (transition) in
+                switch transition {
+                case .tryAgain:
+                    self?.footCapture()
+                }
+            }
+            .store(in: &cancellables)
+        setRoot(module.viewController)
     }
 }
 

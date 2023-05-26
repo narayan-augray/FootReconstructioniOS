@@ -12,6 +12,7 @@ enum ProcessingTransition: Transition {
     case success(outputPath: String,
                  outputs: [CaptureProcessedOutput],
                  input: ReconstructionInput)
+    case failure
     case capture
 }
 

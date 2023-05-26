@@ -49,6 +49,10 @@ final class ProcessingViewModel: BaseViewModel {
     func capture() {
         transitionSubject.send(.capture)
     }
+    
+    func failure() {
+        transitionSubject.send(.failure)
+    }
 }
 
 // MARK: - Reconstruction
@@ -139,18 +143,23 @@ private extension ProcessingViewModel {
                                                     input: input))
                     
                 case .failure(let outputPath):
-                    errorSubject.send("Reconstuction failed")
+                    deleteFiles(outputPath: outputPath)
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-                        guard let self = self else {
-                            return
-                        }
-                        self.transitionSubject.send(.success(outputPath: outputPath ?? "",
-                                                             outputs: self.outputs,
-                                                             input: self.input))
-                    }
+                    transitionSubject.send(.failure)
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func deleteFiles(outputPath: String?) {
+        var files: [URL?] = []
+        
+        if let outputPath = outputPath {
+            files.append(.init(string: outputPath))
+        }
+        
+        files.append(contentsOf: outputs.getFilesUrls())
+        
+        deleteFiles(fileUrls: files)
     }
 }

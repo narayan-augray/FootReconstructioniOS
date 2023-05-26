@@ -11,6 +11,10 @@
 		EA24D4D229A4BF37002979D0 /* ProcessingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */; };
 		EA2C90AC29A6245800C2C209 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = EA2C90AB29A6245800C2C209 /* Zip */; };
 		EA2C90AF29A624F300C2C209 /* ReconstructionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2C90AE29A624F300C2C209 /* ReconstructionInput.swift */; };
+		EA2CBB342A20CB7A009ED890 /* FailureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CBB302A20CB79009ED890 /* FailureModuleBuilder.swift */; };
+		EA2CBB352A20CB7A009ED890 /* FailureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CBB312A20CB79009ED890 /* FailureViewController.swift */; };
+		EA2CBB362A20CB7A009ED890 /* FailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CBB322A20CB79009ED890 /* FailureView.swift */; };
+		EA2CBB372A20CB7A009ED890 /* FailureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CBB332A20CB79009ED890 /* FailureViewModel.swift */; };
 		EA326B3D29CC634400DD3B07 /* OpenCV in Frameworks */ = {isa = PBXBuildFile; productRef = EA326B3C29CC634400DD3B07 /* OpenCV */; };
 		EA3D9D322967419C00331FEA /* SoleCaptureModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */; };
 		EA3D9D332967419C00331FEA /* SoleCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */; };
@@ -118,6 +122,10 @@
 /* Begin PBXFileReference section */
 		EA24D4D129A4BF37002979D0 /* ProcessingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingConstants.swift; sourceTree = "<group>"; };
 		EA2C90AE29A624F300C2C209 /* ReconstructionInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconstructionInput.swift; sourceTree = "<group>"; };
+		EA2CBB302A20CB79009ED890 /* FailureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureModuleBuilder.swift; sourceTree = "<group>"; };
+		EA2CBB312A20CB79009ED890 /* FailureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureViewController.swift; sourceTree = "<group>"; };
+		EA2CBB322A20CB79009ED890 /* FailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureView.swift; sourceTree = "<group>"; };
+		EA2CBB332A20CB79009ED890 /* FailureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureViewModel.swift; sourceTree = "<group>"; };
 		EA3D9D2E2967419C00331FEA /* SoleCaptureModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureModuleBuilder.swift; sourceTree = "<group>"; };
 		EA3D9D2F2967419C00331FEA /* SoleCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureViewController.swift; sourceTree = "<group>"; };
 		EA3D9D302967419C00331FEA /* SoleCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoleCaptureView.swift; sourceTree = "<group>"; };
@@ -254,6 +262,17 @@
 				EA2C90AE29A624F300C2C209 /* ReconstructionInput.swift */,
 			);
 			path = Reconstruction;
+			sourceTree = "<group>";
+		};
+		EA2CBB2F2A20CB65009ED890 /* FailureScene */ = {
+			isa = PBXGroup;
+			children = (
+				EA2CBB322A20CB79009ED890 /* FailureView.swift */,
+				EA2CBB312A20CB79009ED890 /* FailureViewController.swift */,
+				EA2CBB332A20CB79009ED890 /* FailureViewModel.swift */,
+				EA2CBB302A20CB79009ED890 /* FailureModuleBuilder.swift */,
+			);
+			path = FailureScene;
 			sourceTree = "<group>";
 		};
 		EA3D9D2D2967417600331FEA /* SoleCaptureScene */ = {
@@ -500,6 +519,7 @@
 				EA3D9D2D2967417600331FEA /* SoleCaptureScene */,
 				EA3EF191298C0C1200DADE92 /* ProcessingScene */,
 				EA3EF1A1298C10A800DADE92 /* PreviewScene */,
+				EA2CBB2F2A20CB65009ED890 /* FailureScene */,
 				EAE43DD529644A3300405533 /* SuccessScene */,
 			);
 			path = Presentation;
@@ -1137,17 +1157,21 @@
 				EAE43DDD29644A4000405533 /* SuccessViewModel.swift in Sources */,
 				EA3EF199298C0C2400DADE92 /* ProcessingViewModel.swift in Sources */,
 				EA42C28E29B7ACEA00B550E9 /* DataSetManager.swift in Sources */,
+				EA2CBB352A20CB7A009ED890 /* FailureViewController.swift in Sources */,
 				EA3D9D3B29674DED00331FEA /* InstructionsModuleBuilder.swift in Sources */,
 				EA743F92295C345200C488C4 /* ViewModel.swift in Sources */,
 				EA743F88295C332400C488C4 /* Module.swift in Sources */,
 				EA2C90AF29A624F300C2C209 /* ReconstructionInput.swift in Sources */,
 				EA3D9D572967FD3000331FEA /* SpeechRecognizerEvent.swift in Sources */,
 				EAE43DAD296401F900405533 /* CaptureService.swift in Sources */,
+				EA2CBB342A20CB7A009ED890 /* FailureModuleBuilder.swift in Sources */,
 				EA743F70295C2EB300C488C4 /* Coordinator.swift in Sources */,
 				EA3D9D452967532400331FEA /* Instruction.swift in Sources */,
 				EA6C9BE2295EBDD4009B6755 /* CapturePosition.swift in Sources */,
+				EA2CBB372A20CB7A009ED890 /* FailureViewModel.swift in Sources */,
 				EA743F3C295C147A00C488C4 /* SceneDelegate.swift in Sources */,
 				EA3EF1A6298C10BA00DADE92 /* PreviewModuleBuilder.swift in Sources */,
+				EA2CBB362A20CB7A009ED890 /* FailureView.swift in Sources */,
 				EA7512C4295C5A99006EE033 /* FootCaptureViewController.swift in Sources */,
 				EA743F5E295C2BF500C488C4 /* Font.swift in Sources */,
 				EA3EF18E298C0BF800DADE92 /* Animation.swift in Sources */,
