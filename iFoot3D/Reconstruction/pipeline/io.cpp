@@ -280,7 +280,7 @@ namespace ifoot3d {
         if (image.empty() || depth.empty() || intrinsic.empty())
         {
             LOG_ERROR("generatePointCLoud: image.empty() || depth.empty() || intrinsic.empty()");
-            return std::shared_ptr<open3d::geometry::PointCloud>();
+            return std::make_shared<open3d::geometry::PointCloud>();
         }
 
         //rotate(image, image, ROTATE_90_COUNTERCLOCKWISE);
@@ -291,7 +291,7 @@ namespace ifoot3d {
         if (!createIntrinsicsLidar(intrinsic, mIntLid, image.size(), depth.size()))
         {
             LOG_ERROR("generatePointCLoud: wrong output from createIntrinsicsLidar()");
-            return std::shared_ptr<open3d::geometry::PointCloud>();
+            return std::make_shared<open3d::geometry::PointCloud>();
         }
 
         int imW = depth.cols, imH = depth.rows;
@@ -313,7 +313,7 @@ namespace ifoot3d {
         if (rgbdImage->IsEmpty())
         {
             LOG_ERROR("generatePointCLoud: empty rgbdImage");
-            return std::shared_ptr<open3d::geometry::PointCloud>();
+            return std::make_shared<open3d::geometry::PointCloud>();
         }
 
         open3d::camera::PinholeCameraIntrinsic intrinsicO3D;
@@ -340,7 +340,7 @@ namespace ifoot3d {
         if (pcd->IsEmpty())
         {
             LOG_ERROR("generatePointCLoud: empty pcd from RGBD");
-            return std::shared_ptr<open3d::geometry::PointCloud>();
+            return std::make_shared<open3d::geometry::PointCloud>();
         }
 
         return pcd;

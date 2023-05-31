@@ -10,9 +10,28 @@ namespace ifoot3d {
     std::shared_ptr<open3d::geometry::TriangleMesh> reconstructSurfacePoisson(std::shared_ptr<open3d::geometry::PointCloud>& pcd, int depth) {
         using namespace std;
         using namespace open3d;
-        
-        auto mesh = get<0>(geometry::TriangleMesh::CreateFromPointCloudPoisson(*pcd, depth));
-        //mesh->FilterSmoothSimple(2);
+        LOG_TRACE("reconstructSurfacePoisson: Poisson start");
+        LOG_TRACE("reconstructSurfacePoisson: pcd points: %d", pcd->points_.size());
+        LOG_TRACE("reconstructSurfacePoisson: pcd normals: %d", pcd->normals_.size());
+
+        shared_ptr<geometry::TriangleMesh> mesh(new geometry::TriangleMesh());
+        mesh = get<0>(geometry::TriangleMesh::CreateFromPointCloudPoisson(*pcd, depth, 0, 1.1f, false, /*num_threads*/ 1));
+
+        LOG_TRACE("reconstructSurfacePoisson: Poisson end");
+
+        if (mesh->IsEmpty())
+        {
+            LOG_WARN("reconstructSurfacePoisson : mesh->IsEmpty()");
+        }
+        LOG_TRACE("reconstructSurfacePoisson: postprocessing start");
+
+        mesh = mesh->SubdivideLoop(1);
+        mesh = mesh->FilterSmoothTaubin(7);
+        mesh->triangle_normals_.clear();
+        mesh->vertex_normals_.clear();
+        mesh->ComputeVertexNormals();
+        LOG_TRACE("reconstructSurfacePoisson: postprocessing end");
+
         return mesh;
     }
 

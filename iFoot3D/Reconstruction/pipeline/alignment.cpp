@@ -244,6 +244,7 @@ namespace ifoot3d {
         }
     }
 
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -252,6 +253,7 @@ namespace ifoot3d {
         std::shared_ptr<open3d::geometry::PointCloud>& leg, 
         Plane& floor) 
     {
+        
         using namespace std;
         using namespace open3d;
 
@@ -350,6 +352,12 @@ namespace ifoot3d {
         
         LOG_DEBUG("alignSoleWithLeg : soleSilhouettePoints num points =  %d", int(soleSilhouettePoints.size()));
 
+        if (soleSilhouettePoints.empty())
+        {
+            LOG_ERROR("alignSoleWithLeg : soleSilhouettePoints.empty()");
+            return;
+        }
+
         vector<Eigen::Vector3d> soleSilhouette;
         for (const auto& point : soleSilhouettePoints) 
         {
@@ -360,6 +368,12 @@ namespace ifoot3d {
         auto legSilhouette = getLegContour(leg, floor, 0.015);
 
         LOG_DEBUG("alignSoleWithLeg : legSilhouette num points =  %d", int(legSilhouette.size()));
+
+        if (legSilhouette.empty())
+        {
+            LOG_ERROR("alignSoleWithLeg : soleSillegSilhouettehouettePoints.empty()");
+            return;
+        }
 
         auto legSilhouettePCD = make_shared<geometry::PointCloud>(legSilhouette);
 

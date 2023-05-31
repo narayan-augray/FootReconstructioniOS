@@ -50,6 +50,7 @@ extension PreviewView {
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light?.type = .omni
+        lightNode.light?.intensity = 200
         lightNode.position = Constant.sceneLightNodePosition
         scene?.rootNode.addChildNode(lightNode)
         
@@ -96,10 +97,11 @@ private extension PreviewView {
         exportButton.setTitle("EXPORT", for: .normal)
         
         sceneView.antialiasingMode = .none
-        sceneView.autoenablesDefaultLighting = false
+        sceneView.autoenablesDefaultLighting = true
         sceneView.isJitteringEnabled = false
         sceneView.allowsCameraControl = true
-        
+        sceneView.backgroundColor = UIColor.init(white: 0.7, alpha: 1.0)
+
         closeButton.setImage(Images.close.image(), for: .normal)
     }
 

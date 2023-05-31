@@ -201,8 +201,10 @@ namespace ifoot3d {
             LOG_WARN("stitchLegsWithFloors:  poseGraph.nodes_.empty() || poseGraph.edges_.empty()");
         }
 
-        auto option = open3d::pipelines::registration::GlobalOptimizationOption(maxCorrespondenceDistanceFine, 0.25, 0);
-        pipelines::registration::GlobalOptimization(poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
+        auto option = open3d::pipelines::registration::GlobalOptimizationOption(
+            maxCorrespondenceDistanceFine, 0.25, 0);
+        pipelines::registration::GlobalOptimization(
+            poseGraph, pipelines::registration::GlobalOptimizationLevenbergMarquardt(),
             pipelines::registration::GlobalOptimizationConvergenceCriteria(), option);
         
         for (int i = 0; i < rightLegs.size(); i++)
